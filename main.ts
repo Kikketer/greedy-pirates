@@ -24,6 +24,7 @@ const playerState = {
 }
 
 let currentState: States
+let currentIsland: Map.Island
 
 const islands: Array<Map.Island> = [
     {
@@ -44,18 +45,20 @@ const islands: Array<Map.Island> = [
     }
 ]
 
-// function changeScene(state: States) {
-//     if (state === States.Island) {
-//         return 
-//     } else if (state === States.Overview) {
-//         return Map.init(islands, (island: Map.Island) => {
-//             console.log('Island selected! ' + island.name)
-//             changeScene(States.Island)
-//         })
-//     }
-// }
-
 console.log('Startup')
+
+game.onUpdate(() => {
+    switch(currentState) {
+        case States.Overview:
+            Map.render()
+            break;
+        case States.Island:
+            Island.render();
+            break;
+        default:
+        break;
+    }
+})
 
 function switchState(state: States) {
     currentState = state
@@ -64,7 +67,7 @@ function switchState(state: States) {
             Map.init(islands)
         break;
         case States.Island:
-            console.log('State island')
+            Island.init(currentIsland)
         break;
         default:
             console.log('Default State')
@@ -76,7 +79,14 @@ function startGame() {
 
     Map.onSelectIsland((island: Map.Island) => {
         console.log('Selected island! ' + island.name)
+        currentIsland = island
         switchState(States.Island)
+    })
+
+    Island.onLeaveIsland(() => {
+        console.log('Left island')
+        currentIsland = undefined
+        switchState(States.Overview)
     })
 
     switchState(States.Overview)

@@ -13,7 +13,8 @@
         "map.ts",
         "images.g.jres",
         "images.g.ts",
-        "utils.ts"
+        "utils.ts",
+        "island.ts"
     ],
     "testFiles": [
         "test.ts"
