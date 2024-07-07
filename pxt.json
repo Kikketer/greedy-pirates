@@ -2,7 +2,8 @@
     "name": "Greedy Pirates",
     "description": "",
     "dependencies": {
-        "device": "*"
+        "device": "*",
+        "multiplayer": "*"
     },
     "files": [
         "main.blocks",

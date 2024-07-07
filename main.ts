@@ -19,18 +19,13 @@ enum States {
     Overview,
     Island
 }
-
-type Island = {
-    id: number,
-    name: string,
-    x: number,
-    y: number,
-    riches?: number,
-    image: Image
-    sprite?: Sprite
+const playerState = {
+    currentIsland: ''
 }
 
-const islands: Array<Island> = [
+let currentState: States
+
+const islands: Array<Map.Island> = [
     {
         id: 0,
         name: 'Treasure Island',
@@ -49,91 +44,98 @@ const islands: Array<Island> = [
     }
 ]
 
-const playerState = {
-    currentIsland: ''
-}
+// function changeScene(state: States) {
+//     if (state === States.Island) {
+//         return 
+//     } else if (state === States.Overview) {
+//         return Map.init(islands, (island: Map.Island) => {
+//             console.log('Island selected! ' + island.name)
+//             changeScene(States.Island)
+//         })
+//     }
+// }
 
-let currentState = States.Overview
+console.log('Startup')
 
-function render() {
-    scene.setBackgroundColor(6)
-    if (currentState === States.Overview) {
-        let currentSelectedIslandIndex = 0
-        // Cursor
-        const cursor = sprites.create(assets.image`empty`)
-
-        // Render the waves
-        const waves = Utils.getArrayOfLength(15).map(() => {
-            const x = Math.randomRange(0, 160)
-            const y = Math.randomRange(0, 140)
-            const sprite = sprites.create(assets.image`empty`)
-            sprite.x = x
-            sprite.y = y
-            animation.runImageAnimation(sprite, assets.animation`wave`, 500, true)
-            return sprite
-        })
-
-        // Rendering the islands
-        islands.forEach(island => {
-            const sprite = sprites.create(island.image)
-            sprite.x = island.x
-            sprite.y = island.y
-            island.sprite = sprite
-        })
-
-        function moveCursorLeft() {
-            currentSelectedIslandIndex += 1
-            if (currentSelectedIslandIndex > islands.length - 1) {
-                currentSelectedIslandIndex = 0
-            }
-            renderCursor(islands[currentSelectedIslandIndex], cursor)
-        }
-
-        function moveCursorRight() {
-            currentSelectedIslandIndex -= 1
-            if (currentSelectedIslandIndex < 0) {
-                currentSelectedIslandIndex = islands.length - 1
-            }
-            renderCursor(islands[currentSelectedIslandIndex], cursor)
-        }
-
-        function selectIsland() {
-            // Remove all listeners and run the beat-em-up phase
-            controller.left.removeEventListener(ControllerButtonEvent.Pressed, moveCursorLeft)
-            controller.right.removeEventListener(ControllerButtonEvent.Pressed, moveCursorRight)
-            controller.A.removeEventListener(ControllerButtonEvent.Pressed, selectIsland)
-            currentState = States.Island
-
-            islands.forEach(island => {
-                if (island.sprite) {
-                    island.sprite.destroy()
-                }
-            })
-            waves.forEach(wave => wave.destroy())
-
-            if (cursor) {
-                cursor.destroy()
-            }
-
-            render()
-        }
-
-        // Keyboard inputs
-        controller.left.addEventListener(ControllerButtonEvent.Pressed, moveCursorLeft)
-        controller.right.addEventListener(ControllerButtonEvent.Pressed, moveCursorRight)
-        controller.A.addEventListener(ControllerButtonEvent.Pressed, selectIsland)
-
-        // Initial render of the cursor
-        renderCursor(islands[0], cursor)
-    } else if (currentState === States.Island) {
-        scene.setBackgroundColor(3)
+function switchState(state: States) {
+    currentState = state
+    switch (currentState) {
+        case States.Overview:
+            Map.init(islands)
+        break;
+        case States.Island:
+            console.log('State island')
+        break;
+        default:
+            console.log('Default State')
     }
 }
 
-function renderCursor(island: Island, cursor: Sprite) {
-    cursor.x = island.x
-    cursor.y = island.y
-    animation.runImageAnimation(cursor, assets.animation`cursor`, 500, true)
+function startGame() {
+    scene.setBackgroundColor(6)
+
+    Map.onSelectIsland((island: Map.Island) => {
+        console.log('Selected island! ' + island.name)
+        switchState(States.Island)
+    })
+
+    switchState(States.Overview)
+
+    // Map.onSelectIsland((island: Map.Island) => {
+    //     currentState = States.Island
+    //     switchState()
+    // })
+
+    // controller.A.addEventListener(ControllerButtonEvent.Pressed, () => {
+    //     console.log("A pressed")
+    //     currentState = States.Island
+    //     switchState()
+    // })
+    // controller.B.addEventListener(ControllerButtonEvent.Pressed, () => {
+    //     console.log('B Pressed')
+    //     currentState = States.Overview
+    //     switchState()
+    // })
+
+    // if (currentState === States.Overview) {
+    // Map.init(islands, (island: Map.Island) => {
+    //     console.log('Island selected! '  + island.name)
+    //     currentState = States.Island
+    //     // changeScene(States.Island)
+    // })
+    // } else if (currentState === States.Island) {
+    //     console.log('Rendering with island')
+    //     scene.setBackgroundColor(0)
+    //     // maximum the player can move vertically
+    //     const maxY = 60
+    //     const player1Sprite = sprites.create(assets.image`pirate_a`)
+    //     const player2Sprite = sprites.create(assets.image`empty`)
+
+    //     player1Sprite.x = 20
+    //     player1Sprite.y = maxY
+
+    //     animation.runImageAnimation(player1Sprite, assets.animation`pirate_idle`, 300, true)
+    //     animation.runImageAnimation(player2Sprite, assets.animation`pirate_idle`, 300, true)
+
+    //     mp.setPlayerSprite(mp.getPlayerByNumber(0), player1Sprite)
+    //     mp.setPlayerSprite(mp.getPlayerByNumber(1), player2Sprite)
+
+    //     game.onUpdate(() => {
+    //         player1Sprite.x += controller.player1.dx(50)
+    //         player1Sprite.y += controller.player1.dy(50)
+    //         player2Sprite.x += controller.player2.dx(50)
+    //         player2Sprite.y += controller.player2.dy(50)
+
+    //         // if (controller.player1.isPressed(ControllerButton.A)) {
+    //         //     console.log('Attack!')
+    //         // }
+    //     })
+
+    //     // controller.player1.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, () => {
+    //     //     console.log('Do a thing')
+    //     //     // animation.runImageAnimation(player1Sprite, assets.animation`pirate_attack`, 200, false)
+    //     // })
+    // }
 }
 
-render()
+startGame()
