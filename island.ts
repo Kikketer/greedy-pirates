@@ -15,13 +15,20 @@ namespace Island {
         _onLeaveIsland()
     }
 
-    function attack(p: string) {
-        console.log('attack as ' + p)
+    function attack(playerSprite: Sprite) {
+        animation.runImageAnimation(playerSprite, assets.animation`pirate_attack`, 200, false)
+        pause(assets.animation`pirate_attack`.length * 200)
+        animation.runImageAnimation(playerSprite, assets.animation`pirate_idle`, 500, true)
     }
 
+    function parry(playerSprite: Sprite) {}
+
     function p1Attack() {
-        console.log('attack')
-        attack('p1')
+        attack(player1Sprite)
+    }
+
+    function p2Attack() {
+        attack(player2Sprite)
     }
 
     export function init(island: Map.Island) {
