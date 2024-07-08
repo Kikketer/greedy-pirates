@@ -36,10 +36,10 @@ namespace Island {
         controller.player1.A.addEventListener(ControllerButtonEvent.Pressed, p1Attack)
         controller.player1.B.addEventListener(ControllerButtonEvent.Pressed, leaveIsland)
 
-        player1Sprite = sprites.create(assets.image`pirate_a`)
+        player1Sprite = sprites.create(assets.image`Pirate`)
         player2Sprite = sprites.create(assets.image`empty`)
 
-        animation.runImageAnimation(player1Sprite, assets.animation`pirate_idle`, 500, true)
+        // animation.runImageAnimation(player1Sprite, assets.animation``, 500, true)
     }
 
     export function onLeaveIsland(callback: () => void) {
