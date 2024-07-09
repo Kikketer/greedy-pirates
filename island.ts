@@ -12,7 +12,7 @@ namespace Island {
         player2.destroy()
         // Remove all listeners and clear the screen
         // controller.player1.A.removeEventListener(ControllerButtonEvent.Pressed, p1Attack)
-        // controller.player1.B.removeEventListener(ControllerButtonEvent.Pressed, leaveIsland)
+        controller.player1.B.removeEventListener(ControllerButtonEvent.Pressed, leaveIsland)
 
         // player1Sprite.destroy()
         // player2Sprite.destroy()
@@ -46,11 +46,13 @@ namespace Island {
         player1 = new Pirate({ controller: controller.player1 })
         player2 = new Pirate({ controller: controller.player2 })
 
+        Pirate.registerEvents(player1)
+
         player1.place(10, 90)
 
         // controller.player.left.addEventListener(ControllerButtonEvent.Pressed, goLeft)
         // controller.player1.A.addEventListener(ControllerButtonEvent.Pressed, p1Attack)
-        // controller.player1.B.addEventListener(ControllerButtonEvent.Pressed, leaveIsland)
+        controller.player1.B.addEventListener(ControllerButtonEvent.Pressed, leaveIsland)
 
         // player1Sprite = sprites.create(assets.image`Pirate`)
         // player2Sprite = sprites.create(assets.image`empty`)

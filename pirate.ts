@@ -11,6 +11,10 @@ class Pirate {
     static walkRightSprite: Image = assets.image`Pirate`
     static walkLeftSprite: Image = assets.image`Pirate`
 
+    static registerEvents = function(pirate: Pirate) {
+        
+    }
+
     currentSprite: Sprite
     facing: 'left' | 'right'
     _controller: controller.Controller
@@ -27,8 +31,7 @@ class Pirate {
         animation.runImageAnimation(this.currentSprite, assets.animation`Pirate Stand`, 300, true)
 
         // Setup the controller handlers
-        // console.log('This ' + this.attack)
-        this._controller.A.addEventListener(ControllerButtonEvent.Pressed, this.attack)
+        // this._controller.A.addEventListener(ControllerButtonEvent.Pressed, Pirate.player1Attack)
     }
 
     public place(x: number, y: number) {
@@ -39,23 +42,24 @@ class Pirate {
 
     public destroy() {
         // Remove all event listeners
+        // this._controller.A.removeEventListener(ControllerButtonEvent.Pressed, Pirate.punch)
     }
 
     public render() { }
 
-    attack() {
-        console.log("Attack!" + this.health)
+    public attack(me: Pirate) {
+        console.log('Attack!')
         const attackAnimationSpeed = 50
-        // const anim = this.facing === 'right' ?
-        //     Pirate.attackRightAnimation :
-        //     Pirate.attackLeftAnimation
+        const anim = me.facing === 'right' ?
+            Pirate.attackRightAnimation :
+            Pirate.attackLeftAnimation
 
-        // animation.runImageAnimation(
-        //     this.currentSprite,
-        //     anim,
-        //     attackAnimationSpeed,
-        //     false
-        // )
-        // pause(anim.length * attackAnimationSpeed)
+        animation.runImageAnimation(
+            me.currentSprite,
+            anim,
+            attackAnimationSpeed,
+            false
+        )
+        pause(anim.length * attackAnimationSpeed)
     }
 }
