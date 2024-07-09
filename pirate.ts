@@ -1,10 +1,13 @@
 class Pirate {
     static idleRightSprite: Image = assets.image`Pirate`
     static idleLeftSprite: Image = assets.image`Pirate`
-    static attackRightSprite: Image = assets.image`Pirate`
-    static attackLeftSprite: Image = assets.image`Pirate`
-    static parryRightSprite: Image = assets.image`Pirate`
+    static attackLeftAnimation: Image[] = assets.animation`Pirate Swing w Sword`.map((frame: Image) => {
+        frame.flipX()
+        return frame
+    })
+    static attackRightAnimation: Image[] = assets.animation`Pirate Swing w Sword`
     static parryLeftSprite: Image = assets.image`Pirate`
+    static parryRightSprite: Image = assets.image`Pirate`
     static walkRightSprite: Image = assets.image`Pirate`
     static walkLeftSprite: Image = assets.image`Pirate`
 
@@ -24,6 +27,8 @@ class Pirate {
         animation.runImageAnimation(this.currentSprite, assets.animation`Pirate Stand`, 300, true)
 
         // Setup the controller handlers
+        // console.log('This ' + this.attack)
+        this._controller.A.addEventListener(ControllerButtonEvent.Pressed, this.attack)
     }
 
     public place(x: number, y: number) {
@@ -36,7 +41,21 @@ class Pirate {
         // Remove all event listeners
     }
 
-    public attack() { }
-
     public render() { }
+
+    attack() {
+        console.log("Attack!" + this.health)
+        const attackAnimationSpeed = 50
+        // const anim = this.facing === 'right' ?
+        //     Pirate.attackRightAnimation :
+        //     Pirate.attackLeftAnimation
+
+        // animation.runImageAnimation(
+        //     this.currentSprite,
+        //     anim,
+        //     attackAnimationSpeed,
+        //     false
+        // )
+        // pause(anim.length * attackAnimationSpeed)
+    }
 }
