@@ -705,76 +705,6 @@ d d . . a a a c . . . . . . . .
 . . f a . . . c c f . . . . . . 
 . . . f . . . . f . . . . . . . 
 `];
-            case "Pirate Stand L":
-            case "anim10":return [img`
-. . . . . . . . e e . . e e . . 
-. . . . . . . . e e e e c e e . 
-. . . . . . . . . e e e e c . . 
-. . . . . . . . f d d d e e e e 
-. . . . . . . . d f d f d f f . 
-. . . . . . . . d d b d d d b d 
-. . . . . . . . . d d d d b d d 
-. . . . . . . . . . d d d . . . 
-. . . . . . . . e e e e e e e . 
-. . . . . . . e e c e e e c e e 
-. . . . . . . e c e e e e e c e 
-. . . . . . d d d e e e e d d d 
-. . . . . . . d d c c a a a d d 
-. . . . . . . . c c . . a a a . 
-. . . . . . . . c c . . a a a . 
-. . . . . . . f f f . f f f f . 
-`, img`
-. . . . . . . . . . . . . . . . 
-. . . . . . . . e e . . e e . . 
-. . . . . . . . e e e e c e e . 
-. . . . . . . . . e e e e c . . 
-. . . . . . . . f d d d e e e e 
-. . . . . . . . d f d f d f f . 
-. . . . . . . . d d b d d d b d 
-. . . . . . . . . d d d d b d d 
-. . . . . . . . . . d d d . . . 
-. . . . . . . . e e e e e e e . 
-. . . . . . . e e c e e e c e e 
-. . . . . . . e c e e e e e c e 
-. . . . . . d d d e e e e d b b 
-. . . . . . . d c c c a a a d d 
-. . . . . . . . c c . . a a a . 
-. . . . . . . f f f . f f f f . 
-`, img`
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . e e . . 
-. . . . . . . . e e e e c e e . 
-. . . . . . . . e e e e e c . . 
-. . . . . . . . f d d d e e e e 
-. . . . . . . . d f d f d f f . 
-. . . . . . . . d d b d d d b d 
-. . . . . . . . . d d d d b d d 
-. . . . . . . . . . d d d . . . 
-. . . . . . . . e e e e e e e . 
-. . . . . . . e e c e e e c e e 
-. . . . . . . e c e e e e e c e 
-. . . . . . d d d e e e e d b b 
-. . . . . . . d c c c a a a d d 
-. . . . . . . . c c . . a a a . 
-. . . . . . . f f f . f f f f . 
-`, img`
-. . . . . . . . . . . . e e . . 
-. . . . . . . . e e e e c e e . 
-. . . . . . . . e e e e e c . . 
-. . . . . . . . f d d d e e e e 
-. . . . . . . . d f d f d f f . 
-. . . . . . . . d d b d d d b d 
-. . . . . . . . . d d d d b d d 
-. . . . . . . . . . d d d . . . 
-. . . . . . . . e e e e e e e . 
-. . . . . . . e e c e e e c e e 
-. . . . . . . e c e e e e e c e 
-. . . . . . d d d e e e e d d d 
-. . . . . . . d d c c a a a d d 
-. . . . . . . . c c . . a a a . 
-. . . . . . . . c c . . a a a . 
-. . . . . . . f f f . f f f f . 
-`];
             case "Pirate Walk0":
             case "anim11":return [img`
 . . . . . . e e . . e e . . . . 
@@ -1120,6 +1050,76 @@ e e e e d d d . . . . . . . . .
 . . e e e d d c d d . . . . . . 
 . . a a a c c c d . . . . . . . 
 . . a a a . . c c . . . . . . . 
+. a a a . . c c . . . . . . . . 
+. f f f f . f f f . . . . . . . 
+`];
+            case "Pirate Stand":
+            case "anim10":return [img`
+. . e e . . e e . . . . . . . . 
+. e e c e e e e . . . . . . . . 
+. . c e e e e . . . . . . . . . 
+e e e e d d d f . . . . . . . . 
+. f f d f d f d . . . . . . . . 
+d b d d d b d d . . . . . . . . 
+d d b d d d d . . . . . . . . . 
+. . . d d d . . . . . . . . . . 
+. e e e e e e e . . . . . . . . 
+e e c e e e c e e . . . . . . . 
+e c e e e e e c e . . . . . . . 
+d d d e e e e d d d . . . . . . 
+d d a a a c c d d . . . . . . . 
+. a a a . . c c . . . . . . . . 
+. a a a . . c c . . . . . . . . 
+. f f f f . f f f . . . . . . . 
+`, img`
+. . . . . . . . . . . . . . . . 
+. . e e . . e e . . . . . . . . 
+. e e c e e e e . . . . . . . . 
+. . c e e e e . . . . . . . . . 
+e e e e d d d f . . . . . . . . 
+. f f d f d f d . . . . . . . . 
+d b d d d b d d . . . . . . . . 
+d d b d d d d . . . . . . . . . 
+. . . d d d . . . . . . . . . . 
+. e e e e e e e . . . . . . . . 
+e e c e e e c e e . . . . . . . 
+e c e e e e e c e . . . . . . . 
+b b d e e e e d d d . . . . . . 
+d d a a a c c c d . . . . . . . 
+. a a a . . c c . . . . . . . . 
+. f f f f . f f f . . . . . . . 
+`, img`
+. . . . . . . . . . . . . . . . 
+. . e e . . . . . . . . . . . . 
+. e e c e e e e . . . . . . . . 
+. . c e e e e e . . . . . . . . 
+e e e e d d d f . . . . . . . . 
+. f f d f d f d . . . . . . . . 
+d b d d d b d d . . . . . . . . 
+d d b d d d d . . . . . . . . . 
+. . . d d d . . . . . . . . . . 
+. e e e e e e e . . . . . . . . 
+e e c e e e c e e . . . . . . . 
+e c e e e e e c e . . . . . . . 
+b b d e e e e d d d . . . . . . 
+d d a a a c c c d . . . . . . . 
+. a a a . . c c . . . . . . . . 
+. f f f f . f f f . . . . . . . 
+`, img`
+. . e e . . . . . . . . . . . . 
+. e e c e e e e . . . . . . . . 
+. . c e e e e e . . . . . . . . 
+e e e e d d d f . . . . . . . . 
+. f f d f d f d . . . . . . . . 
+d b d d d b d d . . . . . . . . 
+d d b d d d d . . . . . . . . . 
+. . . d d d . . . . . . . . . . 
+. e e e e e e e . . . . . . . . 
+e e c e e e c e e . . . . . . . 
+e c e e e e e c e . . . . . . . 
+d d d e e e e d d d . . . . . . 
+d d a a a c c d d . . . . . . . 
+. a a a . . c c . . . . . . . . 
 . a a a . . c c . . . . . . . . 
 . f f f f . f f f . . . . . . . 
 `];

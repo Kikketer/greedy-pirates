@@ -14,7 +14,8 @@
         "images.g.jres",
         "images.g.ts",
         "utils.ts",
-        "island.ts"
+        "island.ts",
+        "pirate.ts"
     ],
     "testFiles": [
         "test.ts"
