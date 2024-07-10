@@ -6,4 +6,12 @@ namespace Utils {
         }
         return result
     }
+
+    // Used to re-use an animation but flip it horizontally (x)
+    export function flipAnimation(frames: Image[]) {
+        return frames.map((frame: Image) => {
+            frame.flipX()
+            return frame
+        })
+    }
 }

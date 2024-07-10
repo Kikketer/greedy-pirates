@@ -43,10 +43,8 @@ namespace Island {
     // }
 
     export function init(island: Map.Island) {
-        player1 = new Pirate({ controller: controller.player1 })
-        player2 = new Pirate({ controller: controller.player2 })
-
-        Pirate.registerEvents(player1)
+        player1 = new Pirate({ control: controller.player1, playerNumber: 0 })
+        player2 = new Pirate({ control: controller.player2, playerNumber: 1 })
 
         player1.place(10, 90)
 
