@@ -1,3 +1,3 @@
 # Greedy Pirates
 
-![Greedy Pirates](Greedy Pirates.png)
+![Greedy Pirates](Greedy Pirates.jpg)
