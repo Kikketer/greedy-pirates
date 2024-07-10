@@ -37,7 +37,66 @@ class Pirate {
         this.facing = 'right'
 
         this.currentSprite = sprites.create(assets.image`Pirate`)
-        this.idle()
+        // Setup animations
+        // These numbers are coming from the source code: https://github.com/microsoft/arcade-character-animations/blob/main/main.ts
+        characterAnimations.loopFrames(
+            this.currentSprite,
+            Pirate.walkRightAnimation,
+            150,
+            // Moving right (and facing right):
+            8 + 128
+        )
+        characterAnimations.loopFrames(
+            this.currentSprite,
+            Pirate.walkLeftAnimation,
+            150,
+            // Moving left (and facing left):
+            32 + 512
+        )
+        characterAnimations.loopFrames(
+            this.currentSprite,
+            Pirate.idleLeftAnimation,
+            150,
+            // Facing left:
+            32
+        )
+        characterAnimations.loopFrames(
+            this.currentSprite,
+            Pirate.idleRightAnimation,
+            150,
+            // Facing right:
+            8
+        )
+        characterAnimations.loopFrames(
+            this.currentSprite,
+            Pirate.walkLeftAnimation,
+            150,
+            // Moving up (facing left):
+            32 + 64
+        )
+        characterAnimations.loopFrames(
+            this.currentSprite,
+            Pirate.walkRightAnimation,
+            150,
+            // Moving up (facing right):
+            8 + 64
+        )
+        characterAnimations.loopFrames(
+            this.currentSprite,
+            Pirate.walkLeftAnimation,
+            150,
+            // Moving down (facing left):
+            32 + 256
+        )
+        characterAnimations.loopFrames(
+            this.currentSprite,
+            Pirate.walkRightAnimation,
+            150,
+            // Moving down (facing right):
+            8 + 256
+        )
+
+        // this.idle()
         // Setup multiplayer
         mp.setPlayerSprite(mp.getPlayerByNumber(playerNumber), this.currentSprite)
 
@@ -80,22 +139,6 @@ class Pirate {
         this.currentSprite.x += this.controller.dx(50)
         this.currentSprite.y += this.controller.dy(50)
         this.currentSprite.z = this.currentSprite.y
-
-        if (this.controller.dx(50) > 0) {
-            animation.runImageAnimation(
-                this.currentSprite,
-                Pirate.walkRightAnimation,
-                200,
-                true
-            )
-        } else if (this.controller.dx(50) < 0) {
-            animation.runImageAnimation(
-                this.currentSprite,
-                Pirate.walkLeftAnimation,
-                200,
-                true
-            )
-        }
     }
 
     parry() {
@@ -119,8 +162,6 @@ class Pirate {
                 false
             )
         }
-
-        pause(Pirate.attackLeftAnimation.length * attackAnimationSpeed)
     }
 
     face(direction: 'left' | 'right') {
@@ -134,20 +175,20 @@ class Pirate {
 
     idle() {
         console.log('Going idle ' + this.facing)
-        if (this.facing === 'left') {
-            animation.runImageAnimation(
-                this.currentSprite,
-                Pirate.idleLeftAnimation,
-                200,
-                true
-            )
-        } else {
-            animation.runImageAnimation(
-                this.currentSprite,
-                Pirate.idleRightAnimation,
-                200,
-                true
-            )
-        }
+        // if (this.facing === 'left') {
+        //     animation.runImageAnimation(
+        //         this.currentSprite,
+        //         Pirate.idleLeftAnimation,
+        //         200,
+        //         true
+        //     )
+        // } else {
+        //     animation.runImageAnimation(
+        //         this.currentSprite,
+        //         Pirate.idleRightAnimation,
+        //         200,
+        //         true
+        //     )
+        // }
     }
 }
