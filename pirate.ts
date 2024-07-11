@@ -5,19 +5,26 @@ type ActionObject = {
     faceRight: () => void
 }
 
+type AttackCallbackParams = { pirate: Pirate, direction: 'left' | 'right' }
+
 class Pirate {
-    static idleRightAnimation: Image[] = assets.animation`Pirate Stand`
-    static idleLeftAnimation: Image[] = Utils.flipAnimation(assets.animation`Pirate Stand`)
-    static attackLeftAnimation: Image[] = Utils.flipAnimation(assets.animation`Pirate Swing w Sword`)
-    static attackRightAnimation: Image[] = assets.animation`Pirate Swing w Sword`
-    static parryLeftSprite: Image = assets.image`Pirate`
-    static parryRightSprite: Image = assets.image`Pirate`
-    static walkRightAnimation: Image[] = assets.animation`Pirate Walk`
-    static walkLeftAnimation: Image[] = Utils.flipAnimation(assets.animation`Pirate Walk`)
+    static _attackDelay: number = 400
+
+    idleRightAnimation: Image[] = assets.animation`Pirate Stand`
+    idleLeftAnimation: Image[] = Utils.flipAnimation(assets.animation`Pirate Stand`)
+    attackLeftAnimation: Image[] = Utils.flipAnimation(assets.animation`Pirate Swing w Sword`)
+    attackRightAnimation: Image[] = assets.animation`Pirate Swing w Sword`
+    parryLeftSprite: Image = assets.image`Pirate`
+    parryRightSprite: Image = assets.image`Pirate`
+    walkRightAnimation: Image[] = assets.animation`Pirate Walk`
+    walkLeftAnimation: Image[] = Utils.flipAnimation(assets.animation`Pirate Walk`)
 
     currentSprite: Sprite
     facing: 'left' | 'right'
-    public controller: controller.Controller
+    controller: controller.Controller
+    isAttacking?: 'left' | 'right'
+    _lastAttackTick: number = 0
+    _isAttackingTimeout: number
     // This action object is for registering event listeners
     // It keeps all functions stable per this class so we can removeEventListners
     action: ActionObject = {
@@ -29,12 +36,18 @@ class Pirate {
 
     public health: number
 
-    constructor({ control, playerNumber }: { control: controller.Controller, playerNumber: 0 | 1 }) {
-        // Setup event listeners
+    constructor({ control, playerNumber, onAttack }: { 
+            control: controller.Controller,
+            playerNumber: 0 | 1,
+            onAttack: (T: AttackCallbackParams) => void
+        }) {
         this.health = 100
         this.facing = 'right'
 
-        this.currentSprite = sprites.create(assets.image`Pirate`)
+        this.currentSprite = sprites.create(assets.image`Pirate`, SpriteKind.Player)
+        if (playerNumber === 1) {
+            this._setupAnimationColors(4)
+        }
         this._setupAnimations()
         // Setup multiplayer
         mp.setPlayerSprite(mp.getPlayerByNumber(playerNumber), this.currentSprite)
@@ -43,7 +56,7 @@ class Pirate {
         this.controller = control
         // We can't simply do `this.attack` as the event listeners can't handle a "lambda"
         // And we need to keep a reference to the callback function so we can removeEventListner
-        this.action.attack = () => this.attack()
+        this.action.attack = () => this.attack(onAttack)
         this.action.parry = () => this.parry()
         this.action.faceLeft = () => this.face('left')
         this.action.faceRight = () => this.face('right')
@@ -70,8 +83,10 @@ class Pirate {
     }
 
     public render() {
-        this.currentSprite.x += this.controller.dx(50)
-        this.currentSprite.y += this.controller.dy(50)
+        if (!this.isAttacking) {
+            this.currentSprite.x += this.controller.dx(50)
+            this.currentSprite.y += this.controller.dy(50)
+        }
         this.currentSprite.z = this.currentSprite.y
     }
 
@@ -79,27 +94,64 @@ class Pirate {
         console.log('parry ' + this.controller.playerIndex)
     }
 
-    attack() {
-        const attackAnimationSpeed = 50
+    attack(attackCallback: (T: AttackCallbackParams) => void) {
+        // Can't attack more frequently than attackDelay
+        if (control.millis() - this._lastAttackTick < Pirate._attackDelay) return
+
+        // Clear the "is attacking" tag after the animation completes
+        clearTimeout(this._isAttackingTimeout)
+        this._isAttackingTimeout = setTimeout(() => {}, Pirate._attackDelay)
+
+        const oldPos = { x: this.currentSprite.x, y: this.currentSprite.y }
+
         if (this.facing === 'right') {
+            // this.currentSprite.destroy()
+            // this.currentSprite = sprites.create(this.attackRightAnimation[3], SpriteKind.PlayerAttackRight)
+            // this.currentSprite.x = oldPos.x
+            // this.currentSprite.y = oldPos.y
+            this._lastAttackTick = control.millis()
+            this.isAttacking = 'right'
+            attackCallback({ pirate: this, direction: 'right' })
             animation.runImageAnimation(
                 this.currentSprite,
-                Pirate.attackRightAnimation,
-                attackAnimationSpeed,
+                this.attackRightAnimation,
+                50,
                 false
             )
+            // And reset the sprite so it can no longer hit something
+            setTimeout(() => {
+                // this.currentSprite.destroy()
+                // this.currentSprite = sprites.create(this.idleRightAnimation[0], SpriteKind.Player)
+                // this.currentSprite.x = oldPos.x
+                // this.currentSprite.y = oldPos.y
+                this.isAttacking = undefined
+            }, this.attackRightAnimation.length * 50)
         } else {
+            // this.currentSprite.destroy()
+            // this.currentSprite = sprites.create(this.attackLeftAnimation[3], SpriteKind.PlayerAttackLeft)
+            // this.currentSprite.x = oldPos.x
+            // this.currentSprite.y = oldPos.y
+            this._lastAttackTick = control.millis()
+            this.isAttacking = 'left'
+            attackCallback({ pirate: this, direction: 'left' })
             animation.runImageAnimation(
                 this.currentSprite,
-                Pirate.attackLeftAnimation,
-                attackAnimationSpeed,
+                this.attackLeftAnimation,
+                50,
                 false
             )
+            // And reset the sprite so it can no longer hit something
+            setTimeout(() => {
+                // this.currentSprite.destroy()
+                // this.currentSprite = sprites.create(this.idleLeftAnimation[0], SpriteKind.Player)
+                // this.currentSprite.x = oldPos.x
+                // this.currentSprite.y = oldPos.y
+                this.isAttacking = undefined
+            }, this.attackLeftAnimation.length * 50)
         }
     }
 
     face(direction: 'left' | 'right') {
-        console.log('Face ' + direction)
         if (direction === 'left' && this.facing === 'right') {
             this.facing = 'left'
         } else if (direction === 'right' && this.facing === 'left') {
@@ -107,61 +159,70 @@ class Pirate {
         }
     }
 
+    _setupAnimationColors(toColor: number = 14) {
+        Utils.swapAnimationColors(this.idleLeftAnimation, 14, toColor)
+        Utils.swapAnimationColors(this.idleRightAnimation, 14, toColor)
+        Utils.swapAnimationColors(this.attackLeftAnimation, 14, toColor)
+        Utils.swapAnimationColors(this.attackRightAnimation, 14, toColor)
+        Utils.swapAnimationColors(this.walkRightAnimation, 14, toColor)
+        Utils.swapAnimationColors(this.walkLeftAnimation, 14, toColor)
+    }
+
     _setupAnimations() {
         // Setup animations
         // These numbers are coming from the source code: https://github.com/microsoft/arcade-character-animations/blob/main/main.ts
         characterAnimations.loopFrames(
             this.currentSprite,
-            Pirate.walkRightAnimation,
+            this.walkRightAnimation,
             150,
             // Moving right (and facing right):
             8 + 128
         )
         characterAnimations.loopFrames(
             this.currentSprite,
-            Pirate.walkLeftAnimation,
+            this.walkLeftAnimation,
             150,
             // Moving left (and facing left):
             32 + 512
         )
         characterAnimations.loopFrames(
             this.currentSprite,
-            Pirate.idleLeftAnimation,
+            this.idleLeftAnimation,
             150,
             // Facing left:
             32
         )
         characterAnimations.loopFrames(
             this.currentSprite,
-            Pirate.idleRightAnimation,
+            this.idleRightAnimation,
             150,
             // Facing right:
             8
         )
         characterAnimations.loopFrames(
             this.currentSprite,
-            Pirate.walkLeftAnimation,
+            this.walkLeftAnimation,
             150,
             // Moving up (facing left):
             32 + 64
         )
         characterAnimations.loopFrames(
             this.currentSprite,
-            Pirate.walkRightAnimation,
+            this.walkRightAnimation,
             150,
             // Moving up (facing right):
             8 + 64
         )
         characterAnimations.loopFrames(
             this.currentSprite,
-            Pirate.walkLeftAnimation,
+            this.walkLeftAnimation,
             150,
             // Moving down (facing left):
             32 + 256
         )
         characterAnimations.loopFrames(
             this.currentSprite,
-            Pirate.walkRightAnimation,
+            this.walkRightAnimation,
             150,
             // Moving down (facing right):
             8 + 256

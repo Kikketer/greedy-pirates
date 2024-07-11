@@ -14,4 +14,8 @@ namespace Utils {
             return frame
         })
     }
+
+    export function swapAnimationColors(anim: Image[], fromColor: number, toColor: number) {
+        return anim.map(frame => frame.replace(fromColor, toColor))
+    }
 }

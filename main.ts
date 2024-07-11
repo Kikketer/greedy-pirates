@@ -1,7 +1,7 @@
 /**
  * Greedy Pirates
- * Art: Eli
- * Music: Ez
+ * Art: Eli (somewhat)
+ * Music: Ez (somewhat)
  * Coding: Chris
  * 
  * Top down level select to pick which island to visit.
@@ -19,6 +19,11 @@ enum States {
     Overview,
     Island
 }
+enum SpriteKind {
+    PlayerAttackLeft,
+    PlayerAttackRight,
+}
+
 const playerState = {
     currentIsland: ''
 }
@@ -45,7 +50,7 @@ const islands: Array<Map.Island> = [
     }
 ]
 
-console.log('Startup')
+console.log('Yarrrgh! Ye be lookin\' at de code!')
 
 game.onUpdate(() => {
     switch(currentState) {
@@ -90,62 +95,6 @@ function startGame() {
     })
 
     switchState(States.Overview)
-
-    // Map.onSelectIsland((island: Map.Island) => {
-    //     currentState = States.Island
-    //     switchState()
-    // })
-
-    // controller.A.addEventListener(ControllerButtonEvent.Pressed, () => {
-    //     console.log("A pressed")
-    //     currentState = States.Island
-    //     switchState()
-    // })
-    // controller.B.addEventListener(ControllerButtonEvent.Pressed, () => {
-    //     console.log('B Pressed')
-    //     currentState = States.Overview
-    //     switchState()
-    // })
-
-    // if (currentState === States.Overview) {
-    // Map.init(islands, (island: Map.Island) => {
-    //     console.log('Island selected! '  + island.name)
-    //     currentState = States.Island
-    //     // changeScene(States.Island)
-    // })
-    // } else if (currentState === States.Island) {
-    //     console.log('Rendering with island')
-    //     scene.setBackgroundColor(0)
-    //     // maximum the player can move vertically
-    //     const maxY = 60
-    //     const player1Sprite = sprites.create(assets.image`pirate_a`)
-    //     const player2Sprite = sprites.create(assets.image`empty`)
-
-    //     player1Sprite.x = 20
-    //     player1Sprite.y = maxY
-
-    //     animation.runImageAnimation(player1Sprite, assets.animation`pirate_idle`, 300, true)
-    //     animation.runImageAnimation(player2Sprite, assets.animation`pirate_idle`, 300, true)
-
-    //     mp.setPlayerSprite(mp.getPlayerByNumber(0), player1Sprite)
-    //     mp.setPlayerSprite(mp.getPlayerByNumber(1), player2Sprite)
-
-    //     game.onUpdate(() => {
-    //         player1Sprite.x += controller.player1.dx(50)
-    //         player1Sprite.y += controller.player1.dy(50)
-    //         player2Sprite.x += controller.player2.dx(50)
-    //         player2Sprite.y += controller.player2.dy(50)
-
-    //         // if (controller.player1.isPressed(ControllerButton.A)) {
-    //         //     console.log('Attack!')
-    //         // }
-    //     })
-
-    //     // controller.player1.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, () => {
-    //     //     console.log('Do a thing')
-    //     //     // animation.runImageAnimation(player1Sprite, assets.animation`pirate_attack`, 200, false)
-    //     // })
-    // }
 }
 
 startGame()
