@@ -16,7 +16,8 @@
         "images.g.ts",
         "utils.ts",
         "island.ts",
-        "pirate.ts"
+        "pirate.ts",
+        "militia.ts"
     ],
     "testFiles": [
         "test.ts"

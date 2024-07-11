@@ -23,6 +23,7 @@ class Pirate {
     facing: 'left' | 'right'
     controller: controller.Controller
     isAttacking?: 'left' | 'right'
+    isParrying?: 'left' | 'right'
     _lastAttackTick: number = 0
     _isAttackingTimeout: number
     // This action object is for registering event listeners
@@ -88,6 +89,13 @@ class Pirate {
             this.currentSprite.y += this.controller.dy(50)
         }
         this.currentSprite.z = this.currentSprite.y
+    }
+
+    public hit(damage: number) {
+        if (this.isParrying) return
+        this.health -= damage
+
+        // Add death!
     }
 
     parry() {
