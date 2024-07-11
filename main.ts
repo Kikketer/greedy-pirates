@@ -1,8 +1,8 @@
 /**
  * Greedy Pirates
- * Art: Eli (somewhat)
- * Music: Ez (somewhat)
- * Coding: Chris
+ * Art: Eli (the first drafts)
+ * Music: Ez (the first drafts)
+ * Coding and Fill in the Gap: Chris
  * 
  * Top down level select to pick which island to visit.
  * Once an island is picked, a side-scrolling multiplayer beat-em-up game
@@ -16,6 +16,7 @@
  */
 
 enum States {
+    Menu,
     Overview,
     Island
 }
@@ -80,16 +81,12 @@ function switchState(state: States) {
 }
 
 function startGame() {
-    scene.setBackgroundColor(6)
-
     Map.onSelectIsland((island: Map.Island) => {
-        console.log('Selected island! ' + island.name)
         currentIsland = island
         switchState(States.Island)
     })
 
     Island.onLeaveIsland(() => {
-        console.log('Left island')
         currentIsland = undefined
         switchState(States.Overview)
     })

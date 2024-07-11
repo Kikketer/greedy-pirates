@@ -52,6 +52,8 @@ namespace Map {
     }
 
     export function init(islands: Array<Island>) {
+        scene.setBackgroundColor(6)
+        
         _islands = islands
         // Cursor
         cursor = sprites.create(assets.image`empty`)

@@ -49,6 +49,7 @@ namespace Island {
     }
 
     export function init(island: Map.Island) {
+        scene.setBackgroundColor(8)
         player1 = new Pirate({ control: controller.player1, playerNumber: 0, onAttack: onPirateAttack })
         player2 = new Pirate({ control: controller.player2, playerNumber: 1, onAttack: onPirateAttack })
 
