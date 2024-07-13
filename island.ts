@@ -25,7 +25,7 @@ namespace Island {
         const hitYZone = [pirate.sprite.y - 4, pirate.sprite.y + 2]
 
         // Check to see if we slashed the treasure!
-        if (_treasureSprite) {
+        if (_treasureSprite && isSegmentComplete) {
             openTreasure()
             return
         }
@@ -114,6 +114,7 @@ namespace Island {
     }
 
     function showTreasure() {
+        console.log("Showing treasure")
         _treasureSprite = sprites.create(treasureImage)
         const randX = Math.randomRange(_boundingBox[0] + 20, _boundingBox[2] - 15)
         const randY = Math.randomRange(_boundingBox[1] + 50, _boundingBox[3] - 15)
@@ -161,6 +162,8 @@ namespace Island {
             _treasureSprite.destroy()
         }
 
+        music.stopAllSounds()
+
         // Remove all listeners and clear the screen
         controller.player1.B.removeEventListener(ControllerButtonEvent.Pressed, leaveIsland)
 
@@ -169,9 +172,14 @@ namespace Island {
 
     export function init(island: Map.Island) {
         _island = island
+        isSegmentComplete = false
+        currentSegment = 0
+
         scene.setBackgroundColor(8)
         player1 = new Pirate({ control: controller.player1, playerNumber: 0, onAttack: onPirateAttack })
         player2 = new Pirate({ control: controller.player2, playerNumber: 1, onAttack: onPirateAttack })
+
+        music.play(music.createSong(assets.song`Theme`), music.PlaybackMode.LoopingInBackground)
 
         drawBackground()
         // Baddies

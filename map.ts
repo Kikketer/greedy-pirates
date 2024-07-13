@@ -15,6 +15,7 @@ namespace Map {
         segments: number
     }
 
+    // const weBeSailinSong: Buffer = assets.song`We be Sailin`
     let cursor: Sprite
     let waves: Array<Sprite> = []
     let currentSelectedIslandIndex = 0
@@ -62,7 +63,7 @@ namespace Map {
     export function init(islands: Array<Island>) {
         scene.setBackgroundColor(6)
 
-        // music.play(music.createSong(assets.song`We Boat`), music.PlaybackMode.LoopingInBackground)
+        music.play(music.createSong(assets.song`We be Sailin`), music.PlaybackMode.LoopingInBackground)
         
         _islands = islands
         // Cursor
