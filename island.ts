@@ -1,4 +1,7 @@
 namespace Island {
+    const treasureImage: Image = assets.image`Chest`
+    const openTreasureAnimation: Image[] = assets.animation`Chest Open`
+
     let player1: Pirate
     let player2: Pirate
     let currentEnemies: Array<Militia> = []
@@ -12,6 +15,7 @@ namespace Island {
     let _island: Map.Island
     let _onLeaveIsland: () => void
     let _dirtSpeckles: Sprite[] = []
+    let _treasureSprite: Sprite
 
     function onPirateAttack({ pirate, direction }: { pirate: Pirate, direction: 'left' | 'right' }) {
         const dirPix = direction === 'left' ? -1 : 1
@@ -19,6 +23,12 @@ namespace Island {
         const hitXZone = [pirate.sprite.x, pirate.sprite.x + (13 * dirPix)]
         // The sword is only near the top of the sprite, we don't kill with feet
         const hitYZone = [pirate.sprite.y - 4, pirate.sprite.y + 2]
+
+        // Check to see if we slashed the treasure!
+        if (_treasureSprite) {
+            openTreasure()
+            return
+        }
         
         // manually check each enemy to see if they overlap, also check for parry
         currentEnemies.forEach((enemy) => {
@@ -55,12 +65,15 @@ namespace Island {
                 // Tiny delay to show the arrow, cuz... TMNT
                 setTimeout(() => {
                     // Recheck if complete just in case we walked before this appeared
-                    if (isSegmentComplete) {
+                    if (isSegmentComplete && _island) {
                         arrow = sprites.create(assets.image`Arrow`)
                         arrow.x = 140
                         arrow.y = 80
                     }
                 }, 1500)
+            } else {
+                // We completed the last segment!
+                showTreasure()
             }
         }
     }
@@ -100,6 +113,28 @@ namespace Island {
         })
     }
 
+    function showTreasure() {
+        _treasureSprite = sprites.create(treasureImage)
+        const randX = Math.randomRange(_boundingBox[0] + 20, _boundingBox[2] - 15)
+        const randY = Math.randomRange(_boundingBox[1] + 50, _boundingBox[3] - 15)
+        _treasureSprite.x = randX
+        _treasureSprite.y = randY
+        _treasureSprite.z = randY
+    }
+
+    function openTreasure() {
+        animation.runImageAnimation(
+            _treasureSprite,
+            openTreasureAnimation,
+            200,
+            false
+        )
+        setTimeout(() => {
+            // Exit the island after the animation!
+            leaveIsland()
+        }, openTreasureAnimation.length * 200 + 500)
+    }
+
     function placeEnemies() {
         // The number of enemies is based on the risk level of the island
         // number of players AND segment level
@@ -114,11 +149,17 @@ namespace Island {
     }
 
     function leaveIsland() {
+        _island = undefined
+        
         player1.destroy()
         player2.destroy()
 
         currentEnemies.map(enemy => enemy.destory())
         currentEnemies = []
+
+        if (_treasureSprite) {
+            _treasureSprite.destroy()
+        }
 
         // Remove all listeners and clear the screen
         controller.player1.B.removeEventListener(ControllerButtonEvent.Pressed, leaveIsland)

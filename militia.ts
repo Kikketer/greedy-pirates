@@ -4,6 +4,7 @@ class Militia {
     static attackRightAnimation: Image[] = assets.animation`Militia Shoot`
     static attackLeftAnimation: Image[] = Utils.flipAnimation(assets.animation`Militia Shoot`)
     static parrySound: music.SoundEffect = music.createSoundEffect(WaveShape.Noise, 5000, 5000, 255, 0, 100, SoundExpressionEffect.Vibrato, InterpolationCurve.Curve)
+    
     static speed: number = 10
     static directionChangeInterval: number = 1000
     static attackDelayMin: number = 4000
@@ -120,9 +121,7 @@ class Militia {
         setTimeout(() => {
             // bigCrash or sonar....
             music.play(music.melodyPlayable(music.bigCrash), music.PlaybackMode.InBackground)
-            // music.play(music.melodyPlayable(music.sonar), music.playSound)
-            // music.createSoundEffect(WaveShape.Sawtooth, 500, 500, 100, 0, 1000, SoundExpressionEffect.None, InterpolationCurve.Linear)
-            // music.playSound('1 1 1')
+
             // Check to see that our target is in range and fire the hit
             if (Math.abs(this.sprite.y - this.currentTarget.sprite.y) < 30) {
                 this.currentTarget.hit(this, 1)
