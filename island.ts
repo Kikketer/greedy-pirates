@@ -11,6 +11,7 @@ namespace Island {
     let _boundingBox: number[] = [0, 60, 160, 120]
     let _island: Map.Island
     let _onLeaveIsland: () => void
+    let _dirtSpeckles: Sprite[] = []
 
     function onPirateAttack({ pirate, direction }: { pirate: Pirate, direction: 'left' | 'right' }) {
         const dirPix = direction === 'left' ? -1 : 1
@@ -75,7 +76,25 @@ namespace Island {
         currentSegment++
 
         // Move the background image 160px left
+        drawBackground()
         placeEnemies()
+    }
+
+    function drawBackground() {
+        // Clear any exisitng speckles
+        _dirtSpeckles.forEach((speckle: Sprite) => {
+            speckle.destroy()
+        })
+
+        Utils.getArrayOfLength(20).forEach(() => {
+            const speckle = image.create(4, 4)
+            speckle.drawLine(0, 0, 1, 1, 6)
+            const sprite = sprites.create(speckle)
+            sprite.x = Math.randomRange(10, 140)
+            sprite.y = Math.randomRange(80, 110)
+
+            _dirtSpeckles.push(sprite)
+        })
     }
 
     function placeEnemies() {
@@ -107,6 +126,7 @@ namespace Island {
         player1 = new Pirate({ control: controller.player1, playerNumber: 0, onAttack: onPirateAttack })
         player2 = new Pirate({ control: controller.player2, playerNumber: 1, onAttack: onPirateAttack })
 
+        drawBackground()
         // Baddies
         placeEnemies()
 
