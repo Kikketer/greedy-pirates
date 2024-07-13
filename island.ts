@@ -8,9 +8,9 @@ namespace Island {
     function onPirateAttack({ pirate, direction }: { pirate: Pirate, direction: 'left' | 'right' }) {
         const dirPix = direction === 'left' ? -1 : 1
         // The hit zone is the pirate "sword" box: [center, right|left] and [top, bottom]
-        const hitXZone = [pirate.currentSprite.x, pirate.currentSprite.x + (13 * dirPix)]
+        const hitXZone = [pirate.sprite.x, pirate.sprite.x + (13 * dirPix)]
         // The sword is only near the top of the sprite, we don't kill with feet
-        const hitYZone = [pirate.currentSprite.y - 4, pirate.currentSprite.y + 2]
+        const hitYZone = [pirate.sprite.y - 4, pirate.sprite.y + 2]
         
         // manually check each enemy to see if they overlap, also check for parry
         currentEnemies.forEach((enemy) => {

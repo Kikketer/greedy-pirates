@@ -19,7 +19,7 @@ class Pirate {
     walkRightAnimation: Image[] = assets.animation`Pirate Walk`
     walkLeftAnimation: Image[] = Utils.flipAnimation(assets.animation`Pirate Walk`)
 
-    currentSprite: Sprite
+    sprite: Sprite
     facing: 'left' | 'right'
     controller: controller.Controller
     isAttacking?: 'left' | 'right'
@@ -45,13 +45,13 @@ class Pirate {
         this.health = 100
         this.facing = 'right'
 
-        this.currentSprite = sprites.create(assets.image`Pirate`, SpriteKind.Player)
+        this.sprite = sprites.create(assets.image`Pirate`, SpriteKind.Player)
         if (playerNumber === 1) {
             this._setupAnimationColors(4)
         }
         this._setupAnimations()
         // Setup multiplayer
-        mp.setPlayerSprite(mp.getPlayerByNumber(playerNumber), this.currentSprite)
+        mp.setPlayerSprite(mp.getPlayerByNumber(playerNumber), this.sprite)
 
         // Setup the controller handlers
         this.controller = control
@@ -70,12 +70,12 @@ class Pirate {
 
     public place(x: number, y: number) {
         // Starting location or teleport
-        this.currentSprite.x = x
-        this.currentSprite.y = y
+        this.sprite.x = x
+        this.sprite.y = y
     }
 
     public destroy() {
-        this.currentSprite.destroy()
+        this.sprite.destroy()
         // Remove all event listeners
         this.controller.A.removeEventListener(ControllerButtonEvent.Pressed, this.action.attack)
         this.controller.B.removeEventListener(ControllerButtonEvent.Pressed, this.action.parry)
@@ -85,16 +85,17 @@ class Pirate {
 
     public render() {
         if (!this.isAttacking) {
-            this.currentSprite.x += this.controller.dx(50)
-            this.currentSprite.y += this.controller.dy(50)
+            this.sprite.x += this.controller.dx(50)
+            this.sprite.y += this.controller.dy(50)
         }
-        this.currentSprite.z = this.currentSprite.y
+        this.sprite.z = this.sprite.y
     }
 
-    public hit(damage: number) {
+    public hit(enemy: Militia, damage: number) {
         if (this.isParrying) return
-        this.health -= damage
 
+        scene.cameraShake(2, 500)
+        this.health -= damage
         // Add death!
     }
 
@@ -110,14 +111,14 @@ class Pirate {
         clearTimeout(this._isAttackingTimeout)
         this._isAttackingTimeout = setTimeout(() => {}, Pirate._attackDelay)
 
-        const oldPos = { x: this.currentSprite.x, y: this.currentSprite.y }
+        const oldPos = { x: this.sprite.x, y: this.sprite.y }
 
         if (this.facing === 'right') {
             this._lastAttackTick = control.millis()
             this.isAttacking = 'right'
             attackCallback({ pirate: this, direction: 'right' })
             animation.runImageAnimation(
-                this.currentSprite,
+                this.sprite,
                 this.attackRightAnimation,
                 50,
                 false
@@ -131,7 +132,7 @@ class Pirate {
             this.isAttacking = 'left'
             attackCallback({ pirate: this, direction: 'left' })
             animation.runImageAnimation(
-                this.currentSprite,
+                this.sprite,
                 this.attackLeftAnimation,
                 50,
                 false
@@ -164,56 +165,56 @@ class Pirate {
         // Setup animations
         // These numbers are coming from the source code: https://github.com/microsoft/arcade-character-animations/blob/main/main.ts
         characterAnimations.loopFrames(
-            this.currentSprite,
+            this.sprite,
             this.walkRightAnimation,
             150,
             // Moving right (and facing right):
             8 + 128
         )
         characterAnimations.loopFrames(
-            this.currentSprite,
+            this.sprite,
             this.walkLeftAnimation,
             150,
             // Moving left (and facing left):
             32 + 512
         )
         characterAnimations.loopFrames(
-            this.currentSprite,
+            this.sprite,
             this.idleLeftAnimation,
             150,
             // Facing left:
             32
         )
         characterAnimations.loopFrames(
-            this.currentSprite,
+            this.sprite,
             this.idleRightAnimation,
             150,
             // Facing right:
             8
         )
         characterAnimations.loopFrames(
-            this.currentSprite,
+            this.sprite,
             this.walkLeftAnimation,
             150,
             // Moving up (facing left):
             32 + 64
         )
         characterAnimations.loopFrames(
-            this.currentSprite,
+            this.sprite,
             this.walkRightAnimation,
             150,
             // Moving up (facing right):
             8 + 64
         )
         characterAnimations.loopFrames(
-            this.currentSprite,
+            this.sprite,
             this.walkLeftAnimation,
             150,
             // Moving down (facing left):
             32 + 256
         )
         characterAnimations.loopFrames(
-            this.currentSprite,
+            this.sprite,
             this.walkRightAnimation,
             150,
             // Moving down (facing right):
