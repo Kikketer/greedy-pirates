@@ -32,6 +32,8 @@ namespace Map {
             cursor.destroy()
         }
 
+        music.stopAllSounds()
+
         _onSelectIsland(_islands[currentSelectedIslandIndex])
     }
 
@@ -53,6 +55,8 @@ namespace Map {
 
     export function init(islands: Array<Island>) {
         scene.setBackgroundColor(6)
+
+        // music.play(music.createSong(assets.song`We Boat`), music.PlaybackMode.LoopingInBackground)
         
         _islands = islands
         // Cursor

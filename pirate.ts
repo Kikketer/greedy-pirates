@@ -113,10 +113,6 @@ class Pirate {
         const oldPos = { x: this.currentSprite.x, y: this.currentSprite.y }
 
         if (this.facing === 'right') {
-            // this.currentSprite.destroy()
-            // this.currentSprite = sprites.create(this.attackRightAnimation[3], SpriteKind.PlayerAttackRight)
-            // this.currentSprite.x = oldPos.x
-            // this.currentSprite.y = oldPos.y
             this._lastAttackTick = control.millis()
             this.isAttacking = 'right'
             attackCallback({ pirate: this, direction: 'right' })
@@ -128,17 +124,9 @@ class Pirate {
             )
             // And reset the sprite so it can no longer hit something
             setTimeout(() => {
-                // this.currentSprite.destroy()
-                // this.currentSprite = sprites.create(this.idleRightAnimation[0], SpriteKind.Player)
-                // this.currentSprite.x = oldPos.x
-                // this.currentSprite.y = oldPos.y
                 this.isAttacking = undefined
             }, this.attackRightAnimation.length * 50)
         } else {
-            // this.currentSprite.destroy()
-            // this.currentSprite = sprites.create(this.attackLeftAnimation[3], SpriteKind.PlayerAttackLeft)
-            // this.currentSprite.x = oldPos.x
-            // this.currentSprite.y = oldPos.y
             this._lastAttackTick = control.millis()
             this.isAttacking = 'left'
             attackCallback({ pirate: this, direction: 'left' })
@@ -150,10 +138,6 @@ class Pirate {
             )
             // And reset the sprite so it can no longer hit something
             setTimeout(() => {
-                // this.currentSprite.destroy()
-                // this.currentSprite = sprites.create(this.idleLeftAnimation[0], SpriteKind.Player)
-                // this.currentSprite.x = oldPos.x
-                // this.currentSprite.y = oldPos.y
                 this.isAttacking = undefined
             }, this.attackLeftAnimation.length * 50)
         }

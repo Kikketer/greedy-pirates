@@ -54,7 +54,7 @@ namespace Island {
         player2 = new Pirate({ control: controller.player2, playerNumber: 1, onAttack: onPirateAttack })
 
         // Baddies
-        currentEnemies.push(new Militia({ x: 50, y: 50 }))
+        currentEnemies.push(new Militia({ x: 50, y: 50, target: player1 }))
 
         player1.place(10, 90)
         player2.place(10, 100)
