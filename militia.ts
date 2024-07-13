@@ -11,7 +11,7 @@ class Militia {
     sprite: Sprite
     currentTarget?: Pirate
     facing: 'left' | 'right' = 'right'
-    _nextAttackTime: number = 400
+    _nextAttackTime: number = 4000
     _lastAttackTick: number = 0
     _lastDirectionTick: number = 0
     public isParrying: boolean = false
@@ -67,12 +67,11 @@ class Militia {
             this.walk('right')
         }
         this.sprite.z = this.sprite.y
-        // const timeDiff = this._lastAttackTick - control.millis()
-        // const tick = control.millis()
     }
 
     walk(direction?: 'left' | 'right') {
         this.facing = direction ? direction : this.facing
+        this.sprite.follow(this.currentTarget.sprite, Militia.speed)
 
         if (this.facing === 'left') {
             animation.runImageAnimation(
@@ -122,7 +121,6 @@ class Militia {
         // Resume walking
         setTimeout(() => {
             this.walk()
-            this.sprite.follow(this.currentTarget.sprite, Militia.speed)
         }, Militia.attackRightAnimation.length * 100)
         
     }

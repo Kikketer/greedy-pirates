@@ -2,7 +2,14 @@ namespace Island {
     let player1: Pirate
     let player2: Pirate
     let currentEnemies: Array<Militia> = []
+    let currentSegment: number = 0
+    let isSegmentComplete: boolean = false
+    let arrow: Sprite
     
+    // This is the bounding box for enemy and player movement (aka the street)
+    // [topleftX, topLeftY, bottomLeftX, bottomLeftY]
+    let _boundingBox: number[] = [0, 60, 160, 120]
+    let _island: Map.Island
     let _onLeaveIsland: () => void
 
     function onPirateAttack({ pirate, direction }: { pirate: Pirate, direction: 'left' | 'right' }) {
@@ -33,6 +40,52 @@ namespace Island {
             }
             return acc
         }, [])
+
+        if (currentEnemies.length) {
+            isSegmentComplete = false
+        }
+
+        // If there are no enemies left, signal to go to the next segment
+        if (currentEnemies.length <= 0 && !isSegmentComplete) {
+            isSegmentComplete = true
+
+            // Show the "go" arrow if we have a place to go
+            if (currentSegment < (_island.segments - 1)) {
+                // Tiny delay to show the arrow, cuz... TMNT
+                setTimeout(() => {
+                    arrow = sprites.create(assets.image`Arrow`)
+                    arrow.x = 140
+                    arrow.y = 80
+                }, 1500)
+            }
+        }
+    }
+
+    function panCameraToNextSegment() {
+        console.log("Go to next segment! " + screen.width + ':' + screen.height)
+        // This is a little rough but for now it works
+        // Place the pirates on the far left side
+        player1.sprite.x = 10
+        player2.sprite.x = 10
+        isSegmentComplete = false
+        
+        if (arrow) {
+            arrow.destroy()
+        }
+        currentSegment++
+
+        // Move the background image 160px left
+        placeEnemies()
+    }
+
+    function placeEnemies() {
+        // The number of enemies is based on the risk level of the island
+        // Start most enemies a bit from the left (avoiding starting ON the players)
+        const locX = Math.randomRange(_boundingBox[0] + 20, _boundingBox[2])
+        const locY = Math.randomRange(_boundingBox[1], _boundingBox[3])
+        const randomTarget = Math.randomRange(0,1) === 0 ? player1 : player2
+
+        currentEnemies.push(new Militia({ x: locX, y: locY, target: randomTarget }))
     }
 
     function leaveIsland() {
@@ -49,12 +102,13 @@ namespace Island {
     }
 
     export function init(island: Map.Island) {
+        _island = island
         scene.setBackgroundColor(8)
         player1 = new Pirate({ control: controller.player1, playerNumber: 0, onAttack: onPirateAttack })
         player2 = new Pirate({ control: controller.player2, playerNumber: 1, onAttack: onPirateAttack })
 
         // Baddies
-        currentEnemies.push(new Militia({ x: 50, y: 50, target: player1 }))
+        placeEnemies()
 
         player1.place(10, 90)
         player2.place(10, 100)
@@ -71,5 +125,11 @@ namespace Island {
         player2.render()
 
         currentEnemies.forEach(enemy => enemy.render())
+
+        // Check to see if we've completed the segment, there's another segment to go to
+        // and that at least one pirate is on the far right side:
+        if (isSegmentComplete && (player1.sprite.x > 150 || player2.sprite.x > 150) && currentSegment < _island.segments) {
+            panCameraToNextSegment()
+        }
     }
 }

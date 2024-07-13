@@ -46,6 +46,7 @@ class Pirate {
         this.facing = 'right'
 
         this.sprite = sprites.create(assets.image`Pirate`, SpriteKind.Player)
+        this.sprite.setStayInScreen(true)
         if (playerNumber === 1) {
             this._setupAnimationColors(4)
         }
