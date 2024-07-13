@@ -27,6 +27,7 @@ class Pirate {
     controller: controller.Controller
     isAttacking?: 'left' | 'right'
     isParrying?: 'left' | 'right'
+    _topBoundary: number = 0
     _lastAttackTick: number = 0
     _isAttackingTimeout: number
     // This action object is for registering event listeners
@@ -40,13 +41,15 @@ class Pirate {
 
     public health: number
 
-    constructor({ control, playerNumber, onAttack }: { 
+    constructor({ control, playerNumber, onAttack, topBoundary }: { 
             control: controller.Controller,
             playerNumber: 0 | 1,
             onAttack: (T: AttackCallbackParams) => void
+            topBoundary: number
         }) {
         this.health = 100
         this.facing = 'right'
+        this._topBoundary = topBoundary
 
         this.sprite = sprites.create(assets.image`Pirate`, SpriteKind.Player)
         this.sprite.setStayInScreen(true)
@@ -93,6 +96,11 @@ class Pirate {
             this.sprite.y += this.controller.dy(50)
         }
         this.sprite.z = this.sprite.y
+
+        // Brute force boundaries for the island
+        if (this.sprite.y < this._topBoundary) {
+            this.sprite.y = this._topBoundary
+        }
     }
 
     public hit(enemy: Militia, damage: number) {
