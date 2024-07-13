@@ -39,6 +39,7 @@ const islands: Array<Map.Island> = [
         x: 10,
         y: 25,
         riches: 100,
+        risk: 0,
         image: assets.image`island`,
         segments: 2,
     },
@@ -48,6 +49,7 @@ const islands: Array<Map.Island> = [
         x: 55,
         y: 39,
         riches: 100,
+        risk: 0,
         image: assets.image`island`,
         segments: 6
     }

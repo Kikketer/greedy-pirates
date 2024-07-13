@@ -23,12 +23,13 @@ class Militia {
     constructor({ x, y, target }: { x: number, y: number, target?: Pirate }) {
         this.sprite = sprites.create(assets.animation`Militia Walk`[0])
         this.place(x, y)
-        this._nextAttackTime = 4000
-        this._lastAttackTick = 0
+        this._nextAttackTime = Math.randomRange(Militia.attackDelayMin, Militia.attackDelayMax)
+        this._lastAttackTick = control.millis()
 
         this.currentTarget = target
 
-        this.walk()
+        // Most often we spawn to the right, so walk left
+        this.walk('left')
     }
 
     public place(x: number, y: number) {
@@ -45,7 +46,6 @@ class Militia {
         this.health -= damage
         
         if (this.health <= 0) {
-            console.log('You killed me ')
             this.destory()
         }
     }
@@ -119,19 +119,24 @@ class Militia {
         
         // Slightly after the animation we check to see if we hit
         setTimeout(() => {
-            // bigCrash or sonar....
-            music.play(music.melodyPlayable(music.bigCrash), music.PlaybackMode.InBackground)
+            // Make sure we didn't die in this tiny delay:
+            if (this.health > 0 && this.currentTarget && this.sprite) {
+                // bigCrash or sonar....
+                music.play(music.melodyPlayable(music.bigCrash), music.PlaybackMode.InBackground)
 
-            // Check to see that our target is in range and fire the hit
-            if (Math.abs(this.sprite.y - this.currentTarget.sprite.y) < 30) {
-                this.currentTarget.hit(this, 1)
+                // Check to see that our target is in range and fire the hit
+                if (Math.abs(this.sprite.y - this.currentTarget.sprite.y) < 30) {
+                    this.currentTarget.hit(this, 1)
+                }
             }
         }, Militia.attackRightAnimation.length / 2 * 100)
 
         // Resume walking
         setTimeout(() => {
             this._isAttacking = false
-            this.walk()
+            if (this.health > 0 && this.currentTarget && this.sprite) {
+                this.walk()
+            }
         }, Militia.attackRightAnimation.length * 100)
         
     }
