@@ -24,6 +24,13 @@ enum SpriteKind {
     PlayerAttackLeft,
     PlayerAttackRight,
 }
+type TreasureStat = {
+    onBoat?: number
+    onIsland?: number
+}
+type OnUpdateTreasureProps = TreasureStat & {
+    pulledFromIsland ?: Map.Island['id']
+}
 
 const playerState = {
     currentIsland: ''
@@ -31,6 +38,11 @@ const playerState = {
 
 let currentState: States
 let currentIsland: Map.Island
+let treasure: TreasureStat = {
+    onBoat: 0,
+    onIsland: 0
+}
+let treasureSprite: Sprite
 
 const islands: Array<Map.Island> = [
     {
@@ -44,7 +56,7 @@ const islands: Array<Map.Island> = [
         segments: 2,
     },
     {
-        id: 0,
+        id: 1,
         name: 'Beach Island',
         x: 55,
         y: 39,
@@ -55,7 +67,7 @@ const islands: Array<Map.Island> = [
     }
 ]
 
-console.log('Yarrrgh! Ye be lookin\' at de code!')
+console.log('Yarrrgh! Beware of ye monsters in thee code!')
 
 game.onUpdate(() => {
     switch(currentState) {
@@ -70,6 +82,39 @@ game.onUpdate(() => {
     }
 })
 
+function updateTreasure({ onBoat, onIsland, pulledFromIsland }: OnUpdateTreasureProps) {
+    console.log('Updating treasure ' + onBoat + ':' + pulledFromIsland)
+    if (pulledFromIsland != null) {
+        // Find the island
+        const island = islands.find(i => {
+            return i.id === pulledFromIsland
+        })
+
+        console.log("Found island " + JSON.stringify(island))
+        if (island) {
+            treasure.onBoat += island.riches
+            island.riches = 0
+        }
+    } else {
+        // If not from an island we assume from the boat
+        treasure.onIsland += treasure.onBoat
+        treasure.onBoat = 0
+    }
+
+    showTreasure()
+}
+
+function showTreasure() {
+    if (treasureSprite) {
+        treasureSprite.destroy()
+    }
+
+    treasureSprite = textsprite.create(treasure.onBoat + '', 1, 15)
+    treasureSprite.x = 80
+    treasureSprite.y = 8
+    treasureSprite.z = 100
+}
+
 function switchState(state: States) {
     currentState = state
     switch (currentState) {
@@ -77,7 +122,7 @@ function switchState(state: States) {
             Map.init(islands)
         break;
         case States.Island:
-            Island.init(currentIsland)
+            Island.init({ island: currentIsland, onTreasureUpdate: updateTreasure })
         break;
         default:
             console.log('Default State')
@@ -85,6 +130,8 @@ function switchState(state: States) {
 }
 
 function startGame() {
+    showTreasure()
+
     Map.onSelectIsland((island: Map.Island) => {
         currentIsland = island
         switchState(States.Island)

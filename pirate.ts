@@ -12,6 +12,7 @@ class Pirate {
 
     static parrySound: music.SoundEffect = music.createSoundEffect(WaveShape.Noise, 5000, 5000, 255, 0, 100, SoundExpressionEffect.Vibrato, InterpolationCurve.Curve)
     static deathSound: music.SoundEffect = music.createSoundEffect(WaveShape.Triangle, 2202, 476, 129, 0, 861, SoundExpressionEffect.Warble, InterpolationCurve.Logarithmic)
+    static heartIcon: Image = assets.image`Heart`
 
     idleRightAnimation: Image[] = assets.animation`Pirate Stand`
     idleLeftAnimation: Image[] = Utils.flipAnimation(assets.animation`Pirate Stand`)
@@ -27,8 +28,11 @@ class Pirate {
     controller: controller.Controller
     isAttacking?: 'left' | 'right'
     isParrying?: 'left' | 'right'
+    _topBoundary: number = 0
     _lastAttackTick: number = 0
     _isAttackingTimeout: number
+    _statLocation: number[] = [0,0]
+    _healthSprites: Sprite[] = []
     // This action object is for registering event listeners
     // It keeps all functions stable per this class so we can removeEventListners
     action: ActionObject = {
@@ -40,13 +44,17 @@ class Pirate {
 
     public health: number
 
-    constructor({ control, playerNumber, onAttack }: { 
+    constructor({ control, playerNumber, onAttack, topBoundary, statLocation }: { 
             control: controller.Controller,
             playerNumber: 0 | 1,
             onAttack: (T: AttackCallbackParams) => void
+            topBoundary: number
+            statLocation: number[]
         }) {
-        this.health = 100
+        this.health = 3
         this.facing = 'right'
+        this._topBoundary = topBoundary
+        this._statLocation = statLocation
 
         this.sprite = sprites.create(assets.image`Pirate`, SpriteKind.Player)
         this.sprite.setStayInScreen(true)
@@ -54,6 +62,7 @@ class Pirate {
             this._setupAnimationColors(4)
         }
         this._setupAnimations()
+        this._updateStats()
         // Setup multiplayer
         mp.setPlayerSprite(mp.getPlayerByNumber(playerNumber), this.sprite)
 
@@ -80,6 +89,9 @@ class Pirate {
 
     public destroy() {
         this.sprite.destroy()
+        if (this._healthSprites.length) {
+            this._healthSprites.forEach((sprite) => sprite.destroy())
+        }
         // Remove all event listeners
         this.controller.A.removeEventListener(ControllerButtonEvent.Pressed, this.action.attack)
         this.controller.B.removeEventListener(ControllerButtonEvent.Pressed, this.action.parry)
@@ -93,6 +105,11 @@ class Pirate {
             this.sprite.y += this.controller.dy(50)
         }
         this.sprite.z = this.sprite.y
+
+        // Brute force boundaries for the island
+        if (this.sprite.y < this._topBoundary) {
+            this.sprite.y = this._topBoundary
+        }
     }
 
     public hit(enemy: Militia, damage: number) {
@@ -103,6 +120,7 @@ class Pirate {
 
         scene.cameraShake(2, 500)
         this.health -= damage
+        this._updateStats()
         // Add death!
     }
 
@@ -159,6 +177,20 @@ class Pirate {
         } else if (direction === 'right' && this.facing === 'left') {
             this.facing = 'right'
         }
+    }
+
+    _updateStats() {
+        if (this._healthSprites.length) {
+            this._healthSprites.forEach((sprite) => sprite.destroy())
+        }
+        
+        this._healthSprites = Utils.getArrayOfLength(this.health).map((index) => {
+            const s = sprites.create(Pirate.heartIcon)
+            // 8 pixel image, 2 pixel margin
+            s.x = this._statLocation[0] + (index * s.width + 2)
+            s.y = this._statLocation[1]
+            return s
+        })
     }
 
     _setupAnimationColors(toColor: number = 14) {

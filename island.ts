@@ -1,7 +1,8 @@
 namespace Island {
     const treasureImage: Image = assets.image`Chest`
     const openTreasureAnimation: Image[] = assets.animation`Chest Open`
-    const civilianRunRightAnimation: Image[] = assets.animation`Innocent Civilian 1`
+    const civilianOneRunRightAnimation: Image[] = assets.animation`Innocent Civilian 1`
+    const civilianTwoRunRightAnimation: Image[] = assets.animation`Innocent Civilian 2`
 
     let player1: Pirate
     let player2: Pirate
@@ -11,10 +12,13 @@ namespace Island {
     let isSegmentComplete: boolean = false
     let arrow: Sprite
     
+    const player1StatLocation: number[] = [12, 10]
+    const player2StatLocation: number[] = [130, 10]
     // This is the bounding box for enemy and player movement (aka the street)
     // [topleftX, topLeftY, bottomLeftX, bottomLeftY]
-    let _boundingBox: number[] = [0, 60, 160, 120]
+    let _boundingBox: number[] = [0, 55, 160, 120]
     let _island: Map.Island
+    let _onUpdateTreasure: (T: OnUpdateTreasureProps) => void = () => undefined
     let _onLeaveIsland: () => void
     let _dirtSpeckles: Sprite[] = []
     let _treasureSprite: Sprite
@@ -57,6 +61,10 @@ namespace Island {
             return acc
         }, [])
 
+        checkIfSegmentIsComplete()
+    }
+
+    function checkIfSegmentIsComplete() {
         if (currentEnemies.length) {
             isSegmentComplete = false
         }
@@ -74,6 +82,7 @@ namespace Island {
                         arrow = sprites.create(assets.image`Arrow`)
                         arrow.x = 140
                         arrow.y = 80
+                        arrow.z = 300
                     }
                 }, 1500)
             } else {
@@ -102,6 +111,7 @@ namespace Island {
     }
 
     function drawBackground() {
+        scene.setBackgroundImage(assets.image`myImage`)
         // Clear any exisitng speckles
         _dirtSpeckles.forEach((speckle: Sprite) => {
             speckle.destroy()
@@ -109,7 +119,7 @@ namespace Island {
 
         Utils.getArrayOfLength(20).forEach(() => {
             const speckle = image.create(4, 4)
-            speckle.drawLine(0, 0, 1, 1, 6)
+            speckle.drawLine(0, 0, 1, 1, 14)
             const sprite = sprites.create(speckle)
             sprite.x = Math.randomRange(10, 140)
             sprite.y = Math.randomRange(80, 110)
@@ -139,6 +149,11 @@ namespace Island {
                 false
             )
             setTimeout(() => {
+                // Add the islands riches to the boat!
+                _onUpdateTreasure({ onBoat: _island.riches, pulledFromIsland: _island.id })
+            }, openTreasureAnimation.length * 100)
+            
+            setTimeout(() => {
                 // Exit the island after the animation!
                 leaveIsland()
             }, openTreasureAnimation.length * 200 + 500)
@@ -149,7 +164,9 @@ namespace Island {
         // The number of enemies is based on the risk level of the island
         // number of players AND segment level
         // Start most enemies a bit from the left (avoiding starting ON the players)
-        const numberOfEnemies = Math.floor((2 * currentSegment) * _island.risk + 4)
+        const averageAmount = Math.floor(_island.risk + (2 * currentSegment))
+        const numberOfEnemies = Math.max(Math.randomRange(averageAmount - 2, averageAmount + 2), 1)
+        console.log('Enemies ' + currentSegment + ':' + _island.risk)
         Utils.getArrayOfLength(numberOfEnemies).forEach(() => {
             const locX = Math.randomRange(_boundingBox[0] + 20, _boundingBox[2])
             const locY = Math.randomRange(_boundingBox[1], _boundingBox[3])
@@ -165,10 +182,11 @@ namespace Island {
             const civilianSprite = sprites.create(assets.image`empty`)
             civilianSprite.x = locX
             civilianSprite.y = locY
+            civilianSprite.z = locY
             civilianSprite.setVelocity(30, 0)
             animation.runImageAnimation(
                 civilianSprite,
-                civilianRunRightAnimation,
+                Math.pickRandom([civilianOneRunRightAnimation, civilianTwoRunRightAnimation]),
                 100,
                 true
             )
@@ -190,6 +208,10 @@ namespace Island {
         if (_treasureSprite) {
             _treasureSprite.destroy()
         }
+        scene.setBackgroundImage(assets.image`empty`)
+        if (_dirtSpeckles.length) {
+            _dirtSpeckles.forEach((speckle) => speckle.destroy())
+        }
 
         music.stopAllSounds()
 
@@ -199,14 +221,15 @@ namespace Island {
         _onLeaveIsland()
     }
 
-    export function init(island: Map.Island) {
+    export function init({ island, onTreasureUpdate }: { island: Map.Island, onTreasureUpdate: (T: TreasureStat) => void }) {
         _island = island
+        _onUpdateTreasure = onTreasureUpdate
         isSegmentComplete = false
         currentSegment = 0
 
         scene.setBackgroundColor(8)
-        player1 = new Pirate({ control: controller.player1, playerNumber: 0, onAttack: onPirateAttack })
-        player2 = new Pirate({ control: controller.player2, playerNumber: 1, onAttack: onPirateAttack })
+        player1 = new Pirate({ control: controller.player1, playerNumber: 0, onAttack: onPirateAttack, topBoundary: _boundingBox[1], statLocation: player1StatLocation })
+        player2 = new Pirate({ control: controller.player2, playerNumber: 1, onAttack: onPirateAttack, topBoundary: _boundingBox[1], statLocation: player2StatLocation })
 
         music.play(music.createSong(assets.song`Theme`), music.PlaybackMode.LoopingInBackground)
 

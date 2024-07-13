@@ -1,8 +1,8 @@
 namespace Utils {
-    export function getArrayOfLength(length: number) {
+    export function getArrayOfLength(length: number): number[] {
         const result = []
         for (let i = 0; i < length; i++) {
-            result.push('')
+            result.push(i)
         }
         return result
     }

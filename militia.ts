@@ -23,7 +23,8 @@ class Militia {
     constructor({ x, y, target }: { x: number, y: number, target?: Pirate }) {
         this.sprite = sprites.create(assets.animation`Militia Walk`[0])
         this.place(x, y)
-        this._nextAttackTime = Math.randomRange(Militia.attackDelayMin, Militia.attackDelayMax)
+        // On initial spawn they are quick to attack!
+        this._nextAttackTime = Math.randomRange(Militia.attackDelayMin / 2, Militia.attackDelayMax / 2)
         this._lastAttackTick = control.millis()
 
         this.currentTarget = target
@@ -125,7 +126,7 @@ class Militia {
                 music.play(music.melodyPlayable(music.bigCrash), music.PlaybackMode.InBackground)
 
                 // Check to see that our target is in range and fire the hit
-                if (Math.abs(this.sprite.y - this.currentTarget.sprite.y) < 30) {
+                if (Math.abs(this.sprite.y - this.currentTarget.sprite.y) < 20) {
                     this.currentTarget.hit(this, 1)
                 }
             }
