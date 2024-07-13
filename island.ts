@@ -12,10 +12,13 @@ namespace Island {
     let isSegmentComplete: boolean = false
     let arrow: Sprite
     
+    const player1StatLocation: number[] = [12, 10]
+    const player2StatLocation: number[] = [130, 10]
     // This is the bounding box for enemy and player movement (aka the street)
     // [topleftX, topLeftY, bottomLeftX, bottomLeftY]
-    let _boundingBox: number[] = [0, 60, 160, 120]
+    let _boundingBox: number[] = [0, 55, 160, 120]
     let _island: Map.Island
+    let _onUpdateTreasure: (T: OnUpdateTreasureProps) => void = () => undefined
     let _onLeaveIsland: () => void
     let _dirtSpeckles: Sprite[] = []
     let _treasureSprite: Sprite
@@ -79,6 +82,7 @@ namespace Island {
                         arrow = sprites.create(assets.image`Arrow`)
                         arrow.x = 140
                         arrow.y = 80
+                        arrow.z = 300
                     }
                 }, 1500)
             } else {
@@ -144,6 +148,11 @@ namespace Island {
                 200,
                 false
             )
+            setTimeout(() => {
+                // Add the islands riches to the boat!
+                _onUpdateTreasure({ onBoat: _island.riches, pulledFromIsland: _island.id })
+            }, openTreasureAnimation.length * 100)
+            
             setTimeout(() => {
                 // Exit the island after the animation!
                 leaveIsland()
@@ -212,14 +221,15 @@ namespace Island {
         _onLeaveIsland()
     }
 
-    export function init(island: Map.Island) {
+    export function init({ island, onTreasureUpdate }: { island: Map.Island, onTreasureUpdate: (T: TreasureStat) => void }) {
         _island = island
+        _onUpdateTreasure = onTreasureUpdate
         isSegmentComplete = false
         currentSegment = 0
 
         scene.setBackgroundColor(8)
-        player1 = new Pirate({ control: controller.player1, playerNumber: 0, onAttack: onPirateAttack, topBoundary: 60 })
-        player2 = new Pirate({ control: controller.player2, playerNumber: 1, onAttack: onPirateAttack, topBoundary: 60 })
+        player1 = new Pirate({ control: controller.player1, playerNumber: 0, onAttack: onPirateAttack, topBoundary: _boundingBox[1], statLocation: player1StatLocation })
+        player2 = new Pirate({ control: controller.player2, playerNumber: 1, onAttack: onPirateAttack, topBoundary: _boundingBox[1], statLocation: player2StatLocation })
 
         music.play(music.createSong(assets.song`Theme`), music.PlaybackMode.LoopingInBackground)
 
