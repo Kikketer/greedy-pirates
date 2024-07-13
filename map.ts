@@ -4,9 +4,15 @@ namespace Map {
         name: string,
         x: number,
         y: number,
+        // The quantity of militia, this grows as things get heated
+        risk?: number,
+        // The quantity of riches, this grows as the island is left alone
         riches?: number,
-        image: Image
-        sprite?: Sprite
+        image: Image,
+        sprite?: Sprite,
+        // The number of screens in the level
+        // Time limits = random scenes :)
+        segments: number
     }
 
     let cursor: Sprite
@@ -32,6 +38,8 @@ namespace Map {
             cursor.destroy()
         }
 
+        music.stopAllSounds()
+
         _onSelectIsland(_islands[currentSelectedIslandIndex])
     }
 
@@ -53,6 +61,8 @@ namespace Map {
 
     export function init(islands: Array<Island>) {
         scene.setBackgroundColor(6)
+
+        // music.play(music.createSong(assets.song`We Boat`), music.PlaybackMode.LoopingInBackground)
         
         _islands = islands
         // Cursor

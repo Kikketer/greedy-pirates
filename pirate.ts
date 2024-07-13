@@ -10,6 +10,9 @@ type AttackCallbackParams = { pirate: Pirate, direction: 'left' | 'right' }
 class Pirate {
     static _attackDelay: number = 400
 
+    static parrySound: music.SoundEffect = music.createSoundEffect(WaveShape.Noise, 5000, 5000, 255, 0, 100, SoundExpressionEffect.Vibrato, InterpolationCurve.Curve)
+    static deathSound: music.SoundEffect = music.createSoundEffect(WaveShape.Triangle, 2202, 476, 129, 0, 861, SoundExpressionEffect.Warble, InterpolationCurve.Logarithmic)
+
     idleRightAnimation: Image[] = assets.animation`Pirate Stand`
     idleLeftAnimation: Image[] = Utils.flipAnimation(assets.animation`Pirate Stand`)
     attackLeftAnimation: Image[] = Utils.flipAnimation(assets.animation`Pirate Swing w Sword`)
@@ -19,7 +22,7 @@ class Pirate {
     walkRightAnimation: Image[] = assets.animation`Pirate Walk`
     walkLeftAnimation: Image[] = Utils.flipAnimation(assets.animation`Pirate Walk`)
 
-    currentSprite: Sprite
+    sprite: Sprite
     facing: 'left' | 'right'
     controller: controller.Controller
     isAttacking?: 'left' | 'right'
@@ -45,13 +48,14 @@ class Pirate {
         this.health = 100
         this.facing = 'right'
 
-        this.currentSprite = sprites.create(assets.image`Pirate`, SpriteKind.Player)
+        this.sprite = sprites.create(assets.image`Pirate`, SpriteKind.Player)
+        this.sprite.setStayInScreen(true)
         if (playerNumber === 1) {
             this._setupAnimationColors(4)
         }
         this._setupAnimations()
         // Setup multiplayer
-        mp.setPlayerSprite(mp.getPlayerByNumber(playerNumber), this.currentSprite)
+        mp.setPlayerSprite(mp.getPlayerByNumber(playerNumber), this.sprite)
 
         // Setup the controller handlers
         this.controller = control
@@ -70,12 +74,12 @@ class Pirate {
 
     public place(x: number, y: number) {
         // Starting location or teleport
-        this.currentSprite.x = x
-        this.currentSprite.y = y
+        this.sprite.x = x
+        this.sprite.y = y
     }
 
     public destroy() {
-        this.currentSprite.destroy()
+        this.sprite.destroy()
         // Remove all event listeners
         this.controller.A.removeEventListener(ControllerButtonEvent.Pressed, this.action.attack)
         this.controller.B.removeEventListener(ControllerButtonEvent.Pressed, this.action.parry)
@@ -85,16 +89,20 @@ class Pirate {
 
     public render() {
         if (!this.isAttacking) {
-            this.currentSprite.x += this.controller.dx(50)
-            this.currentSprite.y += this.controller.dy(50)
+            this.sprite.x += this.controller.dx(50)
+            this.sprite.y += this.controller.dy(50)
         }
-        this.currentSprite.z = this.currentSprite.y
+        this.sprite.z = this.sprite.y
     }
 
-    public hit(damage: number) {
-        if (this.isParrying) return
-        this.health -= damage
+    public hit(enemy: Militia, damage: number) {
+        if (this.isParrying) {
+            music.play(Pirate.parrySound, music.PlaybackMode.InBackground)
+            return
+        }
 
+        scene.cameraShake(2, 500)
+        this.health -= damage
         // Add death!
     }
 
@@ -106,54 +114,40 @@ class Pirate {
         // Can't attack more frequently than attackDelay
         if (control.millis() - this._lastAttackTick < Pirate._attackDelay) return
 
+        music.play(Pirate.deathSound, music.PlaybackMode.InBackground)
+
         // Clear the "is attacking" tag after the animation completes
         clearTimeout(this._isAttackingTimeout)
         this._isAttackingTimeout = setTimeout(() => {}, Pirate._attackDelay)
 
-        const oldPos = { x: this.currentSprite.x, y: this.currentSprite.y }
+        const oldPos = { x: this.sprite.x, y: this.sprite.y }
 
         if (this.facing === 'right') {
-            // this.currentSprite.destroy()
-            // this.currentSprite = sprites.create(this.attackRightAnimation[3], SpriteKind.PlayerAttackRight)
-            // this.currentSprite.x = oldPos.x
-            // this.currentSprite.y = oldPos.y
             this._lastAttackTick = control.millis()
             this.isAttacking = 'right'
             attackCallback({ pirate: this, direction: 'right' })
             animation.runImageAnimation(
-                this.currentSprite,
+                this.sprite,
                 this.attackRightAnimation,
                 50,
                 false
             )
             // And reset the sprite so it can no longer hit something
             setTimeout(() => {
-                // this.currentSprite.destroy()
-                // this.currentSprite = sprites.create(this.idleRightAnimation[0], SpriteKind.Player)
-                // this.currentSprite.x = oldPos.x
-                // this.currentSprite.y = oldPos.y
                 this.isAttacking = undefined
             }, this.attackRightAnimation.length * 50)
         } else {
-            // this.currentSprite.destroy()
-            // this.currentSprite = sprites.create(this.attackLeftAnimation[3], SpriteKind.PlayerAttackLeft)
-            // this.currentSprite.x = oldPos.x
-            // this.currentSprite.y = oldPos.y
             this._lastAttackTick = control.millis()
             this.isAttacking = 'left'
             attackCallback({ pirate: this, direction: 'left' })
             animation.runImageAnimation(
-                this.currentSprite,
+                this.sprite,
                 this.attackLeftAnimation,
                 50,
                 false
             )
             // And reset the sprite so it can no longer hit something
             setTimeout(() => {
-                // this.currentSprite.destroy()
-                // this.currentSprite = sprites.create(this.idleLeftAnimation[0], SpriteKind.Player)
-                // this.currentSprite.x = oldPos.x
-                // this.currentSprite.y = oldPos.y
                 this.isAttacking = undefined
             }, this.attackLeftAnimation.length * 50)
         }
@@ -180,56 +174,56 @@ class Pirate {
         // Setup animations
         // These numbers are coming from the source code: https://github.com/microsoft/arcade-character-animations/blob/main/main.ts
         characterAnimations.loopFrames(
-            this.currentSprite,
+            this.sprite,
             this.walkRightAnimation,
             150,
             // Moving right (and facing right):
             8 + 128
         )
         characterAnimations.loopFrames(
-            this.currentSprite,
+            this.sprite,
             this.walkLeftAnimation,
             150,
             // Moving left (and facing left):
             32 + 512
         )
         characterAnimations.loopFrames(
-            this.currentSprite,
+            this.sprite,
             this.idleLeftAnimation,
             150,
             // Facing left:
             32
         )
         characterAnimations.loopFrames(
-            this.currentSprite,
+            this.sprite,
             this.idleRightAnimation,
             150,
             // Facing right:
             8
         )
         characterAnimations.loopFrames(
-            this.currentSprite,
+            this.sprite,
             this.walkLeftAnimation,
             150,
             // Moving up (facing left):
             32 + 64
         )
         characterAnimations.loopFrames(
-            this.currentSprite,
+            this.sprite,
             this.walkRightAnimation,
             150,
             // Moving up (facing right):
             8 + 64
         )
         characterAnimations.loopFrames(
-            this.currentSprite,
+            this.sprite,
             this.walkLeftAnimation,
             150,
             // Moving down (facing left):
             32 + 256
         )
         characterAnimations.loopFrames(
-            this.currentSprite,
+            this.sprite,
             this.walkRightAnimation,
             150,
             // Moving down (facing right):
