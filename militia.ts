@@ -3,6 +3,7 @@ class Militia {
     static walkLeftAnimation: Image[] = Utils.flipAnimation(assets.animation`Militia Walk`)
     static attackRightAnimation: Image[] = assets.animation`Militia Shoot`
     static attackLeftAnimation: Image[] = Utils.flipAnimation(assets.animation`Militia Shoot`)
+    static parrySound: music.SoundEffect = music.createSoundEffect(WaveShape.Noise, 5000, 5000, 255, 0, 100, SoundExpressionEffect.Vibrato, InterpolationCurve.Curve)
     static speed: number = 10
     static directionChangeInterval: number = 1000
     static attackDelayMin: number = 4000
@@ -11,15 +12,18 @@ class Militia {
     sprite: Sprite
     currentTarget?: Pirate
     facing: 'left' | 'right' = 'right'
-    _nextAttackTime: number = 4000
-    _lastAttackTick: number = 0
+    _nextAttackTime: number
+    _lastAttackTick: number
     _lastDirectionTick: number = 0
-    public isParrying: boolean = false
+    _isAttacking: boolean = false
+    _isParrying: boolean = false
     public health: number = 1
 
     constructor({ x, y, target }: { x: number, y: number, target?: Pirate }) {
         this.sprite = sprites.create(assets.animation`Militia Walk`[0])
         this.place(x, y)
+        this._nextAttackTime = 4000
+        this._lastAttackTick = 0
 
         this.currentTarget = target
 
@@ -32,7 +36,11 @@ class Militia {
     }
 
     public hit(damage: number) {
-        if (this.isParrying) return
+        if (this._isParrying) {
+            music.play(Militia.parrySound, music.PlaybackMode.InBackground)
+            return
+        }
+        
         this.health -= damage
         
         if (this.health <= 0) {
@@ -52,18 +60,15 @@ class Militia {
             this._nextAttackTime = Math.randomRange(Militia.attackDelayMin, Militia.attackDelayMax)
             this.attack()
         }
-        // Check your distance from the target randomly
-        if ((control.millis() - this._lastDirectionTick) > Militia.directionChangeInterval) {
-            this._lastDirectionTick = control.millis()
-            console.log('Checking target')
-        }
+        // Check your distance from the target randomly (TODO)
+        // if ((control.millis() - this._lastDirectionTick) > Militia.directionChangeInterval) {
+        //     this._lastDirectionTick = control.millis()
+        // }
 
         // Face your target
-        if (this.currentTarget.sprite.x < this.sprite.x && this.facing === 'right') {
-            // Turn around
+        if (this.currentTarget.sprite.x < this.sprite.x && this.facing === 'right' && !this._isAttacking) {
             this.walk('left')
-        } else if (this.currentTarget.sprite.x > this.sprite.x && this.facing === 'left') {
-            // Turn around
+        } else if (this.currentTarget.sprite.x > this.sprite.x && this.facing === 'left' && !this._isAttacking) {
             this.walk('right')
         }
         this.sprite.z = this.sprite.y
@@ -93,6 +98,7 @@ class Militia {
     attack() {
         // Stop moving
         this.sprite.follow(this.currentTarget.sprite, 0)
+        this._isAttacking = true
         // Play the fire animation
         if (this.facing === 'right') {
             animation.runImageAnimation(
@@ -112,6 +118,11 @@ class Militia {
         
         // Slightly after the animation we check to see if we hit
         setTimeout(() => {
+            // bigCrash or sonar....
+            music.play(music.melodyPlayable(music.bigCrash), music.PlaybackMode.InBackground)
+            // music.play(music.melodyPlayable(music.sonar), music.playSound)
+            // music.createSoundEffect(WaveShape.Sawtooth, 500, 500, 100, 0, 1000, SoundExpressionEffect.None, InterpolationCurve.Linear)
+            // music.playSound('1 1 1')
             // Check to see that our target is in range and fire the hit
             if (Math.abs(this.sprite.y - this.currentTarget.sprite.y) < 30) {
                 this.currentTarget.hit(this, 1)
@@ -120,6 +131,7 @@ class Militia {
 
         // Resume walking
         setTimeout(() => {
+            this._isAttacking = false
             this.walk()
         }, Militia.attackRightAnimation.length * 100)
         

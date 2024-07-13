@@ -54,9 +54,12 @@ namespace Island {
             if (currentSegment < (_island.segments - 1)) {
                 // Tiny delay to show the arrow, cuz... TMNT
                 setTimeout(() => {
-                    arrow = sprites.create(assets.image`Arrow`)
-                    arrow.x = 140
-                    arrow.y = 80
+                    // Recheck if complete just in case we walked before this appeared
+                    if (isSegmentComplete) {
+                        arrow = sprites.create(assets.image`Arrow`)
+                        arrow.x = 140
+                        arrow.y = 80
+                    }
                 }, 1500)
             }
         }
@@ -99,10 +102,13 @@ namespace Island {
 
     function placeEnemies() {
         // The number of enemies is based on the risk level of the island
+        // number of players AND segment level
         // Start most enemies a bit from the left (avoiding starting ON the players)
         const locX = Math.randomRange(_boundingBox[0] + 20, _boundingBox[2])
         const locY = Math.randomRange(_boundingBox[1], _boundingBox[3])
         const randomTarget = Math.randomRange(0,1) === 0 ? player1 : player2
+
+        const numberOfEnemies = Math.floor((2 * currentSegment) * _island.risk + 4)
 
         currentEnemies.push(new Militia({ x: locX, y: locY, target: randomTarget }))
     }

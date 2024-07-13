@@ -10,6 +10,9 @@ type AttackCallbackParams = { pirate: Pirate, direction: 'left' | 'right' }
 class Pirate {
     static _attackDelay: number = 400
 
+    static parrySound: music.SoundEffect = music.createSoundEffect(WaveShape.Noise, 5000, 5000, 255, 0, 100, SoundExpressionEffect.Vibrato, InterpolationCurve.Curve)
+    static deathSound: music.SoundEffect = music.createSoundEffect(WaveShape.Triangle, 2202, 476, 129, 0, 861, SoundExpressionEffect.Warble, InterpolationCurve.Logarithmic)
+
     idleRightAnimation: Image[] = assets.animation`Pirate Stand`
     idleLeftAnimation: Image[] = Utils.flipAnimation(assets.animation`Pirate Stand`)
     attackLeftAnimation: Image[] = Utils.flipAnimation(assets.animation`Pirate Swing w Sword`)
@@ -93,7 +96,10 @@ class Pirate {
     }
 
     public hit(enemy: Militia, damage: number) {
-        if (this.isParrying) return
+        if (this.isParrying) {
+            music.play(Pirate.parrySound, music.PlaybackMode.InBackground)
+            return
+        }
 
         scene.cameraShake(2, 500)
         this.health -= damage
@@ -107,6 +113,8 @@ class Pirate {
     attack(attackCallback: (T: AttackCallbackParams) => void) {
         // Can't attack more frequently than attackDelay
         if (control.millis() - this._lastAttackTick < Pirate._attackDelay) return
+
+        music.play(Pirate.deathSound, music.PlaybackMode.InBackground)
 
         // Clear the "is attacking" tag after the animation completes
         clearTimeout(this._isAttackingTimeout)
