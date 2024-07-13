@@ -21,8 +21,14 @@ namespace Map {
     let currentSelectedIslandIndex = 0
     let _onSelectIsland: (island: Island) => void
     let _islands: Array<Island>
+    // Prevents smashing and accidentally going to the same island
+    let _selectIslandDelay: number = 1500
+    let _leftIslandTick: number = 0
 
     function selectIsland() {
+        // We can't select the island too quickly after seeing this scene
+        if (control.millis() - _leftIslandTick < _selectIslandDelay) return
+
         // Remove all listeners and run the beat-em-up phase
         controller.player1.left.removeEventListener(ControllerButtonEvent.Pressed, moveCursorLeft)
         controller.player1.right.removeEventListener(ControllerButtonEvent.Pressed, moveCursorRight)
@@ -62,6 +68,8 @@ namespace Map {
 
     export function init(islands: Array<Island>) {
         scene.setBackgroundColor(6)
+        // Give us a second before allowing us to select an island
+        _leftIslandTick = control.millis()
 
         music.play(music.createSong(assets.song`We be Sailin`), music.PlaybackMode.LoopingInBackground)
         

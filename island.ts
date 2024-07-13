@@ -1,10 +1,12 @@
 namespace Island {
     const treasureImage: Image = assets.image`Chest`
     const openTreasureAnimation: Image[] = assets.animation`Chest Open`
+    const civilianRunRightAnimation: Image[] = assets.animation`Innocent Civilian 1`
 
     let player1: Pirate
     let player2: Pirate
     let currentEnemies: Array<Militia> = []
+    let currentCivilians: Array<Sprite> = []
     let currentSegment: number = 0
     let isSegmentComplete: boolean = false
     let arrow: Sprite
@@ -16,6 +18,7 @@ namespace Island {
     let _onLeaveIsland: () => void
     let _dirtSpeckles: Sprite[] = []
     let _treasureSprite: Sprite
+    let _treasureOpened: boolean = false
 
     function onPirateAttack({ pirate, direction }: { pirate: Pirate, direction: 'left' | 'right' }) {
         const dirPix = direction === 'left' ? -1 : 1
@@ -25,7 +28,9 @@ namespace Island {
         const hitYZone = [pirate.sprite.y - 4, pirate.sprite.y + 2]
 
         // Check to see if we slashed the treasure!
-        if (_treasureSprite && isSegmentComplete) {
+        if (_treasureSprite && isSegmentComplete 
+            && Math.abs(pirate.sprite.x - _treasureSprite.x) < 10
+            && Math.abs(pirate.sprite.y - _treasureSprite.y) < 10) {
             openTreasure()
             return
         }
@@ -114,7 +119,7 @@ namespace Island {
     }
 
     function showTreasure() {
-        console.log("Showing treasure")
+        _treasureOpened = false
         _treasureSprite = sprites.create(treasureImage)
         const randX = Math.randomRange(_boundingBox[0] + 20, _boundingBox[2] - 15)
         const randY = Math.randomRange(_boundingBox[1] + 50, _boundingBox[3] - 15)
@@ -124,29 +129,51 @@ namespace Island {
     }
 
     function openTreasure() {
-        animation.runImageAnimation(
-            _treasureSprite,
-            openTreasureAnimation,
-            200,
-            false
-        )
-        setTimeout(() => {
-            // Exit the island after the animation!
-            leaveIsland()
-        }, openTreasureAnimation.length * 200 + 500)
+        // Prevent both players from opening this at once
+        if (!_treasureOpened) {
+            _treasureOpened = true
+            animation.runImageAnimation(
+                _treasureSprite,
+                openTreasureAnimation,
+                200,
+                false
+            )
+            setTimeout(() => {
+                // Exit the island after the animation!
+                leaveIsland()
+            }, openTreasureAnimation.length * 200 + 500)
+        }
     }
 
     function placeEnemies() {
         // The number of enemies is based on the risk level of the island
         // number of players AND segment level
         // Start most enemies a bit from the left (avoiding starting ON the players)
-        const locX = Math.randomRange(_boundingBox[0] + 20, _boundingBox[2])
-        const locY = Math.randomRange(_boundingBox[1], _boundingBox[3])
-        const randomTarget = Math.randomRange(0,1) === 0 ? player1 : player2
-
         const numberOfEnemies = Math.floor((2 * currentSegment) * _island.risk + 4)
+        Utils.getArrayOfLength(numberOfEnemies).forEach(() => {
+            const locX = Math.randomRange(_boundingBox[0] + 20, _boundingBox[2])
+            const locY = Math.randomRange(_boundingBox[1], _boundingBox[3])
+            const randomTarget = Math.randomRange(0, 1) === 0 ? player1 : player2
+            
+            currentEnemies.push(new Militia({ x: locX, y: locY, target: randomTarget }))
+        })
 
-        currentEnemies.push(new Militia({ x: locX, y: locY, target: randomTarget }))
+        Utils.getArrayOfLength(Math.randomRange(1, 3)).forEach(() => {
+            const locX = Math.randomRange(_boundingBox[0] + 20, _boundingBox[2])
+            const locY = Math.randomRange(_boundingBox[1], _boundingBox[3])
+
+            const civilianSprite = sprites.create(assets.image`empty`)
+            civilianSprite.x = locX
+            civilianSprite.y = locY
+            civilianSprite.setVelocity(30, 0)
+            animation.runImageAnimation(
+                civilianSprite,
+                civilianRunRightAnimation,
+                100,
+                true
+            )
+            currentCivilians.push(civilianSprite)
+        })
     }
 
     function leaveIsland() {
@@ -157,6 +184,8 @@ namespace Island {
 
         currentEnemies.map(enemy => enemy.destory())
         currentEnemies = []
+        currentCivilians.map(civilian => civilian.destroy())
+        currentCivilians = []
 
         if (_treasureSprite) {
             _treasureSprite.destroy()
@@ -203,7 +232,7 @@ namespace Island {
 
         // Check to see if we've completed the segment, there's another segment to go to
         // and that at least one pirate is on the far right side:
-        if (isSegmentComplete && (player1.sprite.x > 150 || player2.sprite.x > 150) && currentSegment < _island.segments) {
+        if (isSegmentComplete && (player1.sprite.x > 150 || player2.sprite.x > 150) && currentSegment < (_island.segments - 1)) {
             panCameraToNextSegment()
         }
     }
