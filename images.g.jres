@@ -64,6 +64,16 @@
         "mimeType": "image/x-mkcd-f4",
         "displayName": "Map"
     },
+    "image14": {
+        "data": "hwQIAAgAAAAAVUUAUFVVBFBVVQRQVVUEUFVVBFBVVQRQVVUEAFVFAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "Coin"
+    },
+    "image15": {
+        "data": "hwQIAAgAAAAA/w8A8BEPAB8f8Q8fEbHxHxER+x8f8Q/wEQ8AAP8PAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "Skull"
+    },
     "anim14": {
         "namespace": "myAnimations",
         "id": "anim14",
