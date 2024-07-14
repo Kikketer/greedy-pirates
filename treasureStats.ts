@@ -87,8 +87,7 @@ namespace TreasureStats {
             scoreSprite.z = 100
             treasureSprites.push(scoreSprite)
 
-            iconSprite.x = 80 - (scoreSprite.width / 2 + 3)
-            iconSprite.x = 70
+            iconSprite.x = 80 - (scoreSprite.width / 2 + 6)
             iconSprite.y = currentY
             iconSprites.push(iconSprite)
             currentY += 9

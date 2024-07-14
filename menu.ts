@@ -7,6 +7,8 @@ namespace Menu {
         controller.player1.A.removeEventListener(ControllerButtonEvent.Pressed, startGame)
         _choiceSprite.destroy()
 
+        music.stopAllSounds()
+
         _callback()
     }
 
@@ -15,6 +17,8 @@ namespace Menu {
         _choiceSprite = textsprite.create('Arrrgh Be Greedy!', 0, 15)
         _choiceSprite.x = 80
         _choiceSprite.y = 100
+
+        music.play(music.createSong(assets.song`Title`), music.PlaybackMode.LoopingInBackground)
 
         controller.player1.A.addEventListener(ControllerButtonEvent.Pressed, startGame)
     }
