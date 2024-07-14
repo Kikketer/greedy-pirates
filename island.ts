@@ -18,7 +18,7 @@ namespace Island {
     // [topleftX, topLeftY, bottomLeftX, bottomLeftY]
     let _boundingBox: number[] = [0, 55, 160, 120]
     let _island: Map.Island
-    let _onUpdateTreasure: (T: OnUpdateTreasureProps) => void = () => undefined
+    let _onUpdateTreasure: (T: TreasureStats.OnUpdateTreasureProps) => void = () => undefined
     let _onLeaveIsland: () => void
     let _dirtSpeckles: Sprite[] = []
     let _treasureSprite: Sprite
@@ -111,7 +111,7 @@ namespace Island {
     }
 
     function drawBackground() {
-        scene.setBackgroundImage(assets.image`myImage`)
+        scene.setBackgroundImage(assets.image`Background`)
         // Clear any exisitng speckles
         _dirtSpeckles.forEach((speckle: Sprite) => {
             speckle.destroy()
@@ -221,13 +221,15 @@ namespace Island {
         _onLeaveIsland()
     }
 
-    export function init({ island, onTreasureUpdate }: { island: Map.Island, onTreasureUpdate: (T: TreasureStat) => void }) {
+    export function init({ island, onTreasureUpdate }: { island: Map.Island, onTreasureUpdate: (T: TreasureStats.TreasureStat) => void }) {
         _island = island
         _onUpdateTreasure = onTreasureUpdate
         isSegmentComplete = false
         currentSegment = 0
 
         scene.setBackgroundColor(8)
+        TreasureStats.show(['pocket'])
+        
         player1 = new Pirate({ control: controller.player1, playerNumber: 0, onAttack: onPirateAttack, topBoundary: _boundingBox[1], statLocation: player1StatLocation })
         player2 = new Pirate({ control: controller.player2, playerNumber: 1, onAttack: onPirateAttack, topBoundary: _boundingBox[1], statLocation: player2StatLocation })
 

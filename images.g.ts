@@ -104,98 +104,6 @@ d d a a a c c d d . . . . . . .
 . . 2 2 2 f . . 
 . . . 2 f . . . 
 `;
-            case "image9":
-            case "myImage":return img`
-bbbbbbbbbbbbbbbbbbbbebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-bbbbbbbbbbbbbbbbbbbeebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-bbbbbbbbbbbbbbbbbbeeeebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-bbbbbbbbbbbbbbbbbeeeeeebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb1111bbbb11bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-bb11111bbbbbbbbbeeeeeeebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb11111111111bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-b111111111bbbbbbeeeeeeeebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb111111111111111111bbbb111bbbbbbbbbbbbbbbbbbbbbbbbbbbb11111bbbbbbbbbbbbbbbbb
-b111111111bbbbbeeeeeeeeeebbbbbbbbbbbbbbbbbbb11bbbb11111bbbbbbbbbbbbbbbbbbbbbbbbbbbbbb1111111111111111111111111bbbbbbbbbbbbbbbbbb111111111111111bbbbbbbbbbbbbbbbb
-b111111111bbbbeeeeeeeeeeeebbbbbbbbbbbbbbbbb1111111111111bbbbbbbbbbbbbbbbbbbbbbbbbbb11111111111111111111111111bbbbbbbbbbbbbbbbbbb111111111111111111bbbbbbbbbbbbbb
-bbbbbbbbbbbbbeeeeeeeeeeeeeebbbbbbbbbbbbbbbbb111111111111111bbbbbbbbbbbbbbbbbbbbbbbb111111111111111111111111111111bbbbbbbbbbbbb111111111111111111111bbbbbbbbbbbbb
-bbbbbbbbbbbbeeeeeeeeeeeeeeeebbbbbbbbbbbbb11111111111111111111bbbbbbbbbbbbbbbbbbbbbb11111111111111111111111111111111bbbbbbbbbb11111111111111111111111bbbbbbbbbbbb
-bbbbbbbbbbbeeeeeeeeeeeeeeeeebbbbbbbbbbbbbb11111111111111111111bbbbbbbbbbbbbbbbbbbb111111111111111111111111111111111bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-bbbbbbbbbbeeeeeeeeeeeeeeeeeeebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb111111111111111111111111111bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-bbbbbbbbbbeeeeeeeeeeeeeeeeeeeebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-bbbbbbbbbeeeeeeeeeeeeeeeeeeeeeebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-bbbbbbbbeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-bbbbbbbeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-bbbbbbeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-bbbbbeeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-bbbbeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-bbbeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-bbbeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-bbeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-ee11111111111e11111111111e11111111111e1ebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-e1e111111111e1e111111111e1e111111111e1eebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-e11e1111111e111e1111111e111e1111111e111ebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-e111e11111e11111e11111e11111e11111e1111ebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-e1111e111e1111111e111e1111111e111e11111ebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-e11111e1e111111111e1e111111111e1e111111ebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-e111111e11111111111e11111111111e1111111ebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-e11111e1e111111111e1e111111111e1e111111ebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-e1111e111e1111111e111e1111111e111e11111ebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-e111e11111e11111e11111e11111e11111e1111ebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-e11e1111111e111e1111111e111e1111111e111ebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-e1e111111111e1e111111111e1e111111111e11ebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-ee11111111111e11111111111e11111111111e1ebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-e1e111111111e1e111111111e1e11111111111eebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-e11eeeeeeeee111e1111111e111e1eeeeeeee11ebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-e111e999999e1111e11111e11111ee999999e11ebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-e111e999999e11111e111e1111111e999999e11ebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-e111e999999e111111e1e11111111e999999e11ebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-e111e999999e1111111e111111111e999999e11ebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-e111e999999e111111e1e11111111e999999e11ebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-e111eeeeeeee11eeeeeeeeeeeee11eeeeeeee11ebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-e11e11111e1111e11111111111e1e11111e1111ebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-e1e1111111e111e11111111111ee1111111e111ebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-ee111111111e1ee11111111111e111111111e11ebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-ee1111111111e1e11111111111e1111111111e1ebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-e1e11111111e11e11111111111e11111111111eebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-e11e111111e111e11111111111e111111111111ebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-e111e1111e1111e11111111111e111111111111ebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-e1111e11e11111e11111111111e111111111111ebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-e11111ee111111e11111111111e111111111111ebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-e11111e1e11111e11111111111e111111111111ebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-e1111e111e1111e11111111111e111111111111ebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-e111e11111e111e11111111111e111111111111ebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-e11e1111111e11eeeeeeeeeeeee111111111111ebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-`;
-            case "image8":
-            case "Militia Broken and Broke":return img`
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . e . . . . . 
-. . . . a a a . . . . e . . . . 
-. . . a a a e e . . e e . . . . 
-. . . a a a a a a a e e . . . . 
-. . . e e d d d d e e e . . . . 
-. . . d d d d d d . e e . . . . 
-. . . d d d d b d . e e . . . . 
-f . . a d d d d a a e e f . . . 
-f d d c a a a a c c e e f . . . 
-f d d a a a a a a c e e f . . . 
-`;
-            case "image7":
-            case "Heart":return img`
-. 3 3 . 2 2 f . 
-3 2 2 2 2 2 2 f 
-3 2 2 2 2 2 2 f 
-2 2 2 2 2 2 2 f 
-. 2 2 2 2 2 f . 
-. . 2 2 2 f . . 
-. . . 2 f . . . 
-`;
             case "image13":
             case "Background":return img`
 66666666666666666666e666666666666666b11111166b11111111116666666666666666666666666e6666666666666666666666666666666666666666666666666666666666e6666666666666666666
@@ -259,8 +167,38 @@ e111e11111e111e55555555555ee111111111e1e77c777777777777777777edddedddddeddde4444
 e11e1111111e11eeeeeeeeeeeee11111111111ee777777777777777777777eddedddddddeddeeeeeeeeeeeeeddddddddddde77777777777777777777711e1111111e11eeeeeeeeeeeee11111111111ee
 eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeec7777777777777777777ceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee7777777777777777777eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
 `;
+            case "image9":
+            case "Root Beer":return img`
+. . 1 . . 1 . . 
+1 1 1 1 1 1 1 . 
+e c 1 c 1 e 1 . 
+e c e c 1 e b b 
+1 c e e e e . b 
+e c e c e e . b 
+e c e e e e b b 
+. e e e e . . . 
+`;
+            case "image8":
+            case "Militia Broken and Broke":return img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . e . . . . . 
+. . . . a a a . . . . e . . . . 
+. . . a a a e e . . e e . . . . 
+. . . a a a a a a a e e . . . . 
+. . . e e d d d d e e e . . . . 
+. . . d d d d d d . e e . . . . 
+. . . d d d d b d . e e . . . . 
+f . . a d d d d a a e e f . . . 
+f d d c a a a a c c e e f . . . 
+f d d a a a a a a c e e f . . . 
+`;
             case "image10":
-            case "Title Image":return img`
+            case "Splash Screen":return img`
 2222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222
 2222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222
 2222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222
@@ -381,17 +319,6 @@ eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeec7777777777777777777ceeeeeeeeeeeeeeeeeee
 6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666
 6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666
 6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666
-`;
-            case "image9":
-            case "Root Beer":return img`
-. . 1 . . 1 . . 
-1 1 1 1 1 1 1 . 
-e c 1 c 1 e 1 . 
-e c e c 1 e b b 
-1 c e e e e . b 
-e c e c e e . b 
-e c e e e e b b 
-. e e e e . . . 
 `;
         }
         return null;
@@ -1560,143 +1487,43 @@ f 5 5 a d d d d a a e e f . . .
 f d d c a a a a c c e e f . . . 
 f d d a a a a a a c e e f 5 . . 
 `];
-            case "Pirate Die":
+            case "Boat Be Float0":
             case "anim17":return [img`
-. . . . . . . . . . . . . . . . 
-. . e e . . e e . . . . . . . . 
-. e e c e e e e . . . . . . . . 
-. . c e e e e . . . . . . . . . 
-e e e e d d d f . . . . . . . . 
-. f f d 1 d 1 d . . . . . . . . 
-d b d d d b d d . . . . . . . . 
-d d b d d d d . . . . . . . . . 
-. . . d d d . . . . . . . . . . 
-. e e e e e e e . . . . . . . . 
-e e c e e e c e e . . . . . . . 
-e c e e e e e c e . . . . . . . 
-d d d e e e e d d d . . . . . . 
-d d a a a c c d d . . . . . . . 
-. a a a . . c c . . . . . . . . 
-. f f f f . f f f . . . . . . . 
+. . . . . . . . 
+. . f 1 f . . . 
+. . f f e . . . 
+. . . . e . . . 
+. e e e e e e . 
+. . e . e . . . 
+. . . . . . . . 
+. . . . . . . . 
 `, img`
-. . . . . . . . . . . . . . . . 
-. . . . . e e . . e e . . . . . 
-. . . . e e c e e e e . . . . . 
-. . . . . c e e e e . . . . . . 
-. . . e e e e f f f f . . . . . 
-. . . . . . f f d d d f . . . . 
-. . . . . f f d d d d d . . . . 
-d d . . d b d d 1 d 1 d . . . . 
-d d e . d d b d d b d e d d . . 
-. e e e e e e d d d e e d d . . 
-. e e c e e e e c e e e . . . . 
-. . e e e e e e e c e . . . . . 
-. e e e e e e e e e . . . . . . 
-. a a a a c c e e . . . . . . . 
-a a a a a c c c . . . . . . . . 
-f f f f . f f f f . . . . . . . 
+. . . . . . . . 
+. . . . f f . . 
+. . . . f e . . 
+. . . . . e . . 
+. . . . . e . . 
+. e e e . e . . 
+. . . . . . . . 
+. . . . . . . . 
 `, img`
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . e e . . . . . . . 
-. . . . . . e e e e . . . . . . 
-. . . . e e c c e c e e . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . e e . . . . f f f f . 
-. . . e e e e e e . f f d d d f 
-f a a a e c e c e f f d d d d d 
-f a a a e c e e d b d d d d d d 
-f a a e e d d b d d b d d b d . 
+. . . . . . . . 
+. . f 1 f . . . 
+. . f f e . . . 
+. . . . e . . . 
+. e e e e e e . 
+. . . e . e . . 
+. . . . . . . . 
+. . . . . . . . 
 `, img`
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . e e . . . . . . . 
-. . . . e e e c e . . . . . . . 
-. . . . . . e c e . . . . . . . 
-. . . . . . . . e e . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . e e . . . . f f f f . 
-. . . e e e e e e . f f d d d f 
-f a a a e c e c e f f d d d d d 
-f a a a e c e e d b d d d d d d 
-f a a e e d d b d d b d d b d . 
-`, img`
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . e e . . . . . . . . . . 
-. . . . e c e e e . . . . . . . 
-. . . . e c e . . . . . . . . . 
-. . . e e . . . . . . . . . . . 
-. . . . . e e . . . . f f f f . 
-. . . e e e e e e e f f d d d f 
-f a a a e c e c e f f d d d d d 
-f a a a e c e e d b d d d d d d 
-f a a e e d d b d d b d d b d . 
-`, img`
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . e e . . . . . . . . . 
-. . . . e c c e . . . . . . . . 
-. . . e c e e c e . . f f f f . 
-. . . e e e e e e e f f d d d f 
-f a a a e c e c e f f d d d d d 
-f a a a e c e e d b d d d d d d 
-f a a e e d d b d d b d d b d . 
-`, img`
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . e e . . . . . . . . . 
-. . . . e c c e . . . . . . . . 
-. . . e c e e c e . . f f f f . 
-. . . e e e e e e e f f d d d f 
-f a a a e c e c e f f d d d d d 
-f a a a e c e e d b d d d d d d 
-f a a e e d d b d d b d d b d . 
-`, img`
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . e e . . . . . . . . . 
-. . . . e c c e . . . . . . . . 
-. . . e c e e c e . . f f f f . 
-. . . e e e e e e e f f d d d f 
-f a a a e c e c e f f d d d d d 
-f a a a e c e e d b d d d d d d 
-f a a e e d d b d d b d d b d . 
+. . . . . . . . 
+. . . . . . . . 
+. . f f . . . . 
+. . f e . . . . 
+. . . e e e e . 
+. e . e . e . . 
+. . . . . . . . 
+. . . . . . . . 
 `];
             case "Pirate Drink":
             case "anim22":return [img`
@@ -1825,6 +1652,8 @@ d d a a a c c d d . . . . . . .
 
     helpers._registerFactory("song", function(name: string) {
         switch(helpers.stringTrim(name)) {
+            case "song1":
+            case "mySong":return hex`0078000408050206001c00010a006400f401640000040000000000000000000000000000000002d20000000400012a04000800012908000c00012a0c001000012c10001400012a14001800012918001c00012a1c002000012c20002800012a28002c0001272c003000012930003400012a34003800012738003c0001293c004000012540004400012a44004800012c48004c00012a4c005000012950005400012a54005800012c58005c00012a5c006000012960006400012a64006800012c68007000012a70007400012c74007800012a78007c0001277c008000012c80008400012a84008800012c88008c00012a8c00900001299000a000012707001c00020a006400f401640000040000000000000000000000000000000003f00000000400012204000800012208000c0001220c001000011b10001400011d14001800012218001c0001221c002000012220002400011b24002800011d28002c0001222c003000012230003400012234003800011b38003c00011d3c004000012240004400012244004800012248004c00011b4c005000011d50005400011954005800011958005c0001195c006000011d60006400011e64006800011968006c0001196c007000011970007400011d74007800011e78007c0001197c008000011980008400011984008800011d88008c00011e8c009000012490009400012494009800012498009c0001259c00a0000127`;
             case "song3":
             case "Game Over":return hex`0032000408020306001c00010a006400f401640000040000000000000000000000000000000002300000002000012420002400012424002800012228002c0001202c003000011e30003400011d34003800011b38004000011907001c00020a006400f4016400000400000000000000000000000000000000035a0000000400012404000800012208000c0001200c001000012210001400012414001800012518001c0001241c002000012220002400012024002800012228002c0001242c003000012530003800012438003c0001203c004000011d08001c000e050046006603320000040a002d00000064001400010000020000022a0000000400012404000800012208000c0001200c001000011e10001400011d14001800011b18002c000119`;
             case "song4":

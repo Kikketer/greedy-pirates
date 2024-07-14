@@ -67,13 +67,14 @@ namespace Map {
     }
 
     export function init(islands: Array<Island>) {
-        scene.setBackgroundColor(6)
         // Give us a second before allowing us to select an island
         _leftIslandTick = control.millis()
-
-        music.play(music.createSong(assets.song`We be Sailin`), music.PlaybackMode.LoopingInBackground)
-        
         _islands = islands
+
+        scene.setBackgroundColor(6)
+        music.play(music.createSong(assets.song`We be Sailin`), music.PlaybackMode.LoopingInBackground)
+        TreasureStats.show(['island', 'boat'])
+        
         // Cursor
         cursor = sprites.create(assets.image`empty`)
 

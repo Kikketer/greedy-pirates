@@ -18,7 +18,9 @@
         "utils.ts",
         "island.ts",
         "pirate.ts",
-        "militia.ts"
+        "militia.ts",
+        "menu.ts",
+        "treasureStats.ts"
     ],
     "testFiles": [
         "test.ts"
