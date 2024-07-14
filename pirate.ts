@@ -22,11 +22,14 @@ class Pirate {
     parryRightSprite: Image = assets.image`Pirate`
     walkRightAnimation: Image[] = assets.animation`Pirate Walk`
     walkLeftAnimation: Image[] = Utils.flipAnimation(assets.animation`Pirate Walk`)
+    hurtRightAnimation: Image[] = assets.animation`Pirate Hurt`
+    hurtLeftAnimation: Image[] = Utils.flipAnimation(assets.animation`Pirate Hurt`)
 
     sprite: Sprite
     facing: 'left' | 'right'
     controller: controller.Controller
     isAttacking?: 'left' | 'right'
+    isGettingHurt?: boolean = false
     isParrying?: 'left' | 'right'
     _topBoundary: number = 0
     _lastAttackTick: number = 0
@@ -100,7 +103,7 @@ class Pirate {
     }
 
     public render() {
-        if (!this.isAttacking) {
+        if (!this.isAttacking && !this.isGettingHurt) {
             this.sprite.x += this.controller.dx(50)
             this.sprite.y += this.controller.dy(50)
         }
@@ -118,10 +121,25 @@ class Pirate {
             return
         }
 
-        scene.cameraShake(2, 500)
         this.health -= damage
+        this.isGettingHurt = true
+
+        if (this.health > 0) {
+            animation.runImageAnimation(
+                this.sprite,
+                this.facing === 'right' ? this.hurtRightAnimation : this.hurtLeftAnimation,
+                200,
+                false
+            )
+            setTimeout(() => {
+                this.isGettingHurt = false
+            }, this.hurtLeftAnimation.length * 200)
+        } else {
+            // You dead!
+        }
+
+        scene.cameraShake(2, 500)
         this._updateStats()
-        // Add death!
     }
 
     parry() {
@@ -200,6 +218,8 @@ class Pirate {
         Utils.swapAnimationColors(this.attackRightAnimation, 14, toColor)
         Utils.swapAnimationColors(this.walkRightAnimation, 14, toColor)
         Utils.swapAnimationColors(this.walkLeftAnimation, 14, toColor)
+        Utils.swapAnimationColors(this.hurtRightAnimation, 14, toColor)
+        Utils.swapAnimationColors(this.hurtLeftAnimation, 14, toColor)
     }
 
     _setupAnimations() {
