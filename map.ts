@@ -22,6 +22,8 @@ namespace Map {
         if (_islandNameSprite) {
             _islandNameSprite.destroy()
         }
+        _coinSprites.forEach((coin) => coin.destroy())
+        _skullSprites.forEach((skull) => skull.destroy())
 
         // Remove all listeners and run the beat-em-up phase
         controller.player1.left.removeEventListener(ControllerButtonEvent.Pressed, moveCursorLeft)
