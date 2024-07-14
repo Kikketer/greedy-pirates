@@ -97,7 +97,7 @@ namespace Map {
         controller.player1.A.addEventListener(ControllerButtonEvent.Pressed, selectIsland)
 
         // Initial render of the cursor
-        renderCursor(currentIsland ? currentIsland : islands[0], cursor)
+        renderCursor(islands[currentSelectedIslandIndex], cursor)
         // And selected island
         renderIslandStats(islands[currentSelectedIslandIndex])
     }
