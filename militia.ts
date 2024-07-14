@@ -10,14 +10,14 @@ class Militia {
     static attackDelayMin: number = 4000
     static attackDelayMax: number = 6000
 
-    sprite: Sprite
-    currentTarget?: Pirate
-    facing: 'left' | 'right' = 'right'
-    _nextAttackTime: number
-    _lastAttackTick: number
-    _lastDirectionTick: number = 0
-    _isAttacking: boolean = false
-    _isParrying: boolean = false
+    private currentTarget?: Pirate
+    private facing: 'left' | 'right' = 'right'
+    private _nextAttackTime: number
+    private _lastAttackTick: number
+    private _lastDirectionTick: number = 0
+    private _isAttacking: boolean = false
+    private _isParrying: boolean = false
+    public sprite: Sprite
     public health: number = 1
 
     constructor({ x, y, target }: { x: number, y: number, target?: Pirate }) {
@@ -76,7 +76,13 @@ class Militia {
         this.sprite.z = this.sprite.y
     }
 
-    walk(direction?: 'left' | 'right') {
+    public setCurrentTarget(pirate: Pirate) {
+        console.log('Setting target')
+        this.currentTarget = pirate
+        this.sprite.follow(this.currentTarget.sprite, Militia.speed)
+    }
+
+    private walk(direction?: 'left' | 'right') {
         this.facing = direction ? direction : this.facing
         this.sprite.follow(this.currentTarget.sprite, Militia.speed)
 
@@ -97,7 +103,7 @@ class Militia {
         }
     }
 
-    attack() {
+    private attack() {
         // Stop moving
         this.sprite.follow(this.currentTarget.sprite, 0)
         this._isAttacking = true

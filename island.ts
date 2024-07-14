@@ -64,6 +64,24 @@ namespace Island {
         checkIfSegmentIsComplete()
     }
 
+    function onPirateDeath({ pirate }: { pirate: Pirate}) {
+        console.log('pirate died! ' + player2.health)
+        // If there's still a living pirate, re-target all enemies to the other pirate
+        if (player1.health > 0) {
+            retargetEnemies(player1)
+        } else if (player2.health > 0) {
+            retargetEnemies(player2)
+        } else {
+            // Everyone is dead!
+        }
+    }
+
+    function retargetEnemies(pirate: Pirate) {
+        currentEnemies.forEach((enemy) => {
+            enemy.setCurrentTarget(pirate)
+        })
+    }
+
     function checkIfSegmentIsComplete() {
         if (currentEnemies.length) {
             isSegmentComplete = false
@@ -230,8 +248,8 @@ namespace Island {
         scene.setBackgroundColor(8)
         TreasureStats.show(['pocket'])
         
-        player1 = new Pirate({ control: controller.player1, playerNumber: 0, onAttack: onPirateAttack, topBoundary: _boundingBox[1], statLocation: player1StatLocation })
-        player2 = new Pirate({ control: controller.player2, playerNumber: 1, onAttack: onPirateAttack, topBoundary: _boundingBox[1], statLocation: player2StatLocation })
+        player1 = new Pirate({ control: controller.player1, playerNumber: 0, onAttack: onPirateAttack, onDie: onPirateDeath, topBoundary: _boundingBox[1], statLocation: player1StatLocation })
+        player2 = new Pirate({ control: controller.player2, playerNumber: 1, onAttack: onPirateAttack, onDie: onPirateDeath, topBoundary: _boundingBox[1], statLocation: player2StatLocation })
 
         music.play(music.createSong(assets.song`Theme`), music.PlaybackMode.LoopingInBackground)
 

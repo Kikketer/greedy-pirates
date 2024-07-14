@@ -14,50 +14,55 @@ class Pirate {
     static deathSound: music.SoundEffect = music.createSoundEffect(WaveShape.Triangle, 2202, 476, 129, 0, 861, SoundExpressionEffect.Warble, InterpolationCurve.Logarithmic)
     static heartIcon: Image = assets.image`Heart`
 
-    idleRightAnimation: Image[] = assets.animation`Pirate Stand`
-    idleLeftAnimation: Image[] = Utils.flipAnimation(assets.animation`Pirate Stand`)
-    attackLeftAnimation: Image[] = Utils.flipAnimation(assets.animation`Pirate Swing w Sword`)
-    attackRightAnimation: Image[] = assets.animation`Pirate Swing w Sword`
-    parryLeftSprite: Image = assets.image`Pirate`
-    parryRightSprite: Image = assets.image`Pirate`
-    walkRightAnimation: Image[] = assets.animation`Pirate Walk`
-    walkLeftAnimation: Image[] = Utils.flipAnimation(assets.animation`Pirate Walk`)
-    hurtRightAnimation: Image[] = assets.animation`Pirate Hurt`
-    hurtLeftAnimation: Image[] = Utils.flipAnimation(assets.animation`Pirate Hurt`)
+    private idleRightAnimation: Image[] = assets.animation`Pirate Stand`
+    private idleLeftAnimation: Image[] = Utils.flipAnimation(assets.animation`Pirate Stand`)
+    private attackLeftAnimation: Image[] = Utils.flipAnimation(assets.animation`Pirate Swing w Sword`)
+    private attackRightAnimation: Image[] = assets.animation`Pirate Swing w Sword`
+    private parryLeftSprite: Image = assets.image`Pirate`
+    private parryRightSprite: Image = assets.image`Pirate`
+    private walkRightAnimation: Image[] = assets.animation`Pirate Walk`
+    private walkLeftAnimation: Image[] = Utils.flipAnimation(assets.animation`Pirate Walk`)
+    private hurtRightAnimation: Image[] = assets.animation`Pirate Hurt`
+    private hurtLeftAnimation: Image[] = Utils.flipAnimation(assets.animation`Pirate Hurt`)
+    private deathRightAnimation: Image[] = assets.animation`Pirate Dead`
+    private deathLeftAnimation: Image[] = Utils.flipAnimation(assets.animation`Pirate Dead`)
 
-    sprite: Sprite
-    facing: 'left' | 'right'
-    controller: controller.Controller
-    isAttacking?: 'left' | 'right'
-    isGettingHurt?: boolean = false
-    isParrying?: 'left' | 'right'
-    _topBoundary: number = 0
-    _lastAttackTick: number = 0
-    _isAttackingTimeout: number
-    _statLocation: number[] = [0,0]
-    _healthSprites: Sprite[] = []
+    private facing: 'left' | 'right'
+    private controller: controller.Controller
+    private isAttacking?: 'left' | 'right'
+    private isGettingHurt?: boolean = false
+    private isParrying?: 'left' | 'right'
+    private _topBoundary: number = 0
+    private _lastAttackTick: number = 0
+    private _isAttackingTimeout: number
+    private _statLocation: number[] = [0,0]
+    private _healthSprites: Sprite[] = []
+    private _onDieCallback: (T: { pirate: Pirate }) => void
+
+    public sprite: Sprite
     // This action object is for registering event listeners
     // It keeps all functions stable per this class so we can removeEventListners
-    action: ActionObject = {
+    public action: ActionObject = {
         attack: () => undefined,
         parry: () => undefined,
         faceLeft: () => undefined,
         faceRight: () => undefined
     }
-
     public health: number
 
-    constructor({ control, playerNumber, onAttack, topBoundary, statLocation }: { 
+    constructor({ control, playerNumber, onAttack, onDie, topBoundary, statLocation }: { 
             control: controller.Controller,
             playerNumber: 0 | 1,
-            onAttack: (T: AttackCallbackParams) => void
-            topBoundary: number
+            onAttack: (T: AttackCallbackParams) => void,
+            onDie: (T: { pirate: Pirate }) => void,
+            topBoundary: number,
             statLocation: number[]
         }) {
         this.health = 3
         this.facing = 'right'
         this._topBoundary = topBoundary
         this._statLocation = statLocation
+        this._onDieCallback = onDie
 
         this.sprite = sprites.create(assets.image`Pirate`, SpriteKind.Player)
         this.sprite.setStayInScreen(true)
@@ -90,10 +95,12 @@ class Pirate {
         this.sprite.y = y
     }
 
-    public destroy() {
-        this.sprite.destroy()
-        if (this._healthSprites.length) {
-            this._healthSprites.forEach((sprite) => sprite.destroy())
+    public destroy(andDestorySprites: boolean = true) {
+        if (andDestorySprites) {
+            this.sprite.destroy()
+            if (this._healthSprites.length) {
+                this._healthSprites.forEach((sprite) => sprite.destroy())
+            }
         }
         // Remove all event listeners
         this.controller.A.removeEventListener(ControllerButtonEvent.Pressed, this.action.attack)
@@ -103,7 +110,7 @@ class Pirate {
     }
 
     public render() {
-        if (!this.isAttacking && !this.isGettingHurt) {
+        if (!this.isAttacking && !this.isGettingHurt && this.health > 0) {
             this.sprite.x += this.controller.dx(50)
             this.sprite.y += this.controller.dy(50)
         }
@@ -123,8 +130,16 @@ class Pirate {
 
         this.health -= damage
         this.isGettingHurt = true
+        scene.cameraShake(2, 500)
+
+        // Setting to a character animation state that we don't have a rule for
+        // to pause any animation changes while we do this animation
+        // Setting state removes automatic state updates (aka how we prevent this)
+        characterAnimations.setCharacterState(this.sprite, 1024)
 
         if (this.health > 0) {
+            // characterAnimations.clearCharacterState(this.sprite)
+            
             animation.runImageAnimation(
                 this.sprite,
                 this.facing === 'right' ? this.hurtRightAnimation : this.hurtLeftAnimation,
@@ -133,20 +148,42 @@ class Pirate {
             )
             setTimeout(() => {
                 this.isGettingHurt = false
+                // Re-enable the character animations
+                characterAnimations.clearCharacterState(this.sprite)
             }, this.hurtLeftAnimation.length * 200)
         } else {
             // You dead!
+            // We simply say he's always getting hurt when he's dead
+            animation.runImageAnimation(
+                this.sprite,
+                this.facing === 'right' ? this.deathRightAnimation : this.deathLeftAnimation,
+                100,
+                false
+            )
+            
+            this.die()
+
+            setTimeout(() => {
+                this.isGettingHurt = false
+                // Re-enable the character animations
+                characterAnimations.clearCharacterState(this.sprite)
+            }, this.deathLeftAnimation.length * 100)
         }
 
-        scene.cameraShake(2, 500)
         this._updateStats()
     }
 
-    parry() {
+    private die() {
+        console.log('Yarrg, ye be swimmin\' with d\'fishes! 💀🐟')
+        this.destroy(false)
+        this._onDieCallback({ pirate: this })
+    }
+
+    private parry() {
         console.log('parry ' + this.controller.playerIndex)
     }
 
-    attack(attackCallback: (T: AttackCallbackParams) => void) {
+    private attack(attackCallback: (T: AttackCallbackParams) => void) {
         // Can't attack more frequently than attackDelay
         if (control.millis() - this._lastAttackTick < Pirate._attackDelay) return
 
@@ -189,7 +226,7 @@ class Pirate {
         }
     }
 
-    face(direction: 'left' | 'right') {
+    private face(direction: 'left' | 'right') {
         if (direction === 'left' && this.facing === 'right') {
             this.facing = 'left'
         } else if (direction === 'right' && this.facing === 'left') {
@@ -197,7 +234,7 @@ class Pirate {
         }
     }
 
-    _updateStats() {
+    private _updateStats() {
         if (this._healthSprites.length) {
             this._healthSprites.forEach((sprite) => sprite.destroy())
         }
@@ -211,7 +248,7 @@ class Pirate {
         })
     }
 
-    _setupAnimationColors(toColor: number = 14) {
+    private _setupAnimationColors(toColor: number = 14) {
         Utils.swapAnimationColors(this.idleLeftAnimation, 14, toColor)
         Utils.swapAnimationColors(this.idleRightAnimation, 14, toColor)
         Utils.swapAnimationColors(this.attackLeftAnimation, 14, toColor)
@@ -220,9 +257,11 @@ class Pirate {
         Utils.swapAnimationColors(this.walkLeftAnimation, 14, toColor)
         Utils.swapAnimationColors(this.hurtRightAnimation, 14, toColor)
         Utils.swapAnimationColors(this.hurtLeftAnimation, 14, toColor)
+        Utils.swapAnimationColors(this.deathRightAnimation, 14, toColor)
+        Utils.swapAnimationColors(this.deathLeftAnimation, 14, toColor)
     }
 
-    _setupAnimations() {
+    private _setupAnimations() {
         // Setup animations
         // These numbers are coming from the source code: https://github.com/microsoft/arcade-character-animations/blob/main/main.ts
         characterAnimations.loopFrames(
