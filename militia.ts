@@ -80,7 +80,9 @@ class Militia {
                 { x: this.sprite.x, y: this.sprite.y }, 
                 { x: this.currentTarget.sprite.x, y: this.currentTarget.sprite.y }
             )) < 30) {
-                console.log('SSTop walking!')
+                this.sprite.follow(this.currentTarget.sprite, 0)
+            } else {
+                this.sprite.follow(this.currentTarget.sprite, Militia.speed)
             }
         }
 

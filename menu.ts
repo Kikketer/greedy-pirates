@@ -18,6 +18,7 @@ namespace Menu {
         _choiceSprite.x = 80
         _choiceSprite.y = 100
 
+        music.stopAllSounds()
         music.play(music.createSong(assets.song`Title`), music.PlaybackMode.LoopingInBackground)
 
         controller.player1.A.addEventListener(ControllerButtonEvent.Pressed, startGame)
