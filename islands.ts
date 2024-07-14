@@ -8,7 +8,7 @@ namespace Map {
         risk?: number,
         // The quantity of riches, this grows as the island is left alone
         riches?: number,
-        sprite?: Sprite,
+        flagSprite?: Sprite,
         // The number of screens in the level
         // Development time limits = random scenes :)
         segments: number

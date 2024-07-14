@@ -31,8 +31,8 @@ namespace Map {
         controller.player1.A.removeEventListener(ControllerButtonEvent.Pressed, selectIsland)
 
         islands.forEach(island => {
-            if (island.sprite) {
-                island.sprite.destroy()
+            if (island.flagSprite) {
+                island.flagSprite.destroy()
             }
         })
         waves.forEach(wave => wave.destroy())
@@ -78,7 +78,7 @@ namespace Map {
         
         // Cursor
         cursor = sprites.create(assets.image`empty`)
-        cursor.z = 100
+        cursor.z = 120
 
         // Render the waves
         waves = Utils.getArrayOfLength(15).map(() => {
@@ -147,7 +147,23 @@ namespace Map {
         }
     }
 
-    function renderFlags(islands: Array<Island>) {}
+    function renderFlags(islands: Array<Island>) {
+        islands.forEach((island) => {
+            if (island.ownedBy === 'players') {
+                island.flagSprite = sprites.create(assets.image`empty`)
+                island.flagSprite.x = island.x
+                island.flagSprite.y = island.y
+                island.flagSprite.z = island.y
+
+                animation.runImageAnimation(
+                    island.flagSprite,
+                    assets.animation`Your Flag`,
+                    200,
+                    true
+                )
+            }
+        })
+    }
     
     export function render() {}
 }
