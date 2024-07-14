@@ -1,6 +1,6 @@
 /**
  * Greedy Pirates
- * Art: Eli (the first drafts)
+ * Art + Music: Eli
  * Music: Ez (the first drafts)
  * Coding and Fill in the Gap: Chris
  * 
@@ -32,6 +32,7 @@ const playerState = {
     currentIsland: ''
 }
 
+const version: string = 'v0.1'
 const debugMode: boolean = false
 
 let currentState: States

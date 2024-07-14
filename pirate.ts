@@ -127,6 +127,8 @@ class Pirate {
             music.play(Pirate.parrySound, music.PlaybackMode.InBackground)
             return
         }
+        // Can't get hit if you are currently getting hit (invicible during your animation sorta)
+        if (this.isGettingHurt) return
 
         this.health -= damage
         this.isGettingHurt = true
