@@ -18,7 +18,10 @@
 enum States {
     Menu,
     Overview,
-    Island
+    Island,
+    AllDead,
+    GameOver,
+    Win
 }
 enum SpriteKind {
     PlayerAttackLeft,
@@ -45,6 +48,7 @@ const islands: Array<Map.Island> = [
         risk: 0,
         image: assets.image`island`,
         segments: 2,
+        ownedBy: null
     },
     {
         id: 1,
@@ -54,7 +58,8 @@ const islands: Array<Map.Island> = [
         riches: 100,
         risk: 0,
         image: assets.image`island`,
-        segments: 6
+        segments: 6,
+        ownedBy: null
     }
 ]
 
@@ -89,7 +94,10 @@ function switchState(state: States) {
             Map.init(islands)
         break;
         case States.Island:
-            Island.init({ island: currentIsland, onTreasureUpdate: TreasureStats.updateTreasure })
+            Island.init({ island: currentIsland })
+        break;
+        case States.AllDead:
+            AllDead.init()
         break;
         default:
             Menu.init()
@@ -106,8 +114,16 @@ function startGame() {
         currentIsland = undefined
         switchState(States.Overview)
     })
+    Island.onAllDead(() => {
+        // Keep the current island
+        switchState(States.AllDead)
+    })
 
     Menu.onStartGame(() => {
+        switchState(States.Overview)
+    })
+
+    AllDead.onRevive(() => {
         switchState(States.Overview)
     })
 

@@ -13,6 +13,8 @@ namespace Map {
         // The number of screens in the level
         // Development time limits = random scenes :)
         segments: number
+        // Island is owned by us them or no one
+        ownedBy?: 'players' | 'scallywags'
     }
 
     // const weBeSailinSong: Buffer = assets.song`We be Sailin`
@@ -40,12 +42,11 @@ namespace Map {
             }
         })
         waves.forEach(wave => wave.destroy())
-
-        if (cursor) {
-            cursor.destroy()
-        }
+        cursor.destroy()
 
         music.stopAllSounds()
+
+        TreasureStats.hide()
 
         _onSelectIsland(_islands[currentSelectedIslandIndex])
     }
@@ -89,21 +90,13 @@ namespace Map {
             return sprite
         })
 
-        // Rendering the islands
-        islands.forEach(island => {
-            // const sprite = sprites.create(island.image)
-            // sprite.x = island.x
-            // sprite.y = island.y
-            // island.sprite = sprite
-        })
-
         // Keyboard inputs
         controller.player1.left.addEventListener(ControllerButtonEvent.Pressed, moveCursorLeft)
         controller.player1.right.addEventListener(ControllerButtonEvent.Pressed, moveCursorRight)
         controller.player1.A.addEventListener(ControllerButtonEvent.Pressed, selectIsland)
 
         // Initial render of the cursor
-        renderCursor(islands[0], cursor)
+        renderCursor(currentIsland ? currentIsland : islands[0], cursor)
     }
     
     export function onSelectIsland(callback: (island: Island) => void) {

@@ -20,6 +20,9 @@ namespace Island {
     let _island: Map.Island
     let _onUpdateTreasure: (T: TreasureStats.OnUpdateTreasureProps) => void = () => undefined
     let _onLeaveIsland: () => void
+    let _onAllDead: () => void
+    // So we can't trigger "all dead" more than once (happens if multiple shots hit a dead guy)
+    let _allDead: boolean = false
     let _dirtSpeckles: Sprite[] = []
     let _treasureSprite: Sprite
     let _treasureOpened: boolean = false
@@ -60,7 +63,6 @@ namespace Island {
     }
 
     function onPirateDeath({ pirate }: { pirate: Pirate}) {
-        console.log('pirate died! ' + player2.health)
         // If there's still a living pirate, re-target all enemies to the other pirate
         if (player1.health > 0) {
             retargetEnemies(player1)
@@ -68,6 +70,7 @@ namespace Island {
             retargetEnemies(player2)
         } else {
             // Everyone is dead!
+            whenAllDead()
         }
     }
 
@@ -182,7 +185,7 @@ namespace Island {
             )
             setTimeout(() => {
                 // Add the islands riches to the boat!
-                _onUpdateTreasure({ onBoat: _island.riches, pulledFromIsland: _island.id })
+                TreasureStats.updateTreasure({ onBoat: _island.riches, pulledFromIsland: _island.id })
             }, openTreasureAnimation.length * 100)
             
             setTimeout(() => {
@@ -226,9 +229,9 @@ namespace Island {
         })
     }
 
-    function leaveIsland() {
+    function destroy() {
         _island = undefined
-        
+
         player1.destroy()
         player2.destroy()
 
@@ -247,15 +250,34 @@ namespace Island {
 
         music.stopAllSounds()
 
-        // Remove all listeners and clear the screen
-        controller.player1.B.removeEventListener(ControllerButtonEvent.Pressed, leaveIsland)
+        TreasureStats.hide()
+    }
 
+    function whenAllDead() {
+        console.log('All dead! ' + _allDead)
+        if (!_allDead) {
+            _allDead = true
+            // You lose all your inPocket AND boat coin!
+            TreasureStats.updateTreasure({ inPocket: 0, onBoat: 0 })
+
+            // Take a breather
+            pause(2000)
+
+            console.log("And show dead screen")
+
+            destroy()
+            _onAllDead()
+        }
+    }
+
+    function leaveIsland() {
+        destroy()
         _onLeaveIsland()
     }
 
-    export function init({ island, onTreasureUpdate }: { island: Map.Island, onTreasureUpdate: (T: TreasureStats.TreasureStat) => void }) {
+    export function init({ island }: { island: Map.Island }) {
         _island = island
-        _onUpdateTreasure = onTreasureUpdate
+        _allDead = false
         isSegmentComplete = false
         currentSegment = 0
 
@@ -273,12 +295,14 @@ namespace Island {
 
         player1.place(10, 90)
         player2.place(10, 100)
-
-        controller.player1.B.addEventListener(ControllerButtonEvent.Pressed, leaveIsland)
     }
 
     export function onLeaveIsland(callback: () => void) {
         _onLeaveIsland = callback
+    }
+
+    export function onAllDead(callback: () => void) {
+        _onAllDead = callback
     }
 
     export function render() {

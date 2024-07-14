@@ -20,7 +20,8 @@
         "pirate.ts",
         "militia.ts",
         "menu.ts",
-        "treasureStats.ts"
+        "treasureStats.ts",
+        "allDead.ts"
     ],
     "testFiles": [
         "test.ts"

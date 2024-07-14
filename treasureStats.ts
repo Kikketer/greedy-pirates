@@ -34,9 +34,22 @@ namespace TreasureStats {
                 island.riches = 0
             }
         } else {
-            // If not from an island we assume from the boat
-            currentTreasure.onIsland += currentTreasure.onBoat
-            currentTreasure.onBoat = 0
+            // If any of the values are actually 0, then we set it to 0
+            // otherwise we increment (kind of strange? but I'm lazy and tired)
+            if (onBoat === 0) {
+                currentTreasure.onBoat = 0
+            }
+            if (onIsland === 0) {
+                currentTreasure.onIsland = 0
+            }
+            if (inPocket === 0) {
+                currentTreasure.inPocket = 0
+            }
+
+            // Now increment
+            currentTreasure.onBoat = currentTreasure.onBoat + (onBoat ? onBoat : 0)
+            currentTreasure.onIsland = currentTreasure.onIsland + (onIsland ? onIsland : 0)
+            currentTreasure.inPocket = currentTreasure.inPocket + (inPocket ? inPocket : 0)
         }
 
         show()
