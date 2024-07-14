@@ -3,6 +3,8 @@ class Militia {
     static walkLeftAnimation: Image[] = Utils.flipAnimation(assets.animation`Militia Walk`)
     static attackRightAnimation: Image[] = assets.animation`Militia Shoot`
     static attackLeftAnimation: Image[] = Utils.flipAnimation(assets.animation`Militia Shoot`)
+    static deathRightAnimation: Image[] = assets.animation`Militia Die`
+    static deathLeftAnimation: Image[] = Utils.flipAnimation(assets.animation`Militia Die`)
     static parrySound: music.SoundEffect = music.createSoundEffect(WaveShape.Noise, 5000, 5000, 255, 0, 100, SoundExpressionEffect.Vibrato, InterpolationCurve.Curve)
     
     static speed: number = 10
@@ -47,7 +49,13 @@ class Militia {
         this.health -= damage
         
         if (this.health <= 0) {
-            this.destory()
+            animation.runImageAnimation(
+                this.sprite,
+                this.facing === 'right' ? Militia.deathRightAnimation : Militia.deathLeftAnimation,
+                100,
+                false
+            )
+            this.sprite.follow(this.currentTarget.sprite, 0)
         }
     }
 
@@ -56,6 +64,9 @@ class Militia {
     }
 
     public render() {
+        // Short circut if I die
+        if (this.health <= 0 ) return
+
         // Attack randomly
         if ((control.millis() - this._lastAttackTick) > this._nextAttackTime) {
             this._lastAttackTick = control.millis()
@@ -77,9 +88,10 @@ class Militia {
     }
 
     public setCurrentTarget(pirate: Pirate) {
-        console.log('Setting target')
-        this.currentTarget = pirate
-        this.sprite.follow(this.currentTarget.sprite, Militia.speed)
+        if (pirate.health > 0 && this.health > 0) {
+            this.currentTarget = pirate
+            this.sprite.follow(this.currentTarget.sprite, Militia.speed)
+        }
     }
 
     private walk(direction?: 'left' | 'right') {

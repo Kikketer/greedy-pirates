@@ -53,13 +53,6 @@ namespace Island {
                 enemy.hit(1)
             }
         })
-        // clean any enemies off the array if they are dead
-        currentEnemies = currentEnemies.reduce((acc, enemy) => {
-            if (enemy.health > 0) {
-                acc.push(enemy)
-            }
-            return acc
-        }, [])
 
         checkIfSegmentIsComplete()
     }
@@ -83,12 +76,16 @@ namespace Island {
     }
 
     function checkIfSegmentIsComplete() {
-        if (currentEnemies.length) {
+        const aliveEnemies = currentEnemies.filter((enemy) => {
+            return enemy.health > 0
+        })
+        
+        if (aliveEnemies.length) {
             isSegmentComplete = false
         }
 
         // If there are no enemies left, signal to go to the next segment
-        if (currentEnemies.length <= 0 && !isSegmentComplete) {
+        if (aliveEnemies.length <= 0 && !isSegmentComplete) {
             isSegmentComplete = true
 
             // Show the "go" arrow if we have a place to go
@@ -111,11 +108,26 @@ namespace Island {
     }
 
     function panCameraToNextSegment() {
-        console.log("Go to next segment! " + screen.width + ':' + screen.height)
-        // This is a little rough but for now it works
-        // Place the pirates on the far left side
-        player1.sprite.x = 10
-        player2.sprite.x = 10
+        // TODO someday animate this transition...
+        // Clean up any corpses
+        if (player1.health <= 0) {
+            player1.destroy()
+        } else {
+            player1.sprite.x = 10
+        }
+
+        if (player2.health <= 0) {
+            player2.destroy()
+        } else {
+            player2.sprite.x = 10
+        }
+
+        currentEnemies.forEach(enemy => {
+            if (enemy.health <= 0) {
+                enemy.destory()
+            }
+        })
+        
         isSegmentComplete = false
         
         if (arrow) {
