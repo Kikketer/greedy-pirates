@@ -11,7 +11,7 @@ namespace Map {
         image: Image,
         sprite?: Sprite,
         // The number of screens in the level
-        // Time limits = random scenes :)
+        // Development time limits = random scenes :)
         segments: number
     }
 
@@ -22,7 +22,7 @@ namespace Map {
     let _onSelectIsland: (island: Island) => void
     let _islands: Array<Island>
     // Prevents smashing and accidentally going to the same island
-    let _selectIslandDelay: number = 1500
+    let _selectIslandDelay: number = 600
     let _leftIslandTick: number = 0
 
     function selectIsland() {
@@ -91,10 +91,10 @@ namespace Map {
 
         // Rendering the islands
         islands.forEach(island => {
-            const sprite = sprites.create(island.image)
-            sprite.x = island.x
-            sprite.y = island.y
-            island.sprite = sprite
+            // const sprite = sprites.create(island.image)
+            // sprite.x = island.x
+            // sprite.y = island.y
+            // island.sprite = sprite
         })
 
         // Keyboard inputs

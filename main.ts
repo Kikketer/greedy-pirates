@@ -29,6 +29,8 @@ const playerState = {
     currentIsland: ''
 }
 
+const debugMode: boolean = false
+
 let currentState: States
 let currentIsland: Map.Island
 let treasureSprite: Sprite
@@ -70,6 +72,15 @@ game.onUpdate(() => {
         break;
     }
 })
+
+if (debugMode) {
+    game.onUpdateInterval(5000, () => {
+        console.log('Delta ' + control.eventContext().deltaTimeMillis)
+        // GC Stats only works on hardware
+        // console.log('Mem: ' + control.gcStats())
+        control.heapSnapshot()
+    })
+}
 
 function switchState(state: States) {
     currentState = state

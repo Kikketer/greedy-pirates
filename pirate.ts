@@ -138,8 +138,6 @@ class Pirate {
         characterAnimations.setCharacterState(this.sprite, 1024)
 
         if (this.health > 0) {
-            // characterAnimations.clearCharacterState(this.sprite)
-            
             animation.runImageAnimation(
                 this.sprite,
                 this.facing === 'right' ? this.hurtRightAnimation : this.hurtLeftAnimation,
@@ -153,7 +151,6 @@ class Pirate {
             }, this.hurtLeftAnimation.length * 200)
         } else {
             // You dead!
-            // We simply say he's always getting hurt when he's dead
             animation.runImageAnimation(
                 this.sprite,
                 this.facing === 'right' ? this.deathRightAnimation : this.deathLeftAnimation,
@@ -164,9 +161,8 @@ class Pirate {
             this.die()
 
             setTimeout(() => {
+                // Not really needed since you are dead but just to be tidy
                 this.isGettingHurt = false
-                // Re-enable the character animations
-                characterAnimations.clearCharacterState(this.sprite)
             }, this.deathLeftAnimation.length * 100)
         }
 

@@ -41,6 +41,8 @@ namespace Island {
         
         // manually check each enemy to see if they overlap, also check for parry
         currentEnemies.forEach((enemy) => {
+            // Do nothing on dead enemies
+            if (enemy.health <= 0) return
             if (direction === 'right' 
                 && enemy.sprite.x >= hitXZone[0] && enemy.sprite.x <= hitXZone[1]
                 // Bottom of pirate is overlapping the top of the enemy (and opposite)

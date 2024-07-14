@@ -15,6 +15,13 @@ namespace Utils {
         })
     }
 
+    export function getDistance(pointA: { x: number, y: number }, pointB: { x: number, y: number }) {
+        const dx = pointB.x - pointA.x;
+        const dy = pointB.y - pointA.y;
+
+        return Math.sqrt(dx * dx + dy * dy);
+    }
+
     export function swapAnimationColors(anim: Image[], fromColor: number, toColor: number) {
         anim.map(frame => frame.replace(fromColor, toColor))
         return anim

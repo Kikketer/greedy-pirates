@@ -74,9 +74,15 @@ class Militia {
             this.attack()
         }
         // Check your distance from the target randomly (TODO)
-        // if ((control.millis() - this._lastDirectionTick) > Militia.directionChangeInterval) {
-        //     this._lastDirectionTick = control.millis()
-        // }
+        if ((control.millis() - this._lastDirectionTick) > Militia.directionChangeInterval) {
+            this._lastDirectionTick = control.millis()
+            if (Math.abs(Utils.getDistance(
+                { x: this.sprite.x, y: this.sprite.y }, 
+                { x: this.currentTarget.sprite.x, y: this.currentTarget.sprite.y }
+            )) < 30) {
+                console.log('SSTop walking!')
+            }
+        }
 
         // Face your target
         if (this.currentTarget.sprite.x < this.sprite.x && this.facing === 'right' && !this._isAttacking) {
