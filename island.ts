@@ -199,13 +199,16 @@ namespace Island {
         // The number of enemies is based on the risk level of the island
         // number of players AND segment level
         // Start most enemies a bit from the left (avoiding starting ON the players)
-        const averageAmount = Math.floor(_island.risk + (2 * currentSegment))
+        const averageAmount = Math.floor(_island.risk + (1.5 * currentSegment))
         const numberOfEnemies = Math.max(Math.randomRange(averageAmount - 2, averageAmount + 2), 1)
         console.log('Enemies ' + currentSegment + ':' + _island.risk)
         Utils.getArrayOfLength(numberOfEnemies).forEach(() => {
             const locX = Math.randomRange(_boundingBox[0] + 20, _boundingBox[2])
             const locY = Math.randomRange(_boundingBox[1], _boundingBox[3])
-            const randomTarget = Math.randomRange(0, 1) === 0 ? player1 : player2
+            const livingPirates = []
+            if (player1.health > 0) livingPirates.push(player1)
+            if (player2.health > 0) livingPirates.push(player2)
+            const randomTarget = Math.pickRandom(livingPirates)
             
             currentEnemies.push(new Militia({ x: locX, y: locY, target: randomTarget }))
         })

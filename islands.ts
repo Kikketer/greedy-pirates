@@ -22,10 +22,8 @@ namespace Map {
             name: 'Treasarr Island',
             x: 48,
             y: 91,
-            riches: 100,
-            risk: 0,
-            segments: 2,
-            ownedBy: null
+            segments: 1,
+            ownedBy: 'players'
         },
         {
             id: 1,
@@ -33,7 +31,7 @@ namespace Map {
             x: 18,
             y: 31,
             riches: 100,
-            risk: 0,
+            risk: 1,
             segments: 6,
             ownedBy: null
         },
@@ -42,8 +40,8 @@ namespace Map {
             name: 'Narrrthpalms',
             x: 52,
             y: 8,
-            riches: 100,
-            risk: 0,
+            riches: 200,
+            risk: 1,
             segments: 6,
             ownedBy: null
         },
@@ -52,8 +50,8 @@ namespace Map {
             name: 'Longhall',
             x: 41,
             y: 47,
-            riches: 100,
-            risk: 0,
+            riches: 300,
+            risk: 2,
             segments: 6,
             ownedBy: null
         },
@@ -62,9 +60,9 @@ namespace Map {
             name: 'Shorthouse',
             x: 60,
             y: 50,
-            riches: 100,
-            risk: 0,
-            segments: 6,
+            riches: 200,
+            risk: 2,
+            segments: 3,
             ownedBy: null
         },
         {
@@ -72,8 +70,8 @@ namespace Map {
             name: 'Mt. Swag',
             x: 22,
             y: 84,
-            riches: 100,
-            risk: 0,
+            riches: 400,
+            risk: 5,
             segments: 6,
             ownedBy: null
         },
@@ -82,8 +80,8 @@ namespace Map {
             name: 'Fort Bladeside',
             x: 79,
             y: 91,
-            riches: 100,
-            risk: 0,
+            riches: 400,
+            risk: 3,
             segments: 6,
             ownedBy: null
         },
@@ -93,7 +91,7 @@ namespace Map {
             x: 122,
             y: 22,
             riches: 100,
-            risk: 0,
+            risk: 3,
             segments: 6,
             ownedBy: null
         },
@@ -102,8 +100,8 @@ namespace Map {
             name: 'Primalburrrg',
             x: 110,
             y: 61,
-            riches: 100,
-            risk: 0,
+            riches: 200,
+            risk: 5,
             segments: 6,
             ownedBy: null
         },
@@ -112,8 +110,8 @@ namespace Map {
             name: 'Capitarrg',
             x: 144,
             y: 56,
-            riches: 100,
-            risk: 0,
+            riches: 400,
+            risk: 6,
             segments: 6,
             ownedBy: null
         }

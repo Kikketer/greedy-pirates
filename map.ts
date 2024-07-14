@@ -5,16 +5,20 @@ namespace Map {
     let currentSelectedIslandIndex = 0
     let _onSelectIsland: (island: Island) => void
     let _islands: Array<Island>
+    let _bulkyBgSprite: Sprite
     // Prevents smashing and accidentally going to the same island
     let _selectIslandDelay: number = 600
     let _leftIslandTick: number = 0
     let _islandNameSprite: Sprite
+    let _coinSprites: Sprite[] = []
+    let _skullSprites: Sprite[] = []
 
     function selectIsland() {
         // We can't select the island too quickly after seeing this scene
         if (control.millis() - _leftIslandTick < _selectIslandDelay) return
 
         scene.setBackgroundImage(assets.image`empty`)
+        _bulkyBgSprite.destroy()
         if (_islandNameSprite) {
             _islandNameSprite.destroy()
         }
@@ -63,12 +67,16 @@ namespace Map {
         _islands = islands
 
         scene.setBackgroundColor(6)
-        scene.setBackgroundImage(assets.image`Map`)
+        // scene.setBackgroundImage(assets.image`Map`)
+        _bulkyBgSprite = sprites.create(assets.image`Map`)
+        _bulkyBgSprite.z = 2
+
         music.play(music.createSong(assets.song`We be Sailin`), music.PlaybackMode.LoopingInBackground)
         TreasureStats.show(['island', 'boat'])
         
         // Cursor
         cursor = sprites.create(assets.image`empty`)
+        cursor.z = 100
 
         // Render the waves
         waves = Utils.getArrayOfLength(15).map(() => {
@@ -106,9 +114,33 @@ namespace Map {
         if (_islandNameSprite) {
             _islandNameSprite.destroy()
         }
+        _coinSprites.forEach((coin) => coin.destroy())
+        _skullSprites.forEach((skull) => skull.destroy())
+
+        // Render island name
         _islandNameSprite = textsprite.create(island.name, 15, 0)
         _islandNameSprite.x = 80,
         _islandNameSprite.y = 115
+
+        // Render riches (rounded(100) = 1 coin)
+        const coinCount = Math.floor(Math.round(island.riches / 100))
+        if (coinCount > 0) {
+            _coinSprites = Utils.getArrayOfLength(coinCount).map((index) => {
+                const sprite = sprites.create(assets.image`Coin`)
+                sprite.x = 80 + (_islandNameSprite.width / 2) + 6
+                sprite.y = 115 - (index * 2)
+                return sprite
+            })
+        }
+        const skullCount = Math.floor(Math.round(island.risk))
+        if (skullCount > 0) {
+            _skullSprites = Utils.getArrayOfLength(skullCount).map((index) => {
+                const sprite = sprites.create(assets.image`Skull`)
+                sprite.x = 80 - (_islandNameSprite.width / 2) - 6
+                sprite.y = 115 - (index * 2)
+                return sprite
+            })
+        }
     }
     
     export function render() {}
