@@ -12,6 +12,7 @@ class Pirate {
 
     static parrySound: music.SoundEffect = music.createSoundEffect(WaveShape.Noise, 5000, 5000, 255, 0, 100, SoundExpressionEffect.Vibrato, InterpolationCurve.Curve)
     static deathSound: music.SoundEffect = music.createSoundEffect(WaveShape.Triangle, 2202, 476, 129, 0, 861, SoundExpressionEffect.Warble, InterpolationCurve.Logarithmic)
+    static attackSound: music.SoundEffect = music.createSoundEffect(WaveShape.Noise, 5000, 5000, 150, 0, 100, SoundExpressionEffect.None, InterpolationCurve.Linear)
     static heartIcon: Image = assets.image`Heart`
 
     private idleRightAnimation: Image[] = assets.animation`Pirate Stand`
@@ -129,6 +130,8 @@ class Pirate {
         }
         // Can't get hit if you are currently getting hit (invicible during your animation sorta)
         if (this.isGettingHurt) return
+        // Can't get hit if you're dead
+        if (this.health <= 0) return
 
         this.health -= damage
         this.isGettingHurt = true
@@ -163,16 +166,14 @@ class Pirate {
             
             this._updateStats()
             this.die()
-
-            setTimeout(() => {
-                // Not really needed since you are dead but just to be tidy
-                this.isGettingHurt = false
-            }, this.deathLeftAnimation.length * 100)
         }
     }
 
     private die() {
         console.log('Yarrg, ye be swimmin\' with d\'fishes! 💀🐟')
+        this.isGettingHurt = false
+        this.isAttacking = undefined
+
         this.destroy(false)
         this._onDieCallback({ pirate: this })
     }
@@ -182,14 +183,12 @@ class Pirate {
     }
 
     private attack(attackCallback: (T: AttackCallbackParams) => void) {
+        // You can't attack if you are getting hurt
+        if (this.isGettingHurt) return
         // Can't attack more frequently than attackDelay
         if (control.millis() - this._lastAttackTick < Pirate._attackDelay) return
 
-        music.play(Pirate.deathSound, music.PlaybackMode.InBackground)
-
-        // Clear the "is attacking" tag after the animation completes
-        clearTimeout(this._isAttackingTimeout)
-        this._isAttackingTimeout = setTimeout(() => {}, Pirate._attackDelay)
+        music.play(Pirate.attackSound, music.PlaybackMode.InBackground)
 
         const oldPos = { x: this.sprite.x, y: this.sprite.y }
 
