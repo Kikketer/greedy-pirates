@@ -144,6 +144,7 @@ class Pirate {
                 200,
                 false
             )
+            this._updateStats()
             setTimeout(() => {
                 this.isGettingHurt = false
                 // Re-enable the character animations
@@ -158,6 +159,7 @@ class Pirate {
                 false
             )
             
+            this._updateStats()
             this.die()
 
             setTimeout(() => {
@@ -165,8 +167,6 @@ class Pirate {
                 this.isGettingHurt = false
             }, this.deathLeftAnimation.length * 100)
         }
-
-        this._updateStats()
     }
 
     private die() {
