@@ -203,8 +203,8 @@ namespace Island {
         // The number of enemies is based on the risk level of the island
         // number of players AND segment level
         // Start most enemies a bit from the left (avoiding starting ON the players)
-        const averageAmount = Math.floor(_island.risk + (1.5 * currentSegment))
-        const numberOfEnemies = Math.max(Math.randomRange(averageAmount - 2, averageAmount + 2), 1)
+        const averageAmount = Math.floor(_island.risk + (1 * currentSegment))
+        const numberOfEnemies = Math.max(Math.randomRange(averageAmount - 2, averageAmount), 1)
         console.log('Enemies ' + currentSegment + ':' + _island.risk)
         Utils.getArrayOfLength(numberOfEnemies).forEach(() => {
             const locX = Math.randomRange(_boundingBox[0] + 20, _boundingBox[2])
