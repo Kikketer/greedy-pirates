@@ -58,7 +58,7 @@ class Pirate {
             topBoundary: number,
             statLocation: number[]
         }) {
-        this.health = 1
+        this.health = 3
         this.facing = 'right'
         this._topBoundary = topBoundary
         this._statLocation = statLocation

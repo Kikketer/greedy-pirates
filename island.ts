@@ -186,6 +186,10 @@ namespace Island {
             setTimeout(() => {
                 // Add the islands riches to the boat!
                 TreasureStats.updateTreasure({ onBoat: _island.riches, pulledFromIsland: _island.id })
+                // Empty the island of it's treasure and set it's risk to 0 since it's ours now
+                _island.riches = 0
+                _island.risk = 0
+                _island.ownedBy = 'players'
             }, openTreasureAnimation.length * 100)
             
             setTimeout(() => {
