@@ -100,6 +100,8 @@ namespace Map {
         renderCursor(islands[currentSelectedIslandIndex], cursor)
         // And selected island
         renderIslandStats(islands[currentSelectedIslandIndex])
+        // And the owner flags
+        renderFlags(islands)
     }
     
     export function onSelectIsland(callback: (island: Island) => void) {
@@ -144,6 +146,8 @@ namespace Map {
             })
         }
     }
+
+    function renderFlags(islands: Array<Island>) {}
     
     export function render() {}
 }
