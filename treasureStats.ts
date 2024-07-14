@@ -25,7 +25,7 @@ namespace TreasureStats {
     export function updateTreasure({ onBoat, onIsland, inPocket, pulledFromIsland }: OnUpdateTreasureProps) {
         if (pulledFromIsland != null) {
             // Find the island
-            const island = islands.find(i => {
+            const island = Map.islands.find(i => {
                 return i.id === pulledFromIsland
             })
 

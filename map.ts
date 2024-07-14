@@ -1,22 +1,4 @@
 namespace Map {
-    export type Island = {
-        id: number,
-        name: string,
-        x: number,
-        y: number,
-        // The quantity of militia, this grows as things get heated
-        risk?: number,
-        // The quantity of riches, this grows as the island is left alone
-        riches?: number,
-        image: Image,
-        sprite?: Sprite,
-        // The number of screens in the level
-        // Development time limits = random scenes :)
-        segments: number
-        // Island is owned by us them or no one
-        ownedBy?: 'players' | 'scallywags'
-    }
-
     // const weBeSailinSong: Buffer = assets.song`We be Sailin`
     let cursor: Sprite
     let waves: Array<Sprite> = []
@@ -26,10 +8,16 @@ namespace Map {
     // Prevents smashing and accidentally going to the same island
     let _selectIslandDelay: number = 600
     let _leftIslandTick: number = 0
+    let _islandNameSprite: Sprite
 
     function selectIsland() {
         // We can't select the island too quickly after seeing this scene
         if (control.millis() - _leftIslandTick < _selectIslandDelay) return
+
+        scene.setBackgroundImage(assets.image`empty`)
+        if (_islandNameSprite) {
+            _islandNameSprite.destroy()
+        }
 
         // Remove all listeners and run the beat-em-up phase
         controller.player1.left.removeEventListener(ControllerButtonEvent.Pressed, moveCursorLeft)
@@ -57,6 +45,7 @@ namespace Map {
             currentSelectedIslandIndex = 0
         }
         renderCursor(islands[currentSelectedIslandIndex], cursor)
+        renderIslandStats(islands[currentSelectedIslandIndex])
     }
 
     function moveCursorRight() {
@@ -65,6 +54,7 @@ namespace Map {
             currentSelectedIslandIndex = islands.length - 1
         }
         renderCursor(islands[currentSelectedIslandIndex], cursor)
+        renderIslandStats(islands[currentSelectedIslandIndex])
     }
 
     export function init(islands: Array<Island>) {
@@ -73,6 +63,7 @@ namespace Map {
         _islands = islands
 
         scene.setBackgroundColor(6)
+        scene.setBackgroundImage(assets.image`Map`)
         music.play(music.createSong(assets.song`We be Sailin`), music.PlaybackMode.LoopingInBackground)
         TreasureStats.show(['island', 'boat'])
         
@@ -97,16 +88,27 @@ namespace Map {
 
         // Initial render of the cursor
         renderCursor(currentIsland ? currentIsland : islands[0], cursor)
+        // And selected island
+        renderIslandStats(islands[currentSelectedIslandIndex])
     }
     
     export function onSelectIsland(callback: (island: Island) => void) {
         _onSelectIsland = callback
     }
 
-    function renderCursor(island: Map.Island, cursor: Sprite) {
+    function renderCursor(island: Island, cursor: Sprite) {
         cursor.x = island.x
         cursor.y = island.y
         animation.runImageAnimation(cursor, assets.animation`cursor`, 500, true)
+    }
+
+    function renderIslandStats(island: Island) {
+        if (_islandNameSprite) {
+            _islandNameSprite.destroy()
+        }
+        _islandNameSprite = textsprite.create(island.name, 15, 0)
+        _islandNameSprite.x = 80,
+        _islandNameSprite.y = 115
     }
     
     export function render() {}

@@ -21,7 +21,8 @@
         "militia.ts",
         "menu.ts",
         "treasureStats.ts",
-        "allDead.ts"
+        "allDead.ts",
+        "islands.ts"
     ],
     "testFiles": [
         "test.ts"

@@ -38,31 +38,6 @@ let currentState: States
 let currentIsland: Map.Island
 let treasureSprite: Sprite
 
-const islands: Array<Map.Island> = [
-    {
-        id: 0,
-        name: 'Treasure Island',
-        x: 10,
-        y: 25,
-        riches: 100,
-        risk: 0,
-        image: assets.image`island`,
-        segments: 2,
-        ownedBy: null
-    },
-    {
-        id: 1,
-        name: 'Beach Island',
-        x: 55,
-        y: 39,
-        riches: 100,
-        risk: 0,
-        image: assets.image`island`,
-        segments: 6,
-        ownedBy: null
-    }
-]
-
 console.log('Yarrrgh! Beware of ye monsters in thee code!')
 
 game.onUpdate(() => {
@@ -91,7 +66,7 @@ function switchState(state: States) {
     currentState = state
     switch (currentState) {
         case States.Overview:
-            Map.init(islands)
+            Map.init(Map.islands)
         break;
         case States.Island:
             Island.init({ island: currentIsland })
