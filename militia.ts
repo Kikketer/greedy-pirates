@@ -126,7 +126,12 @@ class Militia {
 
     public lootTheBody() {
         if (this.riches > 0) {
-            TreasureStats.updateTreasure({ inPocket: this.riches })
+            TreasureStats.currentTreasure = {
+                onBoat: TreasureStats.currentTreasure.onBoat,
+                onIsland: TreasureStats.currentTreasure.onIsland, 
+                inPocket: TreasureStats.currentTreasure.inPocket + this.riches 
+            }
+            TreasureStats.show({})
             this.riches = 0
             const oldX = this.sprite.x
             const oldY = this.sprite.y

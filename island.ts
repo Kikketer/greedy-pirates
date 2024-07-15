@@ -192,7 +192,14 @@ namespace Island {
             )
             setTimeout(() => {
                 // Add the islands riches to the boat!
-                TreasureStats.updateTreasure({ onBoat: _island.riches, pulledFromIsland: _island.id })
+                TreasureStats.currentTreasure = { 
+                    onIsland: TreasureStats.currentTreasure.onIsland,
+                    onBoat: TreasureStats.currentTreasure.onBoat + _island.riches + TreasureStats.currentTreasure.inPocket,
+                    inPocket: 0
+                }
+                _island.riches = 0
+                TreasureStats.show({})
+
                 // Empty the island of it's treasure and set it's risk to 0 since it's ours now
                 _island.riches = 0
                 _island.risk = 0
@@ -272,7 +279,11 @@ namespace Island {
         if (!_allDead) {
             _allDead = true
             // You lose all your inPocket AND boat coin!
-            TreasureStats.updateTreasure({ inPocket: 0, onBoat: 0 })
+            TreasureStats.currentTreasure = {
+                onIsland: TreasureStats.currentTreasure.onIsland,
+                inPocket: 0,
+                onBoat: 0
+            }
 
             // Take a breather
             pause(2000)

@@ -60,7 +60,7 @@ namespace Map {
                 onIsland: TreasureStats.getTotal(),
                 inPocket: 0
             }
-            TreasureStats.show()
+            TreasureStats.show({})
             return
         }
 

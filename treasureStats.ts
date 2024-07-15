@@ -27,45 +27,46 @@ namespace TreasureStats {
         return currentTreasure.onBoat + currentTreasure.onIsland + currentTreasure.inPocket
     }
 
-    export function updateTreasure({ onBoat, onIsland, inPocket, pulledFromIsland }: OnUpdateTreasureProps) {
-        if (pulledFromIsland != null) {
-            // Find the island
-            const island = Map.islands.find(i => {
-                return i.id === pulledFromIsland
-            })
+    // TODO Find the time....
+    // export function updateTreasure({ onBoat, onIsland, inPocket, pulledFromIsland }: OnUpdateTreasureProps) {
+    //     if (pulledFromIsland != null) {
+    //         // Find the island
+    //         const island = Map.islands.find(i => {
+    //             return i.id === pulledFromIsland
+    //         })
 
-            if (island) {
-                currentTreasure.onBoat += island.riches
-                // Also add any inPocket coin (a little too much logic here but oh well)
-                currentTreasure.onBoat += currentTreasure.inPocket
-                currentTreasure.inPocket = 0
-                island.riches = 0
-            }
-        } else {
-            // If any of the values are actually 0, then we set it to 0
-            // otherwise we increment (kind of strange? but I'm lazy and tired)
-            if (onBoat === 0) {
-                currentTreasure.onBoat = 0
-            }
-            if (onIsland === 0) {
-                currentTreasure.onIsland = 0
-            }
-            if (inPocket === 0) {
-                currentTreasure.inPocket = 0
-            }
+    //         if (island) {
+    //             currentTreasure.onBoat += island.riches
+    //             // Also add any inPocket coin (a little too much logic here but oh well)
+    //             currentTreasure.onBoat += currentTreasure.inPocket
+    //             currentTreasure.inPocket = 0
+    //             island.riches = 0
+    //         }
+    //     } else {
+    //         // If any of the values are actually 0, then we set it to 0
+    //         // otherwise we increment (kind of strange? but I'm lazy and tired)
+    //         if (onBoat === 0) {
+    //             currentTreasure.onBoat = 0
+    //         }
+    //         if (onIsland === 0) {
+    //             currentTreasure.onIsland = 0
+    //         }
+    //         if (inPocket === 0) {
+    //             currentTreasure.inPocket = 0
+    //         }
 
-            // Now increment
-            currentTreasure.onBoat = currentTreasure.onBoat + (onBoat ? onBoat : 0)
-            currentTreasure.onIsland = currentTreasure.onIsland + (onIsland ? onIsland : 0)
-            currentTreasure.inPocket = currentTreasure.inPocket + (inPocket ? inPocket : 0)
-        }
+    //         // Now increment
+    //         currentTreasure.onBoat = currentTreasure.onBoat + (onBoat ? onBoat : 0)
+    //         currentTreasure.onIsland = currentTreasure.onIsland + (onIsland ? onIsland : 0)
+    //         currentTreasure.inPocket = currentTreasure.inPocket + (inPocket ? inPocket : 0)
+    //     }
 
-        show()
-    }
+    //     show()
+    // }
 
-    export function show(args?: { combination?: Array<'island' | 'boat' | 'pocket'>, location?: 'left' | 'center' }) {
-        currentDisplayCombo = args.combination ? args.combination : currentDisplayCombo
-        currentPosition = args.location ? args.location : currentPosition
+    export function show({ combination, location }: { combination?: Array<'island' | 'boat' | 'pocket'>, location?: 'left' | 'center' }) {
+        currentDisplayCombo = combination ? combination : currentDisplayCombo
+        currentPosition = location ? location : currentPosition
 
         let currentY = 8
 
