@@ -137,7 +137,12 @@ class Militia {
             const oldY = this.sprite.y
             
             this.sprite.destroy()
-            this.sprite = sprites.create(assets.image`Militia Broken and Broke`)
+            if (this.facing === 'left') {
+                this.sprite = sprites.create(assets.image`Militia Broken and Broke Left`)
+            } else {
+                this.sprite = sprites.create(assets.image`Militia Broken and Broke`)
+            }
+            
             this.sprite.x = oldX
             this.sprite.y = oldY
         }

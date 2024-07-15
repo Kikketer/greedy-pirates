@@ -94,7 +94,7 @@ namespace TreasureStats {
             const locX = currentPosition === 'center' ? 80 : 5
 
             const scoreSprite = textsprite.create(text + '', 1, 15)
-            scoreSprite.x = locX + 8 + (scoreSprite.width / 2)
+            scoreSprite.x = locX + 10 + (scoreSprite.width / 2)
             scoreSprite.y = currentY
             scoreSprite.z = 100
             treasureSprites.push(scoreSprite)

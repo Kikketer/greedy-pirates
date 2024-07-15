@@ -44,22 +44,26 @@ namespace Island {
         
         // manually check each enemy to see if they overlap, also check for parry
         currentEnemies.forEach((enemy) => {
-            if (enemy.health <= 0 && enemy.riches > 0) {
-                enemy.lootTheBody()
-            }
-
             // Don't hurt the dead, that's just mean
-            if (enemy.health <= 0) return
+            if (enemy.health <= 0 && enemy.riches <= 0) return
             if (direction === 'right' 
                 && enemy.sprite.x >= hitXZone[0] && enemy.sprite.x <= hitXZone[1]
                 // Bottom of pirate is overlapping the top of the enemy (and opposite)
                 && hitYZone[1] >= enemy.sprite.y - (enemy.sprite.height / 2) && hitYZone[0] <= enemy.sprite.y + (enemy.sprite.height / 2)) {
+                if (enemy.health <= 0 && enemy.riches > 0) {
+                    enemy.lootTheBody()
+                } else {
                     enemy.hit(1)
+                }
             } else if (direction === 'left' 
                 && enemy.sprite.x <= hitXZone[0] && enemy.sprite.x >= hitXZone[1]
                 // Same vertical check as the right side
                 && hitYZone[1] >= enemy.sprite.y - (enemy.sprite.height / 2) && hitYZone[0] <= enemy.sprite.y + (enemy.sprite.height / 2)) {
-                enemy.hit(1)
+                if (enemy.health <= 0 && enemy.riches > 0) {
+                    enemy.lootTheBody()
+                } else {
+                    enemy.hit(1)
+                }
             }
         })
 

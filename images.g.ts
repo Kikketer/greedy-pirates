@@ -496,6 +496,25 @@ d d a a a c c d d . . . . . . .
 . a a a . . c c . . . . . . . . 
 . f f f f . f f f . . . . . . . 
 `;
+            case "image17":
+            case "Militia Broken and Broke Left":return img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . e . . . . . . . . . . 
+. . . . e . . . . a a a . . . . 
+. . . . e e . . e e a a a . . . 
+. . . . e e a a a a a a a . . . 
+. . . . e e e d d d d e e . . . 
+. . . . e e . d d d d d d . . . 
+. . . . e e . d b d d d d . . . 
+. . . f e e a a d d d d a . . f 
+. . . f e e c c a a a a c d d f 
+. . . f e e c a a a a a a d d f 
+`;
         }
         return null;
     })

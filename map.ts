@@ -98,7 +98,7 @@ namespace Map {
         _bulkyBgSprite.z = 2
 
         music.play(music.createSong(assets.song`We be Sailin`), music.PlaybackMode.LoopingInBackground)
-        TreasureStats.show({ combination: ['island', 'boat'] })
+        TreasureStats.show({ combination: ['island', 'boat'], location: 'left' })
         
         // Cursor
         cursor = sprites.create(assets.image`empty`)

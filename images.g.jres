@@ -79,6 +79,11 @@
         "mimeType": "image/x-mkcd-f4",
         "displayName": "Pirate"
     },
+    "image17": {
+        "data": "hwQQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADw/wAAAODu7u7uAAAADu7u7u4AAAAAoA6gzAAAAACg3a2sAAAAAK7d26oAAACgrt3dqgAAAKCq3d2qAAAAoKre3aoAAAAAqt6trAAAAAAAAADdAAAAAAAAAN0AAAAAAADw/w==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "Militia Broken and Broke Left"
+    },
     "anim14": {
         "namespace": "myAnimations",
         "id": "anim14",
