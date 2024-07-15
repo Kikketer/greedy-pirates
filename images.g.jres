@@ -9,11 +9,6 @@
         "mimeType": "image/x-mkcd-f4",
         "displayName": "Chest"
     },
-    "image4": {
-        "data": "hwQQABAAAAAAAA7dAO7dAAAO/tvgzt364M7+veDsrfrg7N7d7e6u+gDu/d3t7q7wAO7d2+3uzgDg7v3d4OzO/OAO3w3gzt38AAAAAADu3fAAAAAAAAANAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-        "mimeType": "image/x-mkcd-f4",
-        "displayName": "Pirate"
-    },
     "image6": {
         "data": "hwQQABAAAAAAAAAAAAAAAAAAAAAAAAAAAABEVUUEAAAAAFREVAQAAAAAVERVBAAAAABERVUEAAAAAERERAQAAAAARFRFBAAAAABERVQEAAAAAERFVAQAAEBERFRFREQAAEREREREBAAAQEREREQAAAAAREREBAAAAAAARAQAAAAAAABAAAAAAA==",
         "mimeType": "image/x-mkcd-f4",
@@ -78,6 +73,11 @@
         "data": "hwQKAAoAAAAAAAERAAAAAAARHt0BAAAAEB7+2wEAAADhzv69AQAAAOHs3t0dAAAAEO793R0AAAAQ7t3bHQAAAOHu/d0BAAAA4R7fHQAAAAAQAREBAAAAAA==",
         "mimeType": "image/x-mkcd-f4",
         "displayName": "Pirate Lives"
+    },
+    "image4": {
+        "data": "hwQQABAAAAAAAAfdAHfdAAAH99twx936cMf3vXB8rfpwfNfdfXen+gB3/d19d6fwAHfd2313xwBwd/3dcHzH/HAH3w1wx938AAAAAAB33fAAAAAAAAANAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "Pirate"
     },
     "anim14": {
         "namespace": "myAnimations",

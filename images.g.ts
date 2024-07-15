@@ -41,25 +41,6 @@ f . f . f f e e e e e e f . . .
 . f . f f f e e e e e e f . . . 
 f . f . f f b e e e e b f . . . 
 `;
-            case "image4":
-            case "Pirate":return img`
-. . . . . . . . . . . . . . . . 
-. . e e . . e e . . . . . . . . 
-. e e c e e e e . . . . . . . . 
-. . c e e e e . . . . . . . . . 
-e e e e d d d f . . . . . . . . 
-. f f d f d f d . . . . . . . . 
-d b d d d b d d . . . . . . . . 
-d d b d d d d . . . . . . . . . 
-. . . d d d . . . . . . . . . . 
-. e e e e e e e . . . . . . . . 
-e e c e e e c e e . . . . . . . 
-e c e e e e e c e . . . . . . . 
-d d d e e e e d d d . . . . . . 
-d d a a a c c d d . . . . . . . 
-. a a a . . c c . . . . . . . . 
-. f f f f . f f f . . . . . . . 
-`;
             case "image6":
             case "Arrow":return img`
 . . . . . . . . . . . . . . . . 
@@ -495,6 +476,25 @@ f f 1 1 1 1 f f
 1 d d b d d d d 1 . 
 . 1 1 1 d d d 1 . . 
 . . . . 1 1 1 . . . 
+`;
+            case "image4":
+            case "Pirate":return img`
+. . . . . . . . . . . . . . . . 
+. . 7 7 . . 7 7 . . . . . . . . 
+. 7 7 c 7 7 7 7 . . . . . . . . 
+. . c 7 7 7 7 . . . . . . . . . 
+7 7 7 7 d d d f . . . . . . . . 
+. f f d f d f d . . . . . . . . 
+d b d d d b d d . . . . . . . . 
+d d b d d d d . . . . . . . . . 
+. . . d d d . . . . . . . . . . 
+. 7 7 7 7 7 7 7 . . . . . . . . 
+7 7 c 7 7 7 c 7 7 . . . . . . . 
+7 c 7 7 7 7 7 c 7 . . . . . . . 
+d d d 7 7 7 7 d d d . . . . . . 
+d d a a a c c d d . . . . . . . 
+. a a a . . c c . . . . . . . . 
+. f f f f . f f f . . . . . . . 
 `;
         }
         return null;

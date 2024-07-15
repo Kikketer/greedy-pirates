@@ -15,11 +15,16 @@ namespace TreasureStats {
     let treasureSprites: Sprite[] = []
     let iconSprites: Sprite[] = []
     let currentDisplayCombo: Array<'island' | 'boat' | 'pocket'> = ['island']
+    let currentPosition: 'left' | 'center' = 'left'
     
     export let currentTreasure: TreasureStat = {
         onBoat: 0,
         onIsland: 0,
         inPocket: 0
+    }
+
+    export function getTotal(): number {
+        return currentTreasure.onBoat + currentTreasure.onIsland + currentTreasure.inPocket
     }
 
     export function updateTreasure({ onBoat, onIsland, inPocket, pulledFromIsland }: OnUpdateTreasureProps) {
@@ -58,8 +63,9 @@ namespace TreasureStats {
         show()
     }
 
-    export function show(combination?: Array<'island' | 'boat' | 'pocket'>) {
-        currentDisplayCombo = combination ? combination : currentDisplayCombo
+    export function show(args?: { combination?: Array<'island' | 'boat' | 'pocket'>, location?: 'left' | 'center' }) {
+        currentDisplayCombo = args.combination ? args.combination : currentDisplayCombo
+        currentPosition = args.location ? args.location : currentPosition
 
         let currentY = 8
 
@@ -84,13 +90,15 @@ namespace TreasureStats {
                 break;
             }
 
+            const locX = currentPosition === 'center' ? 80 : 5
+
             const scoreSprite = textsprite.create(text + '', 1, 15)
-            scoreSprite.x = 8 + 5 + (scoreSprite.width / 2)
+            scoreSprite.x = locX + 8 + (scoreSprite.width / 2)
             scoreSprite.y = currentY
             scoreSprite.z = 100
             treasureSprites.push(scoreSprite)
 
-            iconSprite.x = 5 + (scoreSprite.width / 2)
+            iconSprite.x = locX + (scoreSprite.width / 2)
             iconSprite.y = currentY
             iconSprites.push(iconSprite)
             currentY += 9

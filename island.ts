@@ -294,7 +294,7 @@ namespace Island {
         currentSegment = 0
 
         scene.setBackgroundColor(8)
-        TreasureStats.show(['pocket'])
+        TreasureStats.show({ combination: ['pocket'], location: 'center' })
         PirateLives.show()
         
         player1 = new Pirate({ control: controller.player1, playerNumber: 0, onAttack: onPirateAttack, onDie: onPirateDeath, topBoundary: _boundingBox[1], statLocation: player1StatLocation })

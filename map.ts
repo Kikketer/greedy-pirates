@@ -57,9 +57,10 @@ namespace Map {
         if (_islands[currentSelectedIslandIndex].id === 0) {
             TreasureStats.currentTreasure = {
                 onBoat: 0,
-                onIsland: TreasureStats.currentTreasure.onIsland + TreasureStats.currentTreasure.onBoat,
+                onIsland: TreasureStats.getTotal(),
                 inPocket: 0
             }
+            TreasureStats.show()
             return
         }
 
@@ -97,7 +98,7 @@ namespace Map {
         _bulkyBgSprite.z = 2
 
         music.play(music.createSong(assets.song`We be Sailin`), music.PlaybackMode.LoopingInBackground)
-        TreasureStats.show(['island', 'boat'])
+        TreasureStats.show({ combination: ['island', 'boat'] })
         
         // Cursor
         cursor = sprites.create(assets.image`empty`)

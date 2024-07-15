@@ -3,7 +3,10 @@ namespace GameOver {
         music.stopAllSounds()
         scene.setBackgroundColor(0)
         PirateLives.hide()
-        game.splash('GAME OVER!', 'Ye Be Dead!')
+
+        const totalCoin = TreasureStats.getTotal()
+
+        game.splash('GAME OVER', 'Ye lost ' + totalCoin)
         game.reset()
     }
 }
