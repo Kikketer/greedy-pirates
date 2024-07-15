@@ -28,6 +28,16 @@ namespace Map {
             ownedBy: 'players'
         },
         {
+            id: 5,
+            name: 'Mt. Swag',
+            x: 22,
+            y: 84,
+            riches: 400,
+            risk: 4,
+            segments: 6,
+            ownedBy: null
+        },
+        {
             id: 1,
             name: 'West Pincharr',
             x: 18,
@@ -68,26 +78,6 @@ namespace Map {
             ownedBy: null
         },
         {
-            id: 5,
-            name: 'Mt. Swag',
-            x: 22,
-            y: 84,
-            riches: 400,
-            risk: 4,
-            segments: 6,
-            ownedBy: null
-        },
-        {
-            id: 6,
-            name: 'Fort Bladeside',
-            x: 79,
-            y: 91,
-            riches: 400,
-            risk: 3,
-            segments: 6,
-            ownedBy: null
-        },
-        {
             id: 1,
             name: 'Rejection',
             x: 122,
@@ -116,6 +106,16 @@ namespace Map {
             risk: 5,
             segments: 6,
             ownedBy: null
-        }
+        },
+        {
+            id: 6,
+            name: 'Fort Bladeside',
+            x: 79,
+            y: 91,
+            riches: 400,
+            risk: 3,
+            segments: 6,
+            ownedBy: null
+        },
     ]
 }

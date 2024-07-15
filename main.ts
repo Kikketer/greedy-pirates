@@ -78,6 +78,9 @@ function switchState(state: States) {
         case States.GameOver:
             GameOver.init()
         break;
+        case States.Win:
+            Win.init()
+        break;
         default:
             Menu.init()
     }
@@ -87,6 +90,9 @@ function startGame() {
     Map.onSelectIsland((island: Map.Island) => {
         currentIsland = island
         switchState(States.Island)
+    })
+    Map.onWin(() => {
+        switchState(States.Win)
     })
 
     Island.onLeaveIsland(() => {

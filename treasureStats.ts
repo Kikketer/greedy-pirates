@@ -16,7 +16,7 @@ namespace TreasureStats {
     let iconSprites: Sprite[] = []
     let currentDisplayCombo: Array<'island' | 'boat' | 'pocket'> = ['island']
     
-    const currentTreasure: TreasureStat = {
+    export let currentTreasure: TreasureStat = {
         onBoat: 0,
         onIsland: 0,
         inPocket: 0

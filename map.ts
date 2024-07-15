@@ -4,6 +4,7 @@ namespace Map {
     let waves: Array<Sprite> = []
     let currentSelectedIslandIndex = 0
     let _onSelectIsland: (island: Island) => void
+    let _onWin: () => void
     let _islands: Array<Island>
     let _bulkyBgSprite: Sprite
     // Prevents smashing and accidentally going to the same island
@@ -13,10 +14,7 @@ namespace Map {
     let _coinSprites: Sprite[] = []
     let _skullSprites: Sprite[] = []
 
-    function selectIsland() {
-        // We can't select the island too quickly after seeing this scene
-        if (control.millis() - _leftIslandTick < _selectIslandDelay) return
-
+    function destroy() {
         scene.setBackgroundImage(assets.image`empty`)
         _bulkyBgSprite.destroy()
         if (_islandNameSprite) {
@@ -24,6 +22,11 @@ namespace Map {
         }
         _coinSprites.forEach((coin) => coin.destroy())
         _skullSprites.forEach((skull) => skull.destroy())
+        islands.forEach((island) => {
+            if (island.flagSprite) {
+                island.flagSprite.destroy()
+            }
+        })
 
         // Remove all listeners and run the beat-em-up phase
         controller.player1.left.removeEventListener(ControllerButtonEvent.Pressed, moveCursorLeft)
@@ -36,11 +39,31 @@ namespace Map {
             }
         })
         waves.forEach(wave => wave.destroy())
-        cursor.destroy()
+        if (cursor) {
+            cursor.destroy()
+        }
 
         music.stopAllSounds()
 
         TreasureStats.hide()
+        PirateLives.hide()
+    }
+
+    function selectIsland() {
+        // We can't select the island too quickly after seeing this scene
+        if (control.millis() - _leftIslandTick < _selectIslandDelay) return
+
+        // Do special if we select our own island
+        if (_islands[currentSelectedIslandIndex].id === 0) {
+            TreasureStats.currentTreasure = {
+                onBoat: 0,
+                onIsland: TreasureStats.currentTreasure.onIsland + TreasureStats.currentTreasure.onBoat,
+                inPocket: 0
+            }
+            return
+        }
+
+        destroy()
 
         _onSelectIsland(_islands[currentSelectedIslandIndex])
     }
@@ -104,10 +127,25 @@ namespace Map {
         renderFlags(islands)
         // Show lives
         PirateLives.show()
+
+        // Now check to see if we have any more islands to visit
+        checkWinCondition()
     }
     
     export function onSelectIsland(callback: (island: Island) => void) {
         _onSelectIsland = callback
+    }
+
+    export function onWin(callback: () => void) {
+        _onWin = callback
+    }
+
+    function checkWinCondition() {
+        // If no island is owned by anyone BUT players
+        if (!islands.some((island) => island.ownedBy !== 'players')) {
+            destroy()
+            _onWin()
+        }
     }
 
     function renderCursor(island: Island, cursor: Sprite) {
