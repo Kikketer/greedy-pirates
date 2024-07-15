@@ -31,6 +31,9 @@ namespace TreasureStats {
 
             if (island) {
                 currentTreasure.onBoat += island.riches
+                // Also add any inPocket coin (a little too much logic here but oh well)
+                currentTreasure.onBoat += currentTreasure.inPocket
+                currentTreasure.inPocket = 0
                 island.riches = 0
             }
         } else {
