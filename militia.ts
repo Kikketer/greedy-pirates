@@ -19,6 +19,7 @@ class Militia {
     private _lastDirectionTick: number = 0
     private _isAttacking: boolean = false
     private _isParrying: boolean = false
+    public riches = 1
     public sprite: Sprite
     public health: number = 1
 
@@ -120,6 +121,20 @@ class Militia {
                 500,
                 true
             )
+        }
+    }
+
+    public lootTheBody() {
+        if (this.riches > 0) {
+            TreasureStats.updateTreasure({ inPocket: this.riches })
+            this.riches = 0
+            const oldX = this.sprite.x
+            const oldY = this.sprite.y
+            
+            this.sprite.destroy()
+            this.sprite = sprites.create(assets.image`Militia Broken and Broke`)
+            this.sprite.x = oldX
+            this.sprite.y = oldY
         }
     }
 

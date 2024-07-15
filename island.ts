@@ -44,7 +44,11 @@ namespace Island {
         
         // manually check each enemy to see if they overlap, also check for parry
         currentEnemies.forEach((enemy) => {
-            // Do nothing on dead enemies
+            if (enemy.health <= 0 && enemy.riches > 0) {
+                enemy.lootTheBody()
+            }
+
+            // Don't hurt the dead, that's just mean
             if (enemy.health <= 0) return
             if (direction === 'right' 
                 && enemy.sprite.x >= hitXZone[0] && enemy.sprite.x <= hitXZone[1]
