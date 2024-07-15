@@ -2,7 +2,6 @@ namespace AllDead {
     let _onRevive: () => void
 
     export function init() {
-        console.log("All dead!")
         scene.setBackgroundImage(assets.image`empty`)
         scene.setBackgroundColor(0)
 

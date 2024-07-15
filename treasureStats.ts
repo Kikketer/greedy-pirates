@@ -82,12 +82,12 @@ namespace TreasureStats {
             }
 
             const scoreSprite = textsprite.create(text + '', 1, 15)
-            scoreSprite.x = 80
+            scoreSprite.x = 8 + 5 + (scoreSprite.width / 2)
             scoreSprite.y = currentY
             scoreSprite.z = 100
             treasureSprites.push(scoreSprite)
 
-            iconSprite.x = 80 - (scoreSprite.width / 2 + 6)
+            iconSprite.x = 5 + (scoreSprite.width / 2)
             iconSprite.y = currentY
             iconSprites.push(iconSprite)
             currentY += 9

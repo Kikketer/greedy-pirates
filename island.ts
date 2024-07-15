@@ -63,6 +63,9 @@ namespace Island {
     }
 
     function onPirateDeath({ pirate }: { pirate: Pirate}) {
+        // Reduce lives
+        PirateLives.updatePirateCount(-1)
+
         // If there's still a living pirate, re-target all enemies to the other pirate
         if (player1.health > 0) {
             retargetEnemies(player1)
@@ -270,8 +273,6 @@ namespace Island {
             // Take a breather
             pause(2000)
 
-            console.log("And show dead screen")
-
             destroy()
             _onAllDead()
         }
@@ -290,6 +291,7 @@ namespace Island {
 
         scene.setBackgroundColor(8)
         TreasureStats.show(['pocket'])
+        PirateLives.show()
         
         player1 = new Pirate({ control: controller.player1, playerNumber: 0, onAttack: onPirateAttack, onDie: onPirateDeath, topBoundary: _boundingBox[1], statLocation: player1StatLocation })
         player2 = new Pirate({ control: controller.player2, playerNumber: 1, onAttack: onPirateAttack, onDie: onPirateDeath, topBoundary: _boundingBox[1], statLocation: player2StatLocation })

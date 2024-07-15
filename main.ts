@@ -32,7 +32,7 @@ const playerState = {
     currentIsland: ''
 }
 
-const version: string = 'v0.5'
+const version: string = 'v0.6'
 const debugMode: boolean = false
 
 let currentState: States
@@ -75,6 +75,9 @@ function switchState(state: States) {
         case States.AllDead:
             AllDead.init()
         break;
+        case States.GameOver:
+            GameOver.init()
+        break;
         default:
             Menu.init()
     }
@@ -91,8 +94,11 @@ function startGame() {
         switchState(States.Overview)
     })
     Island.onAllDead(() => {
-        // Keep the current island
-        switchState(States.AllDead)
+        if (PirateLives.currentPirateCount <= 0) {
+            switchState(States.GameOver)
+        } else {
+            switchState(States.AllDead)
+        }
     })
 
     Menu.onStartGame(() => {

@@ -22,6 +22,8 @@ namespace Map {
             name: 'Treasarr Island',
             x: 48,
             y: 91,
+            risk: 0,
+            riches: 0,
             segments: 1,
             ownedBy: 'players'
         },
@@ -38,7 +40,7 @@ namespace Map {
         {
             id: 2,
             name: 'Narrrthpalms',
-            x: 52,
+            x: 54,
             y: 8,
             riches: 200,
             risk: 1,
@@ -48,8 +50,8 @@ namespace Map {
         {
             id: 3,
             name: 'Longhall',
-            x: 41,
-            y: 47,
+            x: 43,
+            y: 50,
             riches: 300,
             risk: 2,
             segments: 6,
@@ -71,7 +73,7 @@ namespace Map {
             x: 22,
             y: 84,
             riches: 400,
-            risk: 5,
+            risk: 4,
             segments: 6,
             ownedBy: null
         },
@@ -98,10 +100,10 @@ namespace Map {
         {
             id: 1,
             name: 'Primalburrrg',
-            x: 110,
+            x: 115,
             y: 61,
             riches: 200,
-            risk: 5,
+            risk: 4,
             segments: 6,
             ownedBy: null
         },
@@ -111,7 +113,7 @@ namespace Map {
             x: 144,
             y: 56,
             riches: 400,
-            risk: 6,
+            risk: 5,
             segments: 6,
             ownedBy: null
         }

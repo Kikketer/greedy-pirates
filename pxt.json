@@ -22,7 +22,9 @@
         "menu.ts",
         "treasureStats.ts",
         "allDead.ts",
-        "islands.ts"
+        "islands.ts",
+        "pirateLives.ts",
+        "gameOver.ts"
     ],
     "testFiles": [
         "test.ts"

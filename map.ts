@@ -102,6 +102,8 @@ namespace Map {
         renderIslandStats(islands[currentSelectedIslandIndex])
         // And the owner flags
         renderFlags(islands)
+        // Show lives
+        PirateLives.show()
     }
     
     export function onSelectIsland(callback: (island: Island) => void) {

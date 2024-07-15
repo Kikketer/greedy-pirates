@@ -25,6 +25,8 @@ namespace Menu {
         _versionSprite.y = 115
 
         music.stopAllSounds()
+        PirateLives.hide()
+        
         music.play(music.createSong(assets.song`Title`), music.PlaybackMode.LoopingInBackground)
 
         controller.player1.A.addEventListener(ControllerButtonEvent.Pressed, startGame)
