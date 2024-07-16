@@ -5,7 +5,7 @@ type ActionObject = {
     faceRight: () => void
 }
 
-type AttackCallbackParams = { pirate: Pirate, direction: 'left' | 'right' }
+type AttackCallbackParams = { pirate: Pirate }
 
 class Pirate {
     static _attackDelay: number = 400
@@ -50,6 +50,12 @@ class Pirate {
         faceRight: () => undefined
     }
     public health: number
+
+    // Makes "facing" aka "direction" read only
+    // pirate.direction
+    public get direction() {
+        return this.facing
+    }
 
     constructor({ control, playerNumber, onAttack, onDie, topBoundary, statLocation }: { 
             control: controller.Controller,
@@ -195,7 +201,7 @@ class Pirate {
         if (this.facing === 'right') {
             this._lastAttackTick = control.millis()
             this.isAttacking = 'right'
-            attackCallback({ pirate: this, direction: 'right' })
+            attackCallback({ pirate: this })
             animation.runImageAnimation(
                 this.sprite,
                 this.attackRightAnimation,
@@ -209,7 +215,7 @@ class Pirate {
         } else {
             this._lastAttackTick = control.millis()
             this.isAttacking = 'left'
-            attackCallback({ pirate: this, direction: 'left' })
+            attackCallback({ pirate: this })
             animation.runImageAnimation(
                 this.sprite,
                 this.attackLeftAnimation,

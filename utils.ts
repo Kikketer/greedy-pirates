@@ -26,4 +26,6 @@ namespace Utils {
         anim.map(frame => frame.replace(fromColor, toColor))
         return anim
     }
+
+    export function checkAttack({ pirate, enemies }: { pirate: Pirate, enemies: Sprite[] }) {}
 }

@@ -25,7 +25,8 @@
         "islands.ts",
         "pirateLives.ts",
         "gameOver.ts",
-        "win.ts"
+        "win.ts",
+        "boatBattle.ts"
     ],
     "testFiles": [
         "test.ts"
