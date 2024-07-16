@@ -10,6 +10,8 @@ namespace Menu {
 
         music.stopAllSounds()
 
+        _versionSprite.destroy()
+
         _callback()
     }
 

@@ -17,10 +17,12 @@ namespace PirateLives {
         _liveCountIcon = sprites.create(assets.image`Pirate Lives`)
         _liveCountIcon.x = 5
         _liveCountIcon.y = 115
+        _liveCountIcon.z = 120
 
         _liveCountSprite = textsprite.create(currentPirateCount + '', 0, 1)
         _liveCountSprite.x = 8 + 5 + (_liveCountSprite.width / 2)
         _liveCountSprite.y = 115
+        _liveCountSprite.z = 120
     }
 
     export function hide() {
