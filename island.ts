@@ -113,11 +113,13 @@ namespace Island {
             player2.sprite.x = 10
         }
 
-        currentEnemies.forEach(enemy => {
-            if (enemy.health <= 0) {
-                enemy.destroy()
-            }
-        })
+
+        // Destroy all enemies!
+        currentEnemies.forEach((enemy) => enemy.destroy())
+        currentEnemies = []
+        // And civilians, just in case
+        currentCivilians.map(civilian => civilian.destroy())
+        currentCivilians = []
         
         isSegmentComplete = false
         
@@ -198,7 +200,7 @@ namespace Island {
         // Start most enemies a bit from the left (avoiding starting ON the players)
         const averageAmount = Math.floor(_island.risk + (1 * currentSegment))
         const numberOfEnemies = Math.max(Math.randomRange(averageAmount - 2, averageAmount), 1)
-        console.log('Enemies ' + currentSegment + ':' + _island.risk)
+
         Utils.getArrayOfLength(numberOfEnemies).forEach(() => {
             const locX = Math.randomRange(_boundingBox[0] + 20, _boundingBox[2])
             const locY = Math.randomRange(_boundingBox[1], _boundingBox[3])
@@ -254,7 +256,6 @@ namespace Island {
     }
 
     function whenAllDead() {
-        console.log('All dead! ' + _allDead)
         if (!_allDead) {
             _allDead = true
             // You lose all your inPocket AND boat coin!
