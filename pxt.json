@@ -27,7 +27,8 @@
         "gameOver.ts",
         "win.ts",
         "boatBattle.ts",
-        "enemyPirate.ts"
+        "enemyPirate.ts",
+        "enemy.ts"
     ],
     "testFiles": [
         "test.ts"

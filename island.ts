@@ -6,7 +6,7 @@ namespace Island {
 
     let player1: Pirate
     let player2: Pirate
-    let currentEnemies: Array<Militia> = []
+    let currentEnemies: Array<Enemy> = []
     let currentCivilians: Array<Sprite> = []
     let currentSegment: number = 0
     let isSegmentComplete: boolean = false

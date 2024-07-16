@@ -51,7 +51,7 @@ game.onUpdate(() => {
             Island.render();
             break;
         case States.BoatBattle:
-            BoatBattle.render()
+            // BoatBattle.render()
             break;
         default:
         break;
@@ -77,7 +77,7 @@ function switchState(state: States) {
             Island.init({ island: currentIsland })
         break;
         case States.BoatBattle:
-            BoatBattle.init()
+            // BoatBattle.init()
         break;
         case States.AllDead:
             AllDead.init()
@@ -133,4 +133,4 @@ function startGame(initialState?: States) {
     switchState(initialState ? initialState : States.Menu)
 }
 
-startGame(States.BoatBattle)
+startGame()

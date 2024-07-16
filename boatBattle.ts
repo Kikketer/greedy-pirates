@@ -1,5 +1,5 @@
 namespace BoatBattle {
-    let enemies: Militia[] = []
+    let enemies: EnemyPirate[] = []
     let player1: Pirate
     let player2: Pirate
 
@@ -8,7 +8,7 @@ namespace BoatBattle {
     let _onWinCallback: () => void
     let _onAllDeadCallback: () => void
 
-    const _timeAllowed = 5
+    const _timeAllowed = 10
     let _currentTime = _timeAllowed
     let _lastTick = 0
     let _isDone = false
@@ -43,8 +43,6 @@ namespace BoatBattle {
             const militia = new Militia({ x: locX, y: locY, target: Math.pickRandom([player1, player2]) })
             enemies.push(militia)
         })
-
-        
     }
     
     export function render() {
@@ -89,9 +87,8 @@ namespace BoatBattle {
     function onPirateAttack({ pirate }: { pirate: Pirate }) {
         const hitEnemies = Utils.getHitEnemies({ pirate, enemies })
         hitEnemies.forEach((enemy) => {
-            if (enemy.health <= 0 && enemy.riches > 0) {
-                enemy.lootTheBody()
-            } else {
+            // No looting of EnemyPirates
+            if (enemy.health > 0) {
                 enemy.hit(1)
             }
         })

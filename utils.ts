@@ -27,7 +27,7 @@ namespace Utils {
         return anim
     }
 
-    export function getHitEnemies({ pirate, enemies }: { pirate: Pirate, enemies: Militia[] }) {
+    export function getHitEnemies({ pirate, enemies }: { pirate: Pirate, enemies: Enemy[] }) {
         const dirPix = pirate.direction === 'left' ? -1 : 1
         // The hit zone is the pirate "sword" box: [center, right|left] and [top, bottom]
         const hitXZone = [pirate.sprite.x, pirate.sprite.x + (13 * dirPix)]
