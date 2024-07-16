@@ -11,9 +11,6 @@ class Militia extends Enemy {
     static attackDelayMin: number = 4000
     static attackDelayMax: number = 6000
 
-    private facing: 'left' | 'right' = 'right'
-    // private _isParrying: boolean = false
-
     constructor({ x, y, target }: { x: number, y: number, target?: Pirate }) {
         super({ x, y, target, sprite: sprites.create(assets.animation`Militia Walk`[0]) })
 
@@ -22,26 +19,22 @@ class Militia extends Enemy {
     }
 
     public hit(damage: number) {
-        // if (this._isParrying) {
-        //     music.play(Militia.parrySound, music.PlaybackMode.InBackground)
-        //     return
-        // }
-
         super.hit(damage)
         
         if (this.health <= 0) {
             animation.runImageAnimation(
                 this.sprite,
-                this.facing === 'right' ? Militia.deathRightAnimation : Militia.deathLeftAnimation,
+                this._facing === 'right' ? Militia.deathRightAnimation : Militia.deathLeftAnimation,
                 100,
                 false
             )
         }
     }
 
-    public render() {
-        if (this.health <= 0) return
-        
+    public render() {     
+        // No Undead walking!
+        if (this.health <= 0 && !this._isAttacking) return
+
         super.render()
         
         // Attack randomly
@@ -65,7 +58,7 @@ class Militia extends Enemy {
             const oldY = this.sprite.y
             
             this.sprite.destroy()
-            if (this.facing === 'left') {
+            if (this._facing === 'left') {
                 this.sprite = sprites.create(assets.image`Militia Broken and Broke Left`)
             } else {
                 this.sprite = sprites.create(assets.image`Militia Broken and Broke`)
@@ -100,7 +93,7 @@ class Militia extends Enemy {
         super.attack()
         
         // Play the fire animation
-        if (this.facing === 'right') {
+        if (this._facing === 'right') {
             animation.runImageAnimation(
                 this.sprite,
                 Militia.attackRightAnimation,

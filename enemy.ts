@@ -52,6 +52,7 @@ class Enemy {
 
     protected attack() {
         // Stop moving
+        console.log("Should stop!")
         this.sprite.follow(this._currentTarget.sprite, 0)
         this._isAttacking = true
     }
@@ -59,6 +60,9 @@ class Enemy {
     protected die() {}
 
     public render() {
+        // No Undead walking!
+        if (this.health <= 0 && !this._isAttacking) return
+        
         // Check your distance from the target randomly
         if ((control.millis() - this._lastDirectionTick) > Militia.directionChangeInterval) {
             this._lastDirectionTick = control.millis()
