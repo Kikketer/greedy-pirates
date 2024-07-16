@@ -11,8 +11,8 @@ class Militia extends Enemy {
     static attackDelayMin: number = 4000
     static attackDelayMax: number = 6000
 
-    constructor({ x, y, target }: { x: number, y: number, target?: Pirate }) {
-        super({ x, y, target, sprite: sprites.create(assets.animation`Militia Walk`[0]) })
+    constructor({ x, y, target, riches }: { x: number, y: number, target?: Pirate, riches?: number }) {
+        super({ x, y, target, sprite: sprites.create(assets.animation`Militia Walk`[0]), riches })
 
         // Most often we spawn to the right, so walk left
         this.walk('left')

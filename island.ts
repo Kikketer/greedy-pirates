@@ -209,7 +209,7 @@ namespace Island {
             if (player2.health > 0) livingPirates.push(player2)
             const randomTarget = Math.pickRandom(livingPirates)
             
-            currentEnemies.push(new Militia({ x: locX, y: locY, target: randomTarget }))
+            currentEnemies.push(new Militia({ x: locX, y: locY, target: randomTarget, riches: 1 + currentSegment }))
         })
 
         Utils.getArrayOfLength(Math.randomRange(1, 3)).forEach(() => {

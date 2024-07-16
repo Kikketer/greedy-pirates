@@ -44,11 +44,6 @@
         "mimeType": "image/x-mkcd-f4",
         "displayName": "Boat Icon"
     },
-    "image11": {
-        "data": "hwQIAAgAAAAAAAAA4ADu7u7d7e7u3e3u7t3u7uDd7u7gAO4OAAAAAA==",
-        "mimeType": "image/x-mkcd-f4",
-        "displayName": "Pocket Icon"
-    },
     "image14": {
         "data": "hwQIAAgAAAAAVUUAUFVVBFBVVQRQVVUEUFVVBFBVVQRQVVUEAFVFAA==",
         "mimeType": "image/x-mkcd-f4",
@@ -83,6 +78,11 @@
         "data": "hwQQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADw/wAAAODu7u7uAAAADu7u7u4AAAAAoA6gzAAAAACg3a2sAAAAAK7d26oAAACgrt3dqgAAAKCq3d2qAAAAoKre3aoAAAAAqt6trAAAAAAAAADdAAAAAAAAAN0AAAAAAADw/w==",
         "mimeType": "image/x-mkcd-f4",
         "displayName": "Militia Broken and Broke Left"
+    },
+    "image11": {
+        "data": "hwQIAAgAAAAAAAAAAFAFAABRVQAQVVUEUFVVBABVRQAAQAQAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "Pocket Icon"
     },
     "anim14": {
         "namespace": "myAnimations",

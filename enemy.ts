@@ -12,10 +12,12 @@ class Enemy {
     protected _isAttacking: boolean  = false
     protected _lastDirectionTick: number = 0
 
-    constructor({ x, y, target, sprite }: { x: number, y: number, target: Pirate, sprite: Sprite }) {
+    constructor({ x, y, target, sprite, riches }: { x: number, y: number, target: Pirate, sprite: Sprite, riches?: number }) {
         this.sprite = sprite
         this.sprite.x = x
         this.sprite.y = y
+
+        this.riches = riches != null ? riches : 1
 
         // On initial spawn they are quick to attack!
         this._nextAttackTime = Math.randomRange(Militia.attackDelayMin / 2, Militia.attackDelayMax / 2)
