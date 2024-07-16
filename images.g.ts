@@ -297,17 +297,6 @@ e e e e e e e e
 . . e e e e e e 
 . . . . . . . . 
 `;
-            case "image11":
-            case "Pocket Icon":return img`
-. . e e e . . . 
-. e e e e e e . 
-. . d d d d . . 
-. . d d d d . . 
-. e d d e e e . 
-. e e e e e e . 
-. e e e e e e . 
-. e e e e e . . 
-`;
             case "image14":
             case "Coin":return img`
 . . . . . . . . 
@@ -514,6 +503,17 @@ d d a a a c c d d . . . . . . .
 . . . f e e a a d d d d a . . f 
 . . . f e e c c a a a a c d d f 
 . . . f e e c a a a a a a d d f 
+`;
+            case "image11":
+            case "Pocket Icon":return img`
+. . . . . . . . 
+. . . 1 5 . . . 
+. . 1 5 5 5 . . 
+. 5 5 5 5 5 4 . 
+. 5 5 5 5 5 4 . 
+. . 5 5 5 4 . . 
+. . . 4 4 . . . 
+. . . . . . . . 
 `;
         }
         return null;
