@@ -16,7 +16,7 @@ namespace Island {
     const player2StatLocation: number[] = [130, 10]
     // This is the bounding box for enemy and player movement (aka the street)
     // [topleftX, topLeftY, bottomLeftX, bottomLeftY]
-    let _boundingBox: number[] = [0, 55, 160, 120]
+    const _boundingBox: number[] = [0, 55, 160, 120]
     let _island: Map.Island
     let _onUpdateTreasure: (T: TreasureStats.OnUpdateTreasureProps) => void = () => undefined
     let _onLeaveIsland: () => void
@@ -28,12 +28,6 @@ namespace Island {
     let _treasureOpened: boolean = false
 
     function onPirateAttack({ pirate }: { pirate: Pirate }) {
-        const dirPix = pirate.direction === 'left' ? -1 : 1
-        // The hit zone is the pirate "sword" box: [center, right|left] and [top, bottom]
-        const hitXZone = [pirate.sprite.x, pirate.sprite.x + (13 * dirPix)]
-        // The sword is only near the top of the sprite, we don't kill with feet
-        const hitYZone = [pirate.sprite.y - 4, pirate.sprite.y + 2]
-
         // Check to see if we slashed the treasure!
         if (_treasureSprite && isSegmentComplete 
             && Math.abs(pirate.sprite.x - _treasureSprite.x) < 10
@@ -41,29 +35,13 @@ namespace Island {
             openTreasure()
             return
         }
-        
-        // manually check each enemy to see if they overlap, also check for parry
-        currentEnemies.forEach((enemy) => {
-            // Don't hurt the dead, that's just mean
-            if (enemy.health <= 0 && enemy.riches <= 0) return
-            if (pirate.direction === 'right'
-                && enemy.sprite.x >= hitXZone[0] && enemy.sprite.x <= hitXZone[1]
-                // Bottom of pirate is overlapping the top of the enemy (and opposite)
-                && hitYZone[1] >= enemy.sprite.y - (enemy.sprite.height / 2) && hitYZone[0] <= enemy.sprite.y + (enemy.sprite.height / 2)) {
-                if (enemy.health <= 0 && enemy.riches > 0) {
-                    enemy.lootTheBody()
-                } else {
-                    enemy.hit(1)
-                }
-            } else if (pirate.direction === 'left'
-                && enemy.sprite.x <= hitXZone[0] && enemy.sprite.x >= hitXZone[1]
-                // Same vertical check as the right side
-                && hitYZone[1] >= enemy.sprite.y - (enemy.sprite.height / 2) && hitYZone[0] <= enemy.sprite.y + (enemy.sprite.height / 2)) {
-                if (enemy.health <= 0 && enemy.riches > 0) {
-                    enemy.lootTheBody()
-                } else {
-                    enemy.hit(1)
-                }
+
+        const hitEnemies = Utils.getHitEnemies({ pirate, enemies: currentEnemies })
+        hitEnemies.forEach((enemy) => {
+            if (enemy.health <= 0 && enemy.riches > 0) {
+                enemy.lootTheBody()
+            } else {
+                enemy.hit(1)
             }
         })
 
@@ -71,9 +49,6 @@ namespace Island {
     }
 
     function onPirateDeath({ pirate }: { pirate: Pirate}) {
-        // Reduce lives
-        PirateLives.updatePirateCount(-1)
-
         // If there's still a living pirate, re-target all enemies to the other pirate
         if (player1.health > 0) {
             retargetEnemies(player1)
@@ -140,7 +115,7 @@ namespace Island {
 
         currentEnemies.forEach(enemy => {
             if (enemy.health <= 0) {
-                enemy.destory()
+                enemy.destroy()
             }
         })
         
@@ -260,7 +235,7 @@ namespace Island {
         player1.destroy()
         player2.destroy()
 
-        currentEnemies.map(enemy => enemy.destory())
+        currentEnemies.map(enemy => enemy.destroy())
         currentEnemies = []
         currentCivilians.map(civilian => civilian.destroy())
         currentCivilians = []

@@ -20,6 +20,7 @@ enum States {
     Overview,
     Island,
     AllDead,
+    BoatBattle,
     GameOver,
     Win
 }
@@ -72,6 +73,9 @@ function switchState(state: States) {
         case States.Island:
             Island.init({ island: currentIsland })
         break;
+        case States.BoatBattle:
+            BoatBattle.init()
+        break;
         case States.AllDead:
             AllDead.init()
         break;
@@ -81,12 +85,13 @@ function switchState(state: States) {
         case States.Win:
             Win.init()
         break;
+        case States.Menu:
         default:
             Menu.init()
     }
 }
 
-function startGame() {
+function startGame(initialState?: States) {
     Map.onSelectIsland((island: Map.Island) => {
         currentIsland = island
         switchState(States.Island)
@@ -107,6 +112,9 @@ function startGame() {
         }
     })
 
+    BoatBattle.onWin(() => {})
+    BoatBattle.onAllDead(() => {})
+
     Menu.onStartGame(() => {
         switchState(States.Overview)
     })
@@ -115,7 +123,7 @@ function startGame() {
         switchState(States.Overview)
     })
 
-    switchState(States.Menu)
+    switchState(initialState ? initialState : States.Menu)
 }
 
-startGame()
+startGame(States.BoatBattle)

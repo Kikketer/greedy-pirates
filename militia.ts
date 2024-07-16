@@ -60,7 +60,7 @@ class Militia {
         }
     }
 
-    public destory() {
+    public destroy() {
         this.sprite.destroy()
     }
 

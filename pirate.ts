@@ -162,6 +162,9 @@ class Pirate {
                 characterAnimations.clearCharacterState(this.sprite)
             }, this.hurtLeftAnimation.length * 200)
         } else {
+            // Reduce pirate lives count
+            PirateLives.updatePirateCount(-1)
+            
             // You dead!
             animation.runImageAnimation(
                 this.sprite,
