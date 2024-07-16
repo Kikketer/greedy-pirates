@@ -129,7 +129,7 @@ class Pirate {
         }
     }
 
-    public hit(enemy: Militia, damage: number) {
+    public hit(enemy: Enemy, damage: number) {
         if (this.isParrying) {
             music.play(Pirate.parrySound, music.PlaybackMode.InBackground)
             return

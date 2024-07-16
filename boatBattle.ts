@@ -40,8 +40,8 @@ namespace BoatBattle {
         Utils.getArrayOfLength(numberOfEnemies).forEach(() => {
             const locX = Math.randomRange(_enemyBoatBox[0], _enemyBoatBox[2])
             const locY = Math.randomRange(_enemyBoatBox[1], _enemyBoatBox[3])
-            const militia = new Militia({ x: locX, y: locY, target: Math.pickRandom([player1, player2]) })
-            enemies.push(militia)
+            const enemyPirate = new EnemyPirate({ x: locX, y: locY, target: Math.pickRandom([player1, player2]) })
+            enemies.push(enemyPirate)
         })
     }
     

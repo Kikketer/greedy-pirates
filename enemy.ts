@@ -54,7 +54,6 @@ class Enemy {
 
     protected attack() {
         // Stop moving
-        console.log("Should stop!")
         this.sprite.follow(this._currentTarget.sprite, 0)
         this._isAttacking = true
     }
