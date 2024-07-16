@@ -8,31 +8,66 @@ namespace BoatBattle {
     let _onWinCallback: () => void
     let _onAllDeadCallback: () => void
 
+    const _timeAllowed = 5
+    let _currentTime = _timeAllowed
+    let _lastTick = 0
+    let _isDone = false
     const _boundingBox: number[] = [0, 10, 160, 120]
+    const _enemyBoatBox: number[] = [0, 10, 160, 60]
 
     export function init() {
         scene.setBackgroundColor(6)
         scene.setBackgroundImage(assets.image`empty`)
 
+        _currentTime = _timeAllowed
+        _lastTick = control.millis()
+
         // Spawn the players
         player1 = new Pirate({ control: controller.player1, playerNumber: 0, onAttack: onPirateAttack, onDie: onPirateDeath, topBoundary: _boundingBox[1], statLocation: player1StatLocation })
-        // player2 = new Pirate({ control: controller.player2, playerNumber: 1, onAttack: onPirateAttack, onDie: onPirateDeath, topBoundary: _boundingBox[1], statLocation: player2StatLocation })
+        player2 = new Pirate({ control: controller.player2, playerNumber: 1, onAttack: onPirateAttack, onDie: onPirateDeath, topBoundary: _boundingBox[1], statLocation: player2StatLocation })
 
         // Spawn the enemies!
         // Based on the amount of treasure you have, more enemies will appear!
         const totalTreasure = TreasureStats.getTotal()
         let numberOfEnemies = 1
         if (totalTreasure > 1000) {
-            numberOfEnemies = 8
+            numberOfEnemies = 10
         } else {
             // A log curve to determine the number of enemies
-            numberOfEnemies = 1 + Math.log(TreasureStats.getTotal() + 1) / Math.log(1000) * 6;
+            numberOfEnemies = 4 + Math.log(TreasureStats.getTotal() + 1) / Math.log(1000) * 8;
         }
 
         Utils.getArrayOfLength(numberOfEnemies).forEach(() => {
-            const militia = new Militia({ x: 50, y: 50, target: Math.pickRandom([player1, player2]) })
+            const locX = Math.randomRange(_enemyBoatBox[0], _enemyBoatBox[2])
+            const locY = Math.randomRange(_enemyBoatBox[1], _enemyBoatBox[3])
+            const militia = new Militia({ x: locX, y: locY, target: Math.pickRandom([player1, player2]) })
             enemies.push(militia)
         })
+
+        
+    }
+    
+    export function render() {
+        player1.render()
+        player2.render()
+
+        enemies.forEach(enemy => enemy.render())
+
+        // Show timer (I know there's an extension but I want to try and roll my own)
+        if (control.millis() - _lastTick > 1000 && !_isDone) {
+            _lastTick = control.millis()
+            _currentTime -= 1
+            console.log('Time! ' + _currentTime)
+        }
+
+        if (_currentTime <= 0 && !_isDone && enemies.some((enemy) => enemy.health > 0)) {
+            _isDone = true
+            console.log('Game over!')
+            pause(1000)
+
+            destory()
+            _onAllDeadCallback()
+        }
     }
 
     export function destory() {
@@ -60,7 +95,21 @@ namespace BoatBattle {
                 enemy.hit(1)
             }
         })
+
+        checkIfWin()
     }
 
     function onPirateDeath() {}
+
+    function checkIfWin() {
+        const anyAlive = enemies.some((enemy) => enemy.health > 0)
+        if (!anyAlive) {
+            _isDone = true
+            console.log("you dit it!")
+            pause(1000)
+
+            destory()
+            _onWinCallback()
+        }
+    }
 }

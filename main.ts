@@ -50,6 +50,9 @@ game.onUpdate(() => {
         case States.Island:
             Island.render();
             break;
+        case States.BoatBattle:
+            BoatBattle.render()
+            break;
         default:
         break;
     }
@@ -112,8 +115,12 @@ function startGame(initialState?: States) {
         }
     })
 
-    BoatBattle.onWin(() => {})
-    BoatBattle.onAllDead(() => {})
+    BoatBattle.onWin(() => {
+        switchState(States.Overview)
+    })
+    BoatBattle.onAllDead(() => {
+        switchState(States.Overview)
+    })
 
     Menu.onStartGame(() => {
         switchState(States.Overview)
@@ -126,4 +133,4 @@ function startGame(initialState?: States) {
     switchState(initialState ? initialState : States.Menu)
 }
 
-startGame() // States.BoatBattle
+startGame(States.BoatBattle)
