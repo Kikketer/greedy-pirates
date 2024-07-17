@@ -17,6 +17,7 @@ namespace BoatBattle {
     export function init() {
         scene.setBackgroundColor(6)
         scene.setBackgroundImage(assets.image`Boat Battle`)
+        _isDone = false
 
         // Spawn the players
         player1 = new Pirate({ control: controller.player1, playerNumber: 0, onAttack: onPirateAttack, onDie: onPirateDeath, boundaries: _boundingBox, statLocation: player1StatLocation })
@@ -36,10 +37,9 @@ namespace BoatBattle {
         const boatTreasure = TreasureStats.currentTreasure.onBoat
         let numberOfEnemies = 1
         if (boatTreasure > 1000) {
-            numberOfEnemies = 8
+            numberOfEnemies = 10
         } else {
-            // A log curve to determine the number of enemies
-            numberOfEnemies = 3 + Math.min(Math.floor(boatTreasure / 1000 * 4), 4);
+            numberOfEnemies = 3 + Math.min(Math.floor(boatTreasure / 1000 * 4), 7);
         }
 
         Utils.getArrayOfLength(numberOfEnemies).forEach((index) => {
