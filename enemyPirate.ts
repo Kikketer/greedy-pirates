@@ -8,11 +8,11 @@ class EnemyPirate extends Enemy {
     // static parrySound: music.SoundEffect = music.createSoundEffect(WaveShape.Noise, 5000, 5000, 255, 0, 100, SoundExpressionEffect.Vibrato, InterpolationCurve.Curve)
 
     static directionChangeInterval: number = 1000
-    static attackDelayMin: number = 4000
-    static attackDelayMax: number = 6000
+    static attackDelayMin: number = 3000
+    static attackDelayMax: number = 5000
 
     constructor({ x, y, target, riches }: { x: number, y: number, target?: Pirate, riches?: number }) {
-        super({ x, y, target, sprite: sprites.create(assets.animation`Pirate Walk`[0]), riches })
+        super({ x, y, target, sprite: sprites.create(assets.animation`Pirate Walk`[0]), riches, speed: 20, minDistanceFromTarget: 10 })
 
         // Most often we spawn to the right, so walk left
         this.walk('left')
@@ -38,10 +38,11 @@ class EnemyPirate extends Enemy {
         super.render()
 
         // Attack randomly
-        if ((control.millis() - this._lastAttackTick) > this._nextAttackTime) {
-            this._lastAttackTick = control.millis()
-            this._nextAttackTime = Math.randomRange(EnemyPirate.attackDelayMin, EnemyPirate.attackDelayMax)
-            this.attack()
+        if ((control.millis() - this._lastAttackTick) > this._nextAttackTime 
+            && Utils.getDistance(this.sprite, this._currentTarget.sprite) < 10) {
+                this._lastAttackTick = control.millis()
+                this._nextAttackTime = Math.randomRange(EnemyPirate.attackDelayMin, EnemyPirate.attackDelayMax)
+                this.attack()
         }
     }
 
@@ -68,7 +69,7 @@ class EnemyPirate extends Enemy {
     protected attack() {
         super.attack()
 
-        // Play the fire animation
+        // Play the swing animation
         if (this._facing === 'right') {
             animation.runImageAnimation(
                 this.sprite,
@@ -89,11 +90,10 @@ class EnemyPirate extends Enemy {
         setTimeout(() => {
             // Make sure we didn't die in this tiny delay:
             if (this.health > 0 && this._currentTarget && this.sprite) {
-                // bigCrash or sonar....
-                music.play(music.melodyPlayable(music.bigCrash), music.PlaybackMode.InBackground)
+                music.play(Pirate.parrySound, music.PlaybackMode.InBackground)
 
                 // Check to see that our target is in range and fire the hit
-                if (Math.abs(this.sprite.y - this._currentTarget.sprite.y) < 20) {
+                if (Utils.getDistance(this.sprite, this._currentTarget.sprite) < 15) {
                     this._currentTarget.hit(this, 1)
                 }
             }

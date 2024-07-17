@@ -119,7 +119,11 @@ function startGame(initialState?: States) {
         switchState(States.Overview)
     })
     BoatBattle.onAllDead(() => {
-        switchState(States.Overview)
+        if (PirateLives.currentPirateCount <= 0) {
+            switchState(States.GameOver)
+        } else {
+            switchState(States.Overview)
+        }
     })
 
     Menu.onStartGame(() => {

@@ -19,7 +19,7 @@ namespace Utils {
         const dx = pointB.x - pointA.x;
         const dy = pointB.y - pointA.y;
 
-        return Math.sqrt(dx * dx + dy * dy);
+        return Math.abs(Math.sqrt(dx * dx + dy * dy));
     }
 
     export function swapAnimationColors(anim: Image[], fromColor: number, toColor: number) {

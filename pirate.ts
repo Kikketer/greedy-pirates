@@ -33,7 +33,7 @@ class Pirate {
     private isAttacking?: 'left' | 'right'
     private isGettingHurt?: boolean = false
     private isParrying?: 'left' | 'right'
-    private _topBoundary: number = 0
+    private _boundaries: number[] = [0, 0, 160, 120]
     private _lastAttackTick: number = 0
     private _isAttackingTimeout: number
     private _statLocation: number[] = [0,0]
@@ -57,17 +57,17 @@ class Pirate {
         return this.facing
     }
 
-    constructor({ control, playerNumber, onAttack, onDie, topBoundary, statLocation }: { 
+    constructor({ control, playerNumber, onAttack, onDie, boundaries, statLocation }: { 
             control: controller.Controller,
             playerNumber: 0 | 1,
             onAttack: (T: AttackCallbackParams) => void,
             onDie: (T: { pirate: Pirate }) => void,
-            topBoundary: number,
+            boundaries: number[],
             statLocation: number[]
         }) {
         this.health = 3
         this.facing = 'right'
-        this._topBoundary = topBoundary
+        this._boundaries = boundaries
         this._statLocation = statLocation
         this._onDieCallback = onDie
 
@@ -123,9 +123,12 @@ class Pirate {
         }
         this.sprite.z = this.sprite.y
 
-        // Brute force boundaries for the island
-        if (this.sprite.y < this._topBoundary) {
-            this.sprite.y = this._topBoundary
+        // Brute force boundaries
+        if (this.sprite.y < this._boundaries[1]) {
+            this.sprite.y = this._boundaries[1]
+        }
+        if (this.sprite.y > this._boundaries[3]) {
+            this.sprite.y = this._boundaries[3]
         }
     }
 
@@ -141,6 +144,7 @@ class Pirate {
 
         this.health -= damage
         this.isGettingHurt = true
+        
         scene.cameraShake(2, 500)
 
         // Setting to a character animation state that we don't have a rule for
@@ -250,6 +254,7 @@ class Pirate {
             // 8 pixel image, 2 pixel margin
             s.x = this._statLocation[0] + (index * s.width + 2)
             s.y = this._statLocation[1]
+            s.z = 120
             return s
         })
     }
