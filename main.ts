@@ -141,7 +141,7 @@ function startGame(initialState?: States) {
             switchState(States.Island)
         }
     })
-    BoatBattle.onAllDead(() => {
+    BoatBattle.onLoose(() => {
         if (PirateLives.currentPirateCount <= 0) {
             switchState(States.GameOver)
         } else if (currentIsland.id === 0) {
@@ -179,4 +179,4 @@ function startGame(initialState?: States) {
     switchState(initialState ? initialState : States.Menu)
 }
 
-startGame()
+startGame(States.BoatBattle)
