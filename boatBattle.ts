@@ -106,6 +106,8 @@ namespace BoatBattle {
     }
 
     function checkIfOver() {
+        if (_isDone) return
+        
         const anyAlive = enemies.some((enemy) => enemy.health > 0)
         const anyGotTreasure = enemies.some((enemy) => Utils.getDistance(enemy.sprite, treasure) < 5)
         const allPlayersDead = player1.health <= 0 && player2.health <= 0
