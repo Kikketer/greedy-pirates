@@ -18,7 +18,7 @@ namespace TreasureStats {
     let currentPosition: 'left' | 'center' = 'left'
     
     export let currentTreasure: TreasureStat = {
-        onBoat: 0,
+        onBoat: 151,
         onIsland: 0,
         inPocket: 0
     }

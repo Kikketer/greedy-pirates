@@ -29,7 +29,8 @@
         "boatBattle.ts",
         "enemyPirate.ts",
         "enemy.ts",
-        "travel.ts"
+        "travel.ts",
+        "treasureIsland.ts"
     ],
     "testFiles": [
         "test.ts"

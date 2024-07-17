@@ -20,6 +20,7 @@ enum States {
     Overview,
     Island,
     AllDead,
+    TreasureIsland,
     Travel,
     BoatBattle,
     GameOver,
@@ -38,7 +39,7 @@ const version: string = 'v0.7'
 const debugMode: boolean = false
 
 let currentState: States
-let currentIsland: Map.Island
+let currentIsland: Map.Island = Map.islands[2]
 let treasureSprite: Sprite
 
 console.log('Yarrrgh! Beware of ye monsters in thee code!')
@@ -72,7 +73,7 @@ function switchState(state: States) {
     currentState = state
     switch (currentState) {
         case States.Overview:
-            Map.init(Map.islands)
+            Map.init({ islands: Map.islands, currentIsland })
         break;
         case States.Island:
             Island.init({ island: currentIsland })
@@ -90,7 +91,10 @@ function switchState(state: States) {
             Win.init()
         break;
         case States.Travel:
-            Travel.init()
+            Travel.init({ targetIsland: currentIsland })
+        break;
+        case States.TreasureIsland:
+            TreasureIsland.init()
         break;
         case States.Menu:
         default:
@@ -100,15 +104,26 @@ function switchState(state: States) {
 
 function startGame(initialState?: States) {
     Map.onSelectIsland((island: Map.Island) => {
-        currentIsland = island
-        switchState(States.Travel)
+        console.log('Current ' + currentIsland.id + ":" + island.id)
+        if (currentIsland && island.id !== currentIsland.id) {
+            currentIsland = island
+            switchState(States.Travel)
+            console.log('And now ' + currentIsland.id + ':' + island.id)
+        } else if (island.id === 0) {
+            currentIsland = island
+            // Re-entering your own island does nothing.
+            switchState(States.Overview)
+        } else {
+            currentIsland = island
+            // If you re-select the same island you don't floatyboaty
+            switchState(States.Island)
+        }
     })
     Map.onWin(() => {
         switchState(States.Win)
     })
 
     Island.onLeaveIsland(() => {
-        currentIsland = undefined
         switchState(States.Overview)
     })
     Island.onAllDead(() => {
@@ -120,11 +135,17 @@ function startGame(initialState?: States) {
     })
 
     BoatBattle.onWin(() => {
-        switchState(States.Overview)
+        if (currentIsland.id === 0) {
+            switchState(States.TreasureIsland)
+        } else {
+            switchState(States.Island)
+        }
     })
     BoatBattle.onAllDead(() => {
         if (PirateLives.currentPirateCount <= 0) {
             switchState(States.GameOver)
+        } else if (currentIsland.id === 0) {
+            switchState(States.TreasureIsland)
         } else {
             switchState(States.Overview)
         }
@@ -135,7 +156,16 @@ function startGame(initialState?: States) {
     })
     Travel.onLandOnIsland(() => {
         currentIsland = currentIsland ? currentIsland : Map.islands[0]
-        switchState(States.Island)
+        if (currentIsland.id === 0) {
+            // Our own Island
+            switchState(States.TreasureIsland)
+        } else {
+            switchState(States.Island)
+        }
+    })
+
+    TreasureIsland.onComplete(() => {
+        switchState(States.Overview)
     })
 
     Menu.onStartGame(() => {

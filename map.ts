@@ -53,17 +53,6 @@ namespace Map {
         // We can't select the island too quickly after seeing this scene
         if (control.millis() - _leftIslandTick < _selectIslandDelay) return
 
-        // Do special if we select our own island
-        if (_islands[currentSelectedIslandIndex].id === 0) {
-            TreasureStats.currentTreasure = {
-                onBoat: 0,
-                onIsland: TreasureStats.getTotal(),
-                inPocket: 0
-            }
-            TreasureStats.show({})
-            return
-        }
-
         destroy()
 
         _onSelectIsland(_islands[currentSelectedIslandIndex])
@@ -87,7 +76,7 @@ namespace Map {
         renderIslandStats(islands[currentSelectedIslandIndex])
     }
 
-    export function init(islands: Array<Island>) {
+    export function init({ islands, currentIsland }: { islands: Array<Island>, currentIsland: Island }) {
         // Give us a second before allowing us to select an island
         _leftIslandTick = control.millis()
         _islands = islands
@@ -121,7 +110,7 @@ namespace Map {
         controller.player1.A.addEventListener(ControllerButtonEvent.Pressed, selectIsland)
 
         // Initial render of the cursor
-        renderCursor(islands[currentSelectedIslandIndex], cursor)
+        renderCursor(currentIsland ? currentIsland : islands[currentSelectedIslandIndex], cursor)
         // And selected island
         renderIslandStats(islands[currentSelectedIslandIndex])
         // And the owner flags

@@ -6,10 +6,17 @@ namespace Travel {
     let _pirateAnimation: Image[]
     let _islandAnimation: Image[]
 
-    export function init() {
+    export function init({ targetIsland }: { targetIsland: Map.Island }) {
         // Probably should have done this better... oh well
         const oddsOfBoatBattle = 80
-        const result = Math.min(TreasureStats.currentTreasure.onBoat / 300, oddsOfBoatBattle / 100) * 100
+        let result = Math.min(TreasureStats.currentTreasure.onBoat / 300, oddsOfBoatBattle / 100) * 100
+
+        console.log('Target island ' + targetIsland.id + ': ' + TreasureStats.currentTreasure.onBoat)
+
+        // You will ALWAYS get a pirate battle if you travel to your island with any amount of cash
+        if (TreasureStats.currentTreasure.onBoat > 150 && targetIsland.id === 0) {
+            result = 100
+        }
 
         scene.setBackgroundColor(0)
         scene.setBackgroundImage(assets.image`empty`)
@@ -32,7 +39,8 @@ namespace Travel {
         } else {
             pause(3000)
             _textSprite.destroy()
-            _textSprite = textsprite.create('Arrgh, steal thee loot!')
+            const text = targetIsland.id === 0 ? 'Ye hid yer booty!' : 'Arrgh, steal thee loot!'
+            _textSprite = textsprite.create(text)
             _textSprite.x = 80
             _textSprite.y = 60
             pause(2000)
