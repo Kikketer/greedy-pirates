@@ -12,19 +12,19 @@ namespace BoatBattle {
     let _currentTime = _timeAllowed
     let _lastTick = 0
     let _isDone = false
-    const _boundingBox: number[] = [0, 10, 160, 120]
+    const _boundingBox: number[] = [0, 10, 160, 100]
     const _enemyBoatBox: number[] = [0, 10, 160, 60]
 
     export function init() {
         scene.setBackgroundColor(6)
-        scene.setBackgroundImage(assets.image`empty`)
+        scene.setBackgroundImage(assets.image`Boat Battle`)
 
         _currentTime = _timeAllowed
         _lastTick = control.millis()
 
         // Spawn the players
-        player1 = new Pirate({ control: controller.player1, playerNumber: 0, onAttack: onPirateAttack, onDie: onPirateDeath, topBoundary: _boundingBox[1], statLocation: player1StatLocation })
-        player2 = new Pirate({ control: controller.player2, playerNumber: 1, onAttack: onPirateAttack, onDie: onPirateDeath, topBoundary: _boundingBox[1], statLocation: player2StatLocation })
+        player1 = new Pirate({ control: controller.player1, playerNumber: 0, onAttack: onPirateAttack, onDie: onPirateDeath, boundaries: _boundingBox, statLocation: player1StatLocation })
+        player2 = new Pirate({ control: controller.player2, playerNumber: 1, onAttack: onPirateAttack, onDie: onPirateDeath, boundaries: _boundingBox, statLocation: player2StatLocation })
 
         // Spawn the enemies!
         // Based on the amount of treasure you have, more enemies will appear!
@@ -40,9 +40,11 @@ namespace BoatBattle {
         Utils.getArrayOfLength(numberOfEnemies).forEach(() => {
             const locX = Math.randomRange(_enemyBoatBox[0], _enemyBoatBox[2])
             const locY = Math.randomRange(_enemyBoatBox[1], _enemyBoatBox[3])
-            const militia = new Militia({ x: locX, y: locY, target: Math.pickRandom([player1, player2]) })
-            enemies.push(militia)
+            const enemyPirate = new EnemyPirate({ x: locX, y: locY, target: Math.pickRandom([player1, player2]) })
+            enemies.push(enemyPirate)
         })
+
+        PirateLives.show()
     }
     
     export function render() {
@@ -59,16 +61,11 @@ namespace BoatBattle {
         }
 
         if (_currentTime <= 0 && !_isDone && enemies.some((enemy) => enemy.health > 0)) {
-            _isDone = true
-            console.log('Game over!')
-            pause(1000)
-
-            destory()
-            _onAllDeadCallback()
+            checkIfOver()
         }
     }
 
-    export function destory() {
+    export function destroy() {
         player1.destroy()
         player2.destroy()
         enemies.forEach((e) => e.destroy())
@@ -93,19 +90,40 @@ namespace BoatBattle {
             }
         })
 
-        checkIfWin()
+        checkIfOver()
     }
 
-    function onPirateDeath() {}
+    function onPirateDeath() {
+        checkIfOver()
+    }
 
-    function checkIfWin() {
+    function checkIfOver() {
         const anyAlive = enemies.some((enemy) => enemy.health > 0)
+        const allPlayersDead = player1.health <= 0 && player2.health <= 0
+        if (allPlayersDead || _currentTime <= 0) {
+            _isDone = true
+            pause(1500)
+
+            game.showLongText('Thar enemy has taken thee boat! Luckily they\'ve accepted you to join their crew!', DialogLayout.Center)
+
+            TreasureStats.currentTreasure = {
+                onBoat: TreasureStats.currentTreasure.onBoat + TreasureStats.currentTreasure.inPocket,
+                onIsland: 0,
+                inPocket: 0
+            }
+            PirateLives.updatePirateCount(-2)
+
+            destroy()
+            _onAllDeadCallback()
+        }
+
         if (!anyAlive) {
             _isDone = true
-            console.log("you dit it!")
-            pause(1000)
+            pause(1500)
 
-            destory()
+            game.showLongText('Ye have warded off the enemy pirates! For now...', DialogLayout.Center)
+
+            destroy()
             _onWinCallback()
         }
     }

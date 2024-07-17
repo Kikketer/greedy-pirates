@@ -28,7 +28,8 @@
         "win.ts",
         "boatBattle.ts",
         "enemyPirate.ts",
-        "enemy.ts"
+        "enemy.ts",
+        "travel.ts"
     ],
     "testFiles": [
         "test.ts"

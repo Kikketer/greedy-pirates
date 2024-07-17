@@ -288,8 +288,8 @@ namespace Island {
         TreasureStats.show({ combination: ['pocket'], location: 'center' })
         PirateLives.show()
         
-        player1 = new Pirate({ control: controller.player1, playerNumber: 0, onAttack: onPirateAttack, onDie: onPirateDeath, topBoundary: _boundingBox[1], statLocation: player1StatLocation })
-        player2 = new Pirate({ control: controller.player2, playerNumber: 1, onAttack: onPirateAttack, onDie: onPirateDeath, topBoundary: _boundingBox[1], statLocation: player2StatLocation })
+        player1 = new Pirate({ control: controller.player1, playerNumber: 0, onAttack: onPirateAttack, onDie: onPirateDeath, boundaries: _boundingBox, statLocation: player1StatLocation })
+        player2 = new Pirate({ control: controller.player2, playerNumber: 1, onAttack: onPirateAttack, onDie: onPirateDeath, boundaries: _boundingBox, statLocation: player2StatLocation })
 
         music.play(music.createSong(assets.song`Invading Them Landlubbers`), music.PlaybackMode.LoopingInBackground)
 

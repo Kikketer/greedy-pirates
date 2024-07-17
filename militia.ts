@@ -118,6 +118,7 @@ class Militia extends Enemy {
 
                 // Check to see that our target is in range and fire the hit
                 if (Math.abs(this.sprite.y - this._currentTarget.sprite.y) < 20) {
+                    // scene.cameraShake(2, 500)
                     this._currentTarget.hit(this, 1)
                 }
             }
