@@ -45,30 +45,6 @@ class EnemyPirate extends Enemy {
         }
     }
 
-    public lootTheBody() {
-        if (this.riches > 0) {
-            TreasureStats.currentTreasure = {
-                onBoat: TreasureStats.currentTreasure.onBoat,
-                onIsland: TreasureStats.currentTreasure.onIsland,
-                inPocket: TreasureStats.currentTreasure.inPocket + this.riches
-            }
-            TreasureStats.show({})
-            this.riches = 0
-            const oldX = this.sprite.x
-            const oldY = this.sprite.y
-
-            this.sprite.destroy()
-            if (this._facing === 'left') {
-                this.sprite = sprites.create(assets.image`Pirate Death`)
-            } else {
-                this.sprite = sprites.create(assets.image`Pirate Death`)
-            }
-
-            this.sprite.x = oldX
-            this.sprite.y = oldY
-        }
-    }
-
     protected walk(direction?: 'left' | 'right') {
         super.walk(direction)
 
