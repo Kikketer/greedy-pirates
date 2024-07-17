@@ -42,10 +42,19 @@ namespace BoatBattle {
             numberOfEnemies = 4 + Math.log(TreasureStats.getTotal() + 1) / Math.log(1000) * 8;
         }
 
-        Utils.getArrayOfLength(numberOfEnemies).forEach(() => {
+        Utils.getArrayOfLength(numberOfEnemies).forEach((index) => {
             const locX = Math.randomRange(_enemyBoatBox[0], _enemyBoatBox[2])
             const locY = Math.randomRange(_enemyBoatBox[1], _enemyBoatBox[3])
-            const enemyPirate = new EnemyPirate({ x: locX, y: locY, target: Math.pickRandom([player1, player2]) })
+            // Had to do this to make it easy and running out of time!
+            const treasurePretendingToBePirate = { hit: () => {}, health: 1, sprite: treasure }
+            
+            // At least 3 enemies go for the treasure
+            let target = Math.pickRandom([player1, player2, treasurePretendingToBePirate])
+            if (index <= 2) {
+                target = treasurePretendingToBePirate
+            }
+
+            const enemyPirate = new EnemyPirate({ x: locX, y: locY, target })
             enemies.push(enemyPirate)
         })
 
@@ -67,6 +76,7 @@ namespace BoatBattle {
         player1.destroy()
         player2.destroy()
         enemies.forEach((e) => e.destroy())
+        treasure.destroy()
 
         scene.setBackgroundImage(assets.image`empty`)
     }
