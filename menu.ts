@@ -23,7 +23,7 @@ namespace Menu {
 
         // Version information
         _versionSprite = textsprite.create(version, 0, 9)
-        _versionSprite.x = 145
+        _versionSprite.x = 140
         _versionSprite.y = 115
 
         music.stopAllSounds()
