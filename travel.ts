@@ -8,14 +8,12 @@ namespace Travel {
 
     export function init({ targetIsland }: { targetIsland: Map.Island }) {
         // Probably should have done this better... oh well
-        const oddsOfBoatBattle = 80
-        let result = Math.min(TreasureStats.currentTreasure.onBoat / 300, oddsOfBoatBattle / 100) * 100
+        const oddsOfBoatBattle = 90
+        let result = Math.min(TreasureStats.currentTreasure.onBoat / 600, oddsOfBoatBattle / 100) * 100
 
-        console.log('Target island ' + targetIsland.id + ': ' + TreasureStats.currentTreasure.onBoat)
-
-        // You will ALWAYS get a pirate battle if you travel to your island with any amount of cash
-        if (TreasureStats.currentTreasure.onBoat > 150 && targetIsland.id === 0) {
-            result = 100
+        // You will nearly-ALWAYS get a pirate battle if you travel to your island with any amount of cash
+        if (TreasureStats.currentTreasure.onBoat > 200 && targetIsland.id === 0) {
+            result = 90
         }
 
         scene.setBackgroundColor(0)
