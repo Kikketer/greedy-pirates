@@ -112,7 +112,7 @@ namespace BoatBattle {
         // if any enemy pirates are on top of the treasure, BOOM LOOSE!
         if (anyGotTreasure) {
             _isDone = true
-            pause(1500)
+            pause(1000)
 
             game.showLongText('Thee pirates stole ye booty!', DialogLayout.Center)
 
@@ -126,7 +126,7 @@ namespace BoatBattle {
             _onLooseCallback()
         } else if (allPlayersDead) {
             _isDone = true
-            pause(1500)
+            pause(1000)
 
             game.showLongText('Thar enemy has taken thee boat! Luckily they\'ve accepted you to join their crew!', DialogLayout.Center)
 
@@ -141,7 +141,7 @@ namespace BoatBattle {
             _onLooseCallback()
         } else if (!anyAlive) {
             _isDone = true
-            pause(1500)
+            pause(1000)
 
             game.showLongText('Ye have warded off the enemy pirates! For now...', DialogLayout.Center)
 
