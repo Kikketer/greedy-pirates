@@ -7,7 +7,8 @@ namespace Travel {
     let _islandAnimation: Image[]
 
     export function init() {
-        const oddsOfBoatBattle = 70
+        // Probably should have done this better... oh well
+        const oddsOfBoatBattle = 80
         const result = Math.min(TreasureStats.currentTreasure.onBoat / 300, oddsOfBoatBattle / 100) * 100
 
         scene.setBackgroundColor(0)
