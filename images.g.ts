@@ -286,17 +286,6 @@ f d d a a a a a a c e e f . . .
 6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666
 6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666
 `;
-            case "image3":
-            case "Boat Icon":return img`
-. . . . . . . . 
-. . . e f f . . 
-. . . e f f . . 
-. . . e . . . . 
-e e e e e e e e 
-. e e e e e e e 
-. . e e e e e e 
-. . . . . . . . 
-`;
             case "image14":
             case "Coin":return img`
 . . . . . . . . 
@@ -442,17 +431,6 @@ f f 1 1 1 1 f f
 ................................................................................................................................................................
 ................................................................................................................................................................
 `;
-            case "image5":
-            case "Island Icon":return img`
-. . . 5 5 . . . 
-. . 5 7 7 5 5 . 
-. 5 7 7 7 6 5 . 
-5 5 7 7 6 7 6 5 
-. 5 7 7 7 e 7 5 
-. . 7 7 7 e 7 5 
-. . 5 7 7 7 7 . 
-. . . . 5 5 5 . 
-`;
             case "image16":
             case "Pirate Lives":return img`
 . . . 1 1 . . 1 1 . 
@@ -503,17 +481,6 @@ d d a a a c c d d . . . . . . .
 . . . f e e a a d d d d a . . f 
 . . . f e e c c a a a a c d d f 
 . . . f e e c a a a a a a d d f 
-`;
-            case "image11":
-            case "Pocket Icon":return img`
-. . . . . . . . 
-. . . 1 5 . . . 
-. . 1 5 5 5 . . 
-. 5 5 5 5 5 4 . 
-. 5 5 5 5 5 4 . 
-. . 5 5 5 4 . . 
-. . . 4 4 . . . 
-. . . . . . . . 
 `;
             case "image18":
             case "Boat Battle":return img`
@@ -637,6 +604,43 @@ fffffffffffffffeeeeeeeeeeeeee888888888888888888888888888888888888888888888888888
 ............................ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 ..............................ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 ..................................ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+`;
+            case "image3":
+            case "Boat Icon":return img`
+. . . . . . . . . . 
+. . . . 1 1 1 . . . 
+. . . 1 e f f 1 . . 
+. . . 1 e f f 1 . . 
+. 1 1 1 e 1 1 1 1 . 
+1 e e e e e e e e 1 
+. 1 e e e e e e e 1 
+. . 1 e e e e e e 1 
+. . . 1 1 1 1 1 1 . 
+. . . . . . . . . . 
+`;
+            case "image11":
+            case "Pocket Icon":return img`
+. . . 1 1 . . . 
+. . 1 1 5 1 . . 
+. 1 1 5 5 5 1 . 
+1 5 5 5 5 5 4 1 
+1 5 5 5 5 5 4 1 
+. 1 5 5 5 4 1 . 
+. . 1 4 4 1 . . 
+. . . 1 1 . . . 
+`;
+            case "image5":
+            case "Island Icon":return img`
+. . . . 1 1 . . . . 
+. . . 1 5 5 1 1 . . 
+. . 1 5 7 7 5 5 1 . 
+. 1 5 7 7 7 6 5 1 . 
+1 5 5 7 7 6 7 6 5 1 
+. 1 5 7 7 7 e 7 5 1 
+. . 1 7 7 7 e 7 5 1 
+. . 1 5 7 7 7 7 1 . 
+. . . 1 1 5 5 5 1 . 
+. . . . . 1 1 1 . . 
 `;
         }
         return null;
