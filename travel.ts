@@ -8,7 +8,7 @@ namespace Travel {
 
     export function init() {
         const oddsOfBoatBattle = 70
-        const result = Math.min(TreasureStats.getTotal() / 1200, oddsOfBoatBattle / 100) * 100
+        const result = Math.min(TreasureStats.currentTreasure.onBoat / 300, oddsOfBoatBattle / 100) * 100
 
         scene.setBackgroundColor(0)
         scene.setBackgroundImage(assets.image`empty`)
