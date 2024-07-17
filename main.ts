@@ -39,7 +39,7 @@ const version: string = 'v0.7'
 const debugMode: boolean = false
 
 let currentState: States
-let currentIsland: Map.Island = Map.islands[2]
+let currentIsland: Map.Island = Map.islands[0]
 let treasureSprite: Sprite
 
 console.log('Yarrrgh! Beware of ye monsters in thee code!')

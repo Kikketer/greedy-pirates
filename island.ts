@@ -60,7 +60,7 @@ namespace Island {
         }
     }
 
-    function retargetEnemies(pirate: Pirate) {
+    function retargetEnemies(pirate: EnemyTarget) {
         currentEnemies.forEach((enemy) => {
             enemy.setCurrentTarget(pirate)
         })

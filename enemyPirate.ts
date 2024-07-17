@@ -11,7 +11,7 @@ class EnemyPirate extends Enemy {
     static attackDelayMin: number = 3000
     static attackDelayMax: number = 5000
 
-    constructor({ x, y, target, riches }: { x: number, y: number, target?: Pirate, riches?: number }) {
+    constructor({ x, y, target, riches }: { x: number, y: number, target?: EnemyTarget, riches?: number }) {
         super({ x, y, target, sprite: sprites.create(assets.animation`Pirate Walk`[0]), riches, speed: 20, minDistanceFromTarget: 10 })
 
         // Most often we spawn to the right, so walk left

@@ -1,10 +1,13 @@
+// A subset of a pirate, but could be just an item
+type EnemyTarget = { sprite: Sprite, health: number, hit: (who: Enemy, amount: number) => void }
+
 class Enemy {
     public sprite: Sprite
     public health: number = 1
     public riches = 1
 
     protected _speed: number = 10
-    protected _currentTarget: Pirate
+    protected _currentTarget: EnemyTarget
     protected _nextAttackTime: number = 0
     protected _lastAttackTick: number = 0
     protected _facing: 'left' | 'right' = 'left'
@@ -16,7 +19,7 @@ class Enemy {
         { 
             x: number, 
             y: number, 
-            target: Pirate, 
+            target: EnemyTarget,
             sprite: Sprite, 
             riches?: number, 
             speed?: number, 
@@ -43,7 +46,7 @@ class Enemy {
         }
     }
 
-    public setCurrentTarget(pirate: Pirate) {
+    public setCurrentTarget(pirate: EnemyTarget) {
         if (pirate.health > 0 && this.health > 0) {
             this._currentTarget = pirate
             this.sprite.follow(this._currentTarget.sprite, this._speed)
