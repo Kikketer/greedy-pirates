@@ -33,7 +33,7 @@ class EnemyPirate extends Enemy {
 
     public render() {
         // No Undead walking!
-        if (this.health <= 0 && !this._isAttacking) return
+        if (this.health <= 0 || this._isAttacking) return
 
         super.render()
 

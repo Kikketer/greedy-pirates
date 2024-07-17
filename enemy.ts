@@ -76,7 +76,7 @@ class Enemy {
 
     public render() {
         // No Undead walking!
-        if (this.health <= 0 && !this._isAttacking) return
+        if (this.health <= 0 || this._isAttacking) return
         
         // Check your distance from the target randomly
         if ((control.millis() - this._lastDirectionTick) > Militia.directionChangeInterval) {
