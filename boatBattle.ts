@@ -39,7 +39,7 @@ namespace BoatBattle {
             numberOfEnemies = 8
         } else {
             // A log curve to determine the number of enemies
-            numberOfEnemies = 4 + Math.max(Math.floor(boatTreasure / 1000 * 4), 4);
+            numberOfEnemies = 3 + Math.min(Math.floor(boatTreasure / 1000 * 4), 4);
         }
 
         Utils.getArrayOfLength(numberOfEnemies).forEach((index) => {
@@ -48,7 +48,7 @@ namespace BoatBattle {
             // Had to do this to make it easy and running out of time!
             const treasurePretendingToBePirate = { hit: () => {}, health: 1, sprite: treasure }
             
-            // At least 3 enemies go for the treasure
+            // At least 2 enemies go for the treasure
             let target = Math.pickRandom([player1, player2, treasurePretendingToBePirate])
             if (index <= 2) {
                 target = treasurePretendingToBePirate
@@ -124,9 +124,7 @@ namespace BoatBattle {
 
             destroy()
             _onLooseCallback()
-        }
-
-        if (allPlayersDead) {
+        } else if (allPlayersDead) {
             _isDone = true
             pause(1500)
 
@@ -141,9 +139,7 @@ namespace BoatBattle {
 
             destroy()
             _onLooseCallback()
-        }
-
-        if (!anyAlive) {
+        } else if (!anyAlive) {
             _isDone = true
             pause(1500)
 
