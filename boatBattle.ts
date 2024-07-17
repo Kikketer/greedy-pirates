@@ -33,13 +33,13 @@ namespace BoatBattle {
 
         // Spawn the enemies!
         // Based on the amount of treasure you have, more enemies will appear!
-        const totalTreasure = TreasureStats.getTotal()
+        const boatTreasure = TreasureStats.currentTreasure.onBoat
         let numberOfEnemies = 1
-        if (totalTreasure > 1000) {
+        if (boatTreasure > 1000) {
             numberOfEnemies = 8
         } else {
             // A log curve to determine the number of enemies
-            numberOfEnemies = 4 + Math.log(TreasureStats.getTotal() + 1) / Math.log(1000) * 8;
+            numberOfEnemies = 4 + Math.max(Math.floor(boatTreasure / 1000 * 4), 4);
         }
 
         Utils.getArrayOfLength(numberOfEnemies).forEach((index) => {
