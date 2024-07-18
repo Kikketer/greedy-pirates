@@ -12,8 +12,6 @@ namespace TreasureIsland {
 
     export function init() {
         scene.setBackgroundColor(9)
-        
-        music.play(music.createSong(assets.song`Treasure Island Theme`), music.PlaybackMode.LoopingInBackground)
 
         island = sprites.create(assets.image`Treasarr Island`)
         island.x = 80
@@ -58,6 +56,8 @@ namespace TreasureIsland {
         treasure.x = 120
         treasure.y = 85
         treasure.z = 85
+
+        music.play(music.createSong(assets.song`Treasure Island Theme`), music.PlaybackMode.LoopingInBackground)
     }
 
     export function onComplete(callback: () => void) {
