@@ -35,7 +35,7 @@ const playerState = {
     currentIsland: ''
 }
 
-const version: string = 'v1.0'
+const version: string = 'v1.1'
 const debugMode: boolean = false
 
 let currentState: States

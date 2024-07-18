@@ -17,6 +17,7 @@ namespace BoatBattle {
     export function init() {
         scene.setBackgroundColor(6)
         scene.setBackgroundImage(assets.image`Boat Battle`)
+        enemies = []
         _isDone = false
 
         // Spawn the players
@@ -78,6 +79,7 @@ namespace BoatBattle {
         player1.destroy()
         player2.destroy()
         enemies.forEach((e) => e.destroy())
+        enemies = []
         treasure.destroy()
 
         scene.setBackgroundImage(assets.image`empty`)
