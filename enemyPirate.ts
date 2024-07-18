@@ -12,7 +12,7 @@ class EnemyPirate extends Enemy {
     static directionChangeInterval: number = 1000
     static attackDelayMin: number = 3000
     static attackDelayMax: number = 5000
-    static chanceOfParry: number = 100
+    static chanceOfParry: number = 75
 
     private _isParrying: boolean = false
 
@@ -23,7 +23,9 @@ class EnemyPirate extends Enemy {
         this.walk('left')
     }
 
-    public hit({ attacker, damage }: {attacker: Pirate, damage: number }) {
+    public hit({ attacker, damage }: { attacker: Pirate, damage: number }): boolean {
+        if (this._isParrying) return false
+
         if (Math.randomRange(0, 100) < EnemyPirate.chanceOfParry) {
             this._isParrying = true
             // Face the attacker
@@ -34,7 +36,7 @@ class EnemyPirate extends Enemy {
             }
             // Pause walking:
             this.sprite.follow(this._currentTarget.sprite, 0)
-            // music.play(EnemyPirate.parrySound, music.PlaybackMode.InBackground)
+            music.play(EnemyPirate.parrySound, music.PlaybackMode.InBackground)
             animation.runImageAnimation(
                 this.sprite,
                 this._facing === 'right' ? EnemyPirate.parryRightAnimation : EnemyPirate.parryLeftAnimation,
@@ -45,7 +47,10 @@ class EnemyPirate extends Enemy {
                 this._isParrying = false
                 this.walk()
             }, EnemyPirate.parryRightAnimation.length * 500 + 1000)
+
+            return false
         } else {
+            this._isParrying = false
             super.hit({ attacker, damage })
 
             if (this.health <= 0) {
@@ -56,6 +61,8 @@ class EnemyPirate extends Enemy {
                     false
                 )
             }
+
+            return true
         }
     }
 
@@ -118,7 +125,7 @@ class EnemyPirate extends Enemy {
         setTimeout(() => {
             // Make sure we didn't die in this tiny delay:
             if (this.health > 0 && this._currentTarget && this.sprite) {
-                music.play(Pirate.parrySound, music.PlaybackMode.InBackground)
+                // music.play(Pirate.parrySound, music.PlaybackMode.InBackground)
 
                 // Check to see that our target is in range and fire the hit
                 if (Utils.getDistance(this.sprite, this._currentTarget.sprite) < 15) {

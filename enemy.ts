@@ -2,6 +2,8 @@
 type EnemyTarget = { sprite: Sprite, health: number, hit: (who: Enemy, amount: number) => void }
 
 class Enemy {
+    static hitSound: music.SoundEffect = music.createSoundEffect(WaveShape.Noise, 1839, 287, 150, 0, 150, SoundExpressionEffect.Warble, InterpolationCurve.Logarithmic)
+
     public sprite: Sprite
     public health: number = 1
     public riches = 1
@@ -58,12 +60,16 @@ class Enemy {
         this.sprite.follow(this._currentTarget.sprite, this._speed)
     }
 
-    protected hit({ attacker, damage }: { attacker: Pirate, damage: number }) {
+    protected hit({ attacker, damage }: { attacker: Pirate, damage: number }): boolean {
         this.health -= damage
+
+        music.play(Enemy.hitSound, music.PlaybackMode.InBackground)
 
         if (this.health <= 0) {
             this.sprite.follow(this._currentTarget.sprite, 0)
         }
+
+        return true
     }
 
     protected attack() {

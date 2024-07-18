@@ -41,7 +41,7 @@ namespace Island {
             if (enemy.health <= 0 && enemy.riches > 0) {
                 enemy.lootTheBody()
             } else {
-                enemy.hit(1)
+                enemy.hit({ attacker: pirate, damage: 1 })
             }
         })
 

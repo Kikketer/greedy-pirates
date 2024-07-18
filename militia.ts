@@ -18,7 +18,7 @@ class Militia extends Enemy {
         this.walk('left')
     }
 
-    public hit({ attacker, damage }: { attacker: Pirate, damage: number }) {
+    public hit({ attacker, damage }: { attacker: Pirate, damage: number }): boolean {
         super.hit({ attacker, damage })
         
         if (this.health <= 0) {
@@ -29,6 +29,8 @@ class Militia extends Enemy {
                 false
             )
         }
+
+        return true
     }
 
     public render() {     

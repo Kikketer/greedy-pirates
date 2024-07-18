@@ -12,7 +12,7 @@ class Pirate {
 
     static parrySound: music.SoundEffect = music.createSoundEffect(WaveShape.Noise, 5000, 5000, 255, 0, 100, SoundExpressionEffect.Vibrato, InterpolationCurve.Curve)
     static deathSound: music.SoundEffect = music.createSoundEffect(WaveShape.Triangle, 2202, 476, 129, 0, 861, SoundExpressionEffect.Warble, InterpolationCurve.Logarithmic)
-    static attackSound: music.SoundEffect = music.createSoundEffect(WaveShape.Noise, 5000, 5000, 150, 0, 100, SoundExpressionEffect.None, InterpolationCurve.Linear)
+    static hitSound: music.SoundEffect = music.createSoundEffect(WaveShape.Noise, 462, 1, 150, 0, 100, SoundExpressionEffect.Tremolo, InterpolationCurve.Logarithmic)
     static heartIcon: Image = assets.image`Heart`
 
     private idleRightAnimation: Image[] = assets.animation`Pirate Stand`
@@ -201,7 +201,7 @@ class Pirate {
         // Can't attack more frequently than attackDelay
         if (control.millis() - this._lastAttackTick < Pirate._attackDelay) return
 
-        music.play(Pirate.attackSound, music.PlaybackMode.InBackground)
+        // music.play(Pirate.attackSound, music.PlaybackMode.InBackground)
 
         const oldPos = { x: this.sprite.x, y: this.sprite.y }
 
@@ -209,6 +209,9 @@ class Pirate {
             this._lastAttackTick = control.millis()
             this.isAttacking = 'right'
             attackCallback({ pirate: this })
+            // if (didHit) {
+            //     music.play(Pirate.hitSound, music.PlaybackMode.InBackground)
+            // }
             animation.runImageAnimation(
                 this.sprite,
                 this.attackRightAnimation,
