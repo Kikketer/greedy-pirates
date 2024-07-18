@@ -12,7 +12,7 @@ class EnemyPirate extends Enemy {
     static directionChangeInterval: number = 1000
     static attackDelayMin: number = 3000
     static attackDelayMax: number = 5000
-    static chanceOfParry: number = 75
+    static chanceOfParry: number = 66
 
     private _isParrying: boolean = false
 
