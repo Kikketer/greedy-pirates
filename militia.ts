@@ -18,8 +18,8 @@ class Militia extends Enemy {
         this.walk('left')
     }
 
-    public hit(damage: number) {
-        super.hit(damage)
+    public hit({ attacker, damage }: { attacker: Pirate, damage: number }) {
+        super.hit({ attacker, damage })
         
         if (this.health <= 0) {
             animation.runImageAnimation(

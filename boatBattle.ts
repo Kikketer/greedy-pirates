@@ -94,7 +94,7 @@ namespace BoatBattle {
         hitEnemies.forEach((enemy) => {
             // No looting of EnemyPirates
             if (enemy.health > 0) {
-                enemy.hit(1)
+                enemy.hit({ attacker: pirate, damage: 1 })
             }
         })
 

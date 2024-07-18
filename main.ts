@@ -182,4 +182,4 @@ function startGame(initialState?: States) {
     switchState(initialState ? initialState : States.Menu)
 }
 
-startGame()
+startGame(States.BoatBattle)

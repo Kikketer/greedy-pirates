@@ -58,7 +58,7 @@ class Enemy {
         this.sprite.follow(this._currentTarget.sprite, this._speed)
     }
 
-    protected hit(damage: number) {
+    protected hit({ attacker, damage }: { attacker: Pirate, damage: number }) {
         this.health -= damage
 
         if (this.health <= 0) {
