@@ -2,7 +2,7 @@
 type EnemyTarget = { sprite: Sprite, health: number, hit: (who: Enemy, amount: number) => void }
 
 class Enemy {
-    static hitSound: music.SoundEffect = music.createSoundEffect(WaveShape.Noise, 1839, 287, 150, 0, 150, SoundExpressionEffect.Warble, InterpolationCurve.Logarithmic)
+    static hitSound: music.SoundEffect = music.createSoundEffect(WaveShape.Noise, 1839, 287, 255, 70, 150, SoundExpressionEffect.Warble, InterpolationCurve.Logarithmic)
 
     public sprite: Sprite
     public health: number = 1
