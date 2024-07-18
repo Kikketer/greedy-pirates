@@ -3,12 +3,34 @@ namespace TreasureIsland {
     let pirate1: Pirate
     let pirate2: Pirate
     let treasure: Sprite
+    let island: Sprite
+    let waves: Sprite[] = []
+
+    const waveAnimation: Image[] = Utils.swapAnimationColors(assets.animation`wave`, 9, 6)
 
     const _boundaries: number[] = [10, 70, 150, 110]
 
     export function init() {
         scene.setBackgroundColor(9)
-        scene.setBackgroundImage(assets.image`Treasarr Island`)
+        // scene.setBackgroundImage(assets.image`Treasarr Island`)
+        island = sprites.create(assets.image`Treasarr Island`)
+        island.x = 80
+        island.y = 60
+        island.z = 1
+
+        Utils.getArrayOfLength(10).forEach(() => {
+            const wave = sprites.create(assets.animation`wave`[0])
+            animation.runImageAnimation(
+                wave,
+                waveAnimation,
+                500,
+                true
+            )
+            wave.x = Math.randomRange(10, 150)
+            wave.y = Math.randomRange(10, 60)
+            wave.z = 0
+            waves.push(wave)
+        })
 
         pirate1 = new Pirate({
             control: controller.player1,
@@ -49,6 +71,9 @@ namespace TreasureIsland {
         pirate1.destroy()
         pirate2.destroy()
         treasure.destroy()
+
+        island.destroy()
+        waves.forEach(wave => wave.destroy())
 
         scene.setBackgroundColor(0)
         scene.setBackgroundImage(assets.image`empty`)

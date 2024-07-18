@@ -107,15 +107,12 @@ function switchState(state: States) {
 
 function startGame(initialState?: States) {
     Map.onSelectIsland((island: Map.Island) => {
-        console.log('Current ' + currentIsland.id + ":" + island.id)
         if (currentIsland && island.id !== currentIsland.id) {
             currentIsland = island
             switchState(States.Travel)
-            console.log('And now ' + currentIsland.id + ':' + island.id)
         } else if (island.id === 0) {
             currentIsland = island
-            // Re-entering your own island does nothing.
-            switchState(States.Overview)
+            switchState(States.TreasureIsland)
         } else {
             currentIsland = island
             // If you re-select the same island you don't floatyboaty
