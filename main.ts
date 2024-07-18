@@ -35,14 +35,14 @@ const playerState = {
     currentIsland: ''
 }
 
-const version: string = 'v0.11'
+const version: string = 'v0.12'
 const debugMode: boolean = false
 
 let currentState: States
 let currentIsland: Map.Island = Map.islands[0]
 let treasureSprite: Sprite
 
-console.log('Yarrrgh! Beware of ye monsters in thee code!')
+console.log('Yarrrgh! Thee Kraken lives in this here code!')
 
 game.onUpdate(() => {
     switch(currentState) {

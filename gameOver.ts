@@ -6,7 +6,7 @@ namespace GameOver {
 
         const totalCoin = TreasureStats.getTotal()
 
-        game.splash('GAME OVER', 'Ye lost ' + totalCoin)
+        game.splash('GAME OVER', 'Ye lost ' + totalCoin + ' coin')
         game.reset()
     }
 }
