@@ -7,7 +7,8 @@ namespace TreasureIsland {
     const _boundaries: number[] = [10, 70, 150, 110]
 
     export function init() {
-        scene.setBackgroundColor(6)
+        scene.setBackgroundColor(9)
+        scene.setBackgroundImage(assets.image`Treasarr Island`)
 
         pirate1 = new Pirate({
             control: controller.player1,
