@@ -36,7 +36,7 @@ class Pirate {
     private _boundaries: number[] = [0, 0, 160, 120]
     private _lastAttackTick: number = 0
     private _isAttackingTimeout: number
-    private _statLocation: number[] = [0,0]
+    private _statLocation?: number[] = [0,0]
     private _healthSprites: Sprite[] = []
     private _onDieCallback: (T: { pirate: Pirate }) => void
 
@@ -63,7 +63,7 @@ class Pirate {
             onAttack: (T: AttackCallbackParams) => void,
             onDie: (T: { pirate: Pirate }) => void,
             boundaries: number[],
-            statLocation: number[]
+            statLocation?: number[]
         }) {
         this.health = 3
         this.facing = 'right'
@@ -245,6 +245,8 @@ class Pirate {
     }
 
     private _updateStats() {
+        if (!this._statLocation) return
+
         if (this._healthSprites.length) {
             this._healthSprites.forEach((sprite) => sprite.destroy())
         }

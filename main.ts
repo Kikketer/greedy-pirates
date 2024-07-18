@@ -55,6 +55,9 @@ game.onUpdate(() => {
         case States.BoatBattle:
             BoatBattle.render()
             break;
+        case States.TreasureIsland:
+            TreasureIsland.render()
+            break;
         default:
         break;
     }

@@ -61,7 +61,7 @@ namespace Travel {
             )
 
             _textSprite.destroy()
-            const text = targetIsland.id === 0 ? 'Ye hid yer booty!' : 'Arrgh, steal thee loot!'
+            const text = targetIsland.id === 0 ? 'Ye made it home!' : 'Arrgh, steal thee loot!'
             _textSprite = textsprite.create(text)
             _textSprite.x = 80
             _textSprite.y = 100

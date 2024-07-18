@@ -74,7 +74,7 @@ namespace Map {
             y: 50,
             riches: 200,
             risk: 2,
-            segments: 3,
+            segments: 4,
             ownedBy: null
         },
         {
