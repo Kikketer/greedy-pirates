@@ -12,7 +12,9 @@ namespace TreasureIsland {
 
     export function init() {
         scene.setBackgroundColor(9)
-        // scene.setBackgroundImage(assets.image`Treasarr Island`)
+        
+        music.play(music.createSong(assets.song`Treasure Island Theme`), music.PlaybackMode.LoopingInBackground)
+
         island = sprites.create(assets.image`Treasarr Island`)
         island.x = 80
         island.y = 60
@@ -77,6 +79,8 @@ namespace TreasureIsland {
 
         scene.setBackgroundColor(0)
         scene.setBackgroundImage(assets.image`empty`)
+
+        music.stopAllSounds()
     }
 
     function touchTreasure({ pirate }: AttackCallbackParams) {

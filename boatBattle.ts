@@ -59,6 +59,8 @@ namespace BoatBattle {
         })
 
         PirateLives.show()
+
+        music.play(music.createSong(assets.song`BoatBattle`), music.PlaybackMode.LoopingInBackground)
     }
     
     export function render() {
@@ -79,6 +81,8 @@ namespace BoatBattle {
         treasure.destroy()
 
         scene.setBackgroundImage(assets.image`empty`)
+
+        music.stopAllSounds()
     }
 
     export function onWin(callback: () => void) {
