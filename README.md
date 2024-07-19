@@ -1,5 +1,7 @@
 # Greedy Pirates
 
+[Greedy Pirates Game](https://arcade.makecode.com/S66008-45860-30012-86138)
+
 ![Three greedy pirates on an island with a treasure chest](https://github.com/Kikketer/greedy-pirates/blob/848f1a2a76d09317cb2ff95e8ae4208caba8eec2/Greedy%20Pirates.jpg)
 
 This was a co-build experience with my son (12). He created all the art and music and inspired ideas for this game based on a physical game he played during summer camp.
