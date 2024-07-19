@@ -6,6 +6,7 @@ namespace Win {
     let restingPlayer2: Sprite
     let restingPlayer1Animation: Image[] = assets.animation`Pirate Rest`
     let restingPlayer2Animation: Image[] = Utils.flipAnimation(Utils.swapAnimationColors(assets.animation`Pirate Rest`, 14, 4))
+    let coinPile: Sprite
     let island: Sprite
     let waves: Sprite[] = []
 
@@ -21,6 +22,11 @@ namespace Win {
         island.x = 80
         island.y = 60
         island.z = 1
+
+        coinPile = sprites.create(assets.image`Coin Pile`)
+        coinPile.x = 52
+        coinPile.y = 70
+        coinPile.z = 2
 
         restingPlayer1 = sprites.create(restingPlayer1Animation[0])
         restingPlayer2 = sprites.create(restingPlayer2Animation[0])
@@ -80,6 +86,8 @@ namespace Win {
 
         restingPlayer1.destroy()
         restingPlayer2.destroy()
+
+        coinPile.destroy()
 
         controller.player1.A.removeEventListener(ControllerButtonEvent.Pressed, game.reset)
     }
