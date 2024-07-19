@@ -58,14 +58,12 @@ namespace Win {
             waves.push(wave)
         })
 
-        const totalRiches: number = TreasureStats.getTotal()
-
         _title = textsprite.create('Arrgh! Ye be pirates!', 1, 15)
         _title.x = 80
         _title.y = 100
         _title.z = 120
 
-        _totals = textsprite.create(totalRiches + '')
+        _totals = textsprite.create(TreasureStats.getTotal() + ' coin!')
         _totals.x = 80
         _totals.y = 90
         _totals.z = 120

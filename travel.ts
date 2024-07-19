@@ -9,7 +9,7 @@ namespace Travel {
 
     export function init({ targetIsland }: { targetIsland: Map.Island }) {
         // Probably should have done this better... oh well
-        let result = Math.min((TreasureStats.currentTreasure.onBoat / 350) * 100, 100)
+        let result = Math.min((TreasureStats.currentTreasure.onBoat / 500) * 100, 100)
 
         // Odds are different if you are heading to your island
         if (targetIsland.id === 0) {
