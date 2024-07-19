@@ -2,6 +2,10 @@ namespace Win {
     let _title: Sprite
     let _totals: Sprite
 
+    let restingPlayer1: Sprite
+    let restingPlayer2: Sprite
+    let restingPlayer1Animation: Image[] = assets.animation`Pirate Rest`
+    let restingPlayer2Animation: Image[] = Utils.flipAnimation(Utils.swapAnimationColors(assets.animation`Pirate Rest`, 14, 4))
     let island: Sprite
     let waves: Sprite[] = []
 
@@ -17,6 +21,28 @@ namespace Win {
         island.x = 80
         island.y = 60
         island.z = 1
+
+        restingPlayer1 = sprites.create(restingPlayer1Animation[0])
+        restingPlayer2 = sprites.create(restingPlayer2Animation[0])
+        restingPlayer1.x = 86
+        restingPlayer1.y = 62
+        restingPlayer1.z = 3
+        restingPlayer2.x = 104
+        restingPlayer2.y = 67
+        restingPlayer2.z = 3
+        animation.runImageAnimation(
+            restingPlayer1,
+            restingPlayer1Animation,
+            500,
+            true
+        )
+        pause(100)
+        animation.runImageAnimation(
+            restingPlayer2,
+            restingPlayer2Animation,
+            500,
+            true
+        )
 
         Utils.getArrayOfLength(10).forEach(() => {
             const wave = sprites.create(assets.animation`wave`[0])
@@ -36,7 +62,7 @@ namespace Win {
 
         _title = textsprite.create('Arrgh! Ye be pirates!', 1, 15)
         _title.x = 80
-        _title.y = 78
+        _title.y = 100
         _title.z = 120
 
         _totals = textsprite.create(totalRiches + '')
@@ -53,6 +79,9 @@ namespace Win {
 
         island.destroy()
         waves.forEach(wave => wave.destroy())
+
+        restingPlayer1.destroy()
+        restingPlayer2.destroy()
 
         controller.player1.A.removeEventListener(ControllerButtonEvent.Pressed, game.reset)
     }

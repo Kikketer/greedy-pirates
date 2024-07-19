@@ -3137,6 +3137,76 @@ d d e e e 6 6 6 6 6 6 6 e e d d
 . . . 9 6 9 9 9 9 9 9 9 9 9 . . 
 . . . 9 9 9 9 9 9 9 9 9 . . . . 
 `];
+            case "Pirate Rest":
+            case "anim8":return [img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . e e . . 
+. . . . . . . . e e e e c e e . 
+. . . . . . . . e e e e e c . . 
+. . . . . . . . f d d d e e e e 
+. . . . . . . . d f d f d f f . 
+. . . . . . . . d d b d d d b d 
+. . . . . . . . . d d d d b d d 
+. . . a . . . . c c d d d e e . 
+. . a a a . . c e e e c c c e e 
+f a a a a a e e e e e e e e e e 
+f a f c a e e e e e e c e e e . 
+f f c c c c e e e e e . . . . . 
+`, img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . e e . . e e . . 
+. . . . . . . . e e e e c e e . 
+. . . . . . . . . e e e e c . . 
+. . . . . . . . f d d d e e e e 
+. . . . . . . . d f d f d f f . 
+. . . . . . . . d d b d d d b d 
+. . . . . . . . . d d d d b d d 
+. . . a . . . . c c d d d e e . 
+. . a a a . . c e e e c c c e e 
+f a a a a a e e e e e e e e e e 
+f a f c a e e e e e e c e e e . 
+f f c c c c e e e e e . . . . . 
+`, img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . e e . . e e . . 
+. . . . . . . . e e e e c e e . 
+. . . . . . . . . e e e e c . . 
+. . . . . . . . f d d d e e e e 
+. . . . . . . . d f d f d f f . 
+. . . . . . . . d d b d d d b d 
+. . . a . . . c e d d d d b d d 
+. . a a a . c e e e d d d c e e 
+f a a a a a e e e e e e e e e e 
+f a f c a e e e e e e c e e e . 
+f f c c c c e e e e e . . . . . 
+`, img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . e e . . 
+. . . . . . . . e e e e c e e . 
+. . . . . . . . e e e e e c . . 
+. . . . . . . . f d d d e e e e 
+. . . . . . . . d f d f d f f . 
+. . . . . . . . d d b d d d b d 
+. . . a . . . c e d d d d b d d 
+. . a a a . c e e e d d d c e e 
+f a a a a a e e e e e e e e e e 
+f a f c a e e e e e e c e e e . 
+f f c c c c e e e e e . . . . . 
+`];
         }
         return null;
     })
