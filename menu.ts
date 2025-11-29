@@ -1,40 +1,40 @@
 namespace Menu {
-    let _callback: () => void
-    let _choiceSprite: Sprite
-    let _versionSprite: Sprite
+  let _callback: () => void;
+  let _choiceSprite: Sprite;
+  let _versionSprite: Sprite;
 
-    function startGame() {
-        scene.setBackgroundImage(assets.image`empty`)
-        controller.player1.A.removeEventListener(ControllerButtonEvent.Pressed, startGame)
-        _choiceSprite.destroy()
+  function startGame() {
+    scene.setBackgroundImage(assets.image`empty`);
+    controller.player1.A.removeEventListener(ControllerButtonEvent.Pressed, startGame);
+    _choiceSprite.destroy();
 
-        music.stopAllSounds()
+    music.stopAllSounds();
 
-        _versionSprite.destroy()
+    _versionSprite.destroy();
 
-        _callback()
-    }
+    _callback();
+  }
 
-    export function init() {
-        scene.setBackgroundImage(assets.image`Splash Screen`)
-        _choiceSprite = textsprite.create('Arrrgh Be Greedy!', 0, 15)
-        _choiceSprite.x = 80
-        _choiceSprite.y = 100
+  export function init() {
+    scene.setBackgroundImage(assets.image`Splash Screen`);
+    _choiceSprite = textsprite.create("Arrrgh Be Greedy!", 0, 15);
+    _choiceSprite.x = 80;
+    _choiceSprite.y = 100;
 
-        // Version information
-        _versionSprite = textsprite.create(version, 0, 9)
-        _versionSprite.x = 140
-        _versionSprite.y = 115
+    // Version information
+    _versionSprite = textsprite.create(version, 0, 9);
+    _versionSprite.x = 140;
+    _versionSprite.y = 115;
 
-        music.stopAllSounds()
-        PirateLives.hide()
-        
-        music.play(music.createSong(assets.song`Title`), music.PlaybackMode.LoopingInBackground)
+    music.stopAllSounds();
+    PirateLives.hide();
 
-        controller.player1.A.addEventListener(ControllerButtonEvent.Pressed, startGame)
-    }
+    music.play(music.createSong(assets.song`Title`), music.PlaybackMode.LoopingInBackground);
 
-    export function onStartGame(callback: () => void) {
-        _callback = callback
-    }
+    controller.player1.A.addEventListener(ControllerButtonEvent.Pressed, startGame);
+  }
+
+  export function onStartGame(callback: () => void) {
+    _callback = callback;
+  }
 }

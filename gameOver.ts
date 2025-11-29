@@ -1,12 +1,12 @@
 namespace GameOver {
-    export function init() {
-        music.stopAllSounds()
-        scene.setBackgroundColor(0)
-        PirateLives.hide()
+  export function init() {
+    music.stopAllSounds();
+    scene.setBackgroundColor(0);
+    PirateLives.hide();
 
-        const totalCoin = TreasureStats.getTotal()
+    const totalCoin = TreasureStats.getTotal();
 
-        game.splash('GAME OVER', 'Ye lost ' + totalCoin + ' coin')
-        game.reset()
-    }
+    game.splash("GAME OVER", "Ye lost " + totalCoin + " coin");
+    game.reset();
+  }
 }
